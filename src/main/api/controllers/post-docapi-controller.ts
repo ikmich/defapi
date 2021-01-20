@@ -1,20 +1,14 @@
 import {Express, Request, Response} from "express";
-import {
-  API_PATH_DOCAPI,
-  DEFS_DIR_NAME,
-  MANIFEST_FILENAME,
-  SETTING_BASE_URI,
-  SETTING_SRC_PATH
-} from "../../constants";
-import {_def, httpFail, httpSuccess} from "../../util/_util";
-import {ApiManifest, EndpointDef} from "../types";
-import getEndpoints from "../lib/get-endpoints";
-import readDocapiBaseDir from "../lib/read-docapi-base-dir";
+import {DEFS_DIR_NAME, MANIFEST_FILENAME, SETTING_BASE_URI, SETTING_SRC_PATH} from "../../../constants";
+import {_def, httpFail, httpSuccess} from "../../../util/_util";
+import {ApiManifest, EndpointDef} from "../../types";
+import getEndpoints from "../../lib/get-endpoints";
+import readDocapiBaseDir from "../../lib/read-docapi-base-dir";
 
 const FS = require('fs-extra');
 const Path = require('path');
 
-function routePostDocapi(req:Request, res:Response) {
+function postDocapiController(req: Request, res: Response) {
   try {
     const baseUri = req.app.get(SETTING_BASE_URI);
     const srcPath = req.app.get(SETTING_SRC_PATH);
@@ -34,8 +28,9 @@ function routePostDocapi(req:Request, res:Response) {
     // ----
 
     let defaultDict: { [k: string]: EndpointDef } = {};
+    let manifestDict: { [k: string]: EndpointDef } = {};
+
     let defaultDefs: EndpointDef[] = getEndpoints(<Express>req.app);
-    responseData.defaultDefs = defaultDefs; // todo - delete
     let mergedDefs: EndpointDef[] = [];
     let manifestDefs: EndpointDef[] = [];
 
@@ -51,45 +46,49 @@ function routePostDocapi(req:Request, res:Response) {
       }
     }
 
-    if (Array.isArray(manifestDefs) && manifestDefs.length > 0) {
-      // generate endpoints map...
-      manifestDefs.forEach((def) => {
+    // [create default dict]
+    if (Array.isArray(defaultDefs) && defaultDefs.length > 0) {
+      defaultDefs.forEach((def) => {
         def = _def(def);
         const key = `${def.method} ${def.path}`;
         defaultDict[key] = def;
       });
     }
 
-    // merge...
-    defaultDefs.forEach((def) => {
-      def = _def(def);
-      let key = `${def.method} ${def.path}`;
-      let defaultDictOb = defaultDict[key];
-      if (!!defaultDictOb) {
-        mergedDefs.push({
-          ...def,
-          ...defaultDictOb
-        });
-      }
+    // [create manifest dict]
+    if (Array.isArray(manifestDefs) && manifestDefs.length > 0) {
+      manifestDefs.forEach((def) => {
+        def = _def(def);
+        const key = `${def.method} ${def.path}`;
+        manifestDict[key] = def;
+      });
+    }
+
+    // [extend manifest dict from default dict]
+    Object.keys(defaultDict).forEach((key) => {
+      manifestDict[key] = {
+        ...manifestDict[key],
+        ...defaultDict[key]
+      };
     });
 
-    console.log({
-      before: mergedDefs
+    // [create mergedDefs array from manifestDict]
+    Object.keys(manifestDict).forEach(key => {
+      mergedDefs.push(manifestDict[key]);
     });
+
     // Read entries in docapiBaseDir and merge to manifest.
     mergedDefs = readDocapiBaseDir(docapiBaseDir, mergedDefs);
-    console.log({
-      before: mergedDefs
-    });
+
     responseData.mergedDefs = mergedDefs;
 
     let contents = `/**
-      * Generated docapi manifest.
-      */
-      module.exports = {
-        baseUri: '${baseUri}',
-        endpoints: ${JSON.stringify(mergedDefs, null, 2)}
-      };`;
+* Generated docapi manifest.
+*/
+module.exports = {
+  baseUri: '${baseUri}',
+  endpoints: ${JSON.stringify(mergedDefs, null, 2)}
+};`;
 
     try {
       FS.writeFileSync(manifestFile, contents);
@@ -104,4 +103,4 @@ function routePostDocapi(req:Request, res:Response) {
 }
 
 
-export default routePostDocapi;
+export default postDocapiController;
