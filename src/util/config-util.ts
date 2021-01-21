@@ -28,7 +28,9 @@ const configUtil = {
 
   getPropSrcPath(): string {
     const config = this.getConfig();
-    if (yes(config.src_path)) return config.src_path!;
+    if (yes(config.src_path)) {
+      return config.src_path!.replace(/^\/+/, '');
+    }
     return DEFAULT_SRC_PATH;
   },
 

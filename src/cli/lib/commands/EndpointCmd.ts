@@ -16,7 +16,6 @@ export class EndpointCmd extends BaseCmd {
     // $ docapi endpoint <1:title> <2?:path> <3?:method>
     // Read options and args
     // Use title arg/option as filename
-    //
 
     let title = _util.fn(() => {
       let opt = this.options.title;
@@ -54,7 +53,8 @@ export class EndpointCmd extends BaseCmd {
     let tag = _fn(() => {
       let opt = this.options.tag;
       if (yes(opt)) return _noSpace(opt!);
-      return '';
+
+      return _slug(title);
     });
 
     let ext = _fn(() => {
@@ -72,17 +72,6 @@ export class EndpointCmd extends BaseCmd {
     let filename = `${no(tag) ? _slug(title) : tag}.endpoint.${ext}`; // Todo - allow user to choose preferred extension?
     // create the file (for test)
 
-    /*
-export interface EndpointDef {
-  path: string;
-  method: string;
-  title?: NullableString;
-  tag?: NullableString;
-  request?: RequestDef;
-  response?: ResponseDef;
-  group?: NullableString;
-}
-     */
     let contents = `module.exports = {
   path: "${path}",
   method: "${method}",
@@ -96,10 +85,7 @@ export interface EndpointDef {
   },
   response: {
     type: "",
-    body: {
-      success: {},
-      fail: {}
-    }
+    body: {}
   }
 }`;
 
@@ -108,14 +94,14 @@ export interface EndpointDef {
     });
     const filepath = Path.resolve(fileUtil.getDefsDir(), filename);
     console.log({filepath});
-    // try {
-    //   FS.writeFileSync(filename, contents, {encoding: 'utf-8'});
-    // } catch (e) {
-    //   console.error(e);
-    // }
-    //
-    // if (FS.existsSync(filepath)) {
-    //   conprint.success(`${filename}`)
-    // }
+    try {
+      FS.writeFileSync(filepath, contents, {encoding: 'utf-8'});
+    } catch (e) {
+      console.error(e);
+    }
+
+    if (FS.existsSync(filepath)) {
+      conprint.success(`${filename}`)
+    }
   }
 }
