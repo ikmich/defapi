@@ -1,7 +1,7 @@
 import {Express, Request, Response} from "express";
-import getEndpoints from "../../lib/get-endpoints";
+import { getEndpoints } from "../lib/get-endpoints";
 
-function downloadEndpointsController(req:Request, res: Response) {
+function dlEndpointsRequestHandler(req:Request, res: Response) {
   const endpoints = getEndpoints(<Express>req.app);
   const json = JSON.stringify(endpoints, null, 2);
   const filename = 'docapi.json';
@@ -11,4 +11,4 @@ function downloadEndpointsController(req:Request, res: Response) {
   res.send(Buffer.from(json));
 }
 
-export default downloadEndpointsController;
+export default dlEndpointsRequestHandler;

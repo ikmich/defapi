@@ -1,7 +1,7 @@
 import {yes} from "./_util";
 import {CONFIG_FILENAME, DEFAULT_SRC_PATH} from "../constants";
 import FS from "fs";
-import {DocapiConfig} from "../main/types";
+import {DocapiConfig} from "../api/meta";
 const Path = require('path');
 
 const defaultConfig: DocapiConfig = {
@@ -22,6 +22,7 @@ const configUtil = {
       const contents = FS.readFileSync(configPath, 'utf-8').toString();
       return JSON.parse(contents);
     } catch (e) {
+      console.error(e);
       return defaultConfig;
     }
   },

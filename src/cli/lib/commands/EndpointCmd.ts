@@ -1,21 +1,22 @@
 import {BaseCmd} from "./BaseCmd";
-import _util, {_fn, _noSpace, _slug, no, yes} from "../../../util/_util";
+import _util, {_fn, _noSpace, _slug, devLog, no, yes} from "../../../util/_util";
 import {TitleNotFoundError} from "../errors";
 
 import FS from 'fs-extra';
 import Path from 'path';
 import fileUtil from "../../../util/file-util";
 import conprint from "../helpers/conprint";
+import askInput from "../ask/ask-input";
+
+// $ docapi endpoint <1:title> <2?:path> <3?:method>
+// Read options and args
+// Use title arg/option as filename
 
 export class EndpointCmd extends BaseCmd {
 
   async run(): Promise<void> {
     await super.run();
-    console.log('>> EndpointCmd');
-
-    // $ docapi endpoint <1:title> <2?:path> <3?:method>
-    // Read options and args
-    // Use title arg/option as filename
+    devLog('>> EndpointCmd');
 
     let title = _util.fn(() => {
       let opt = this.options.title;
@@ -24,9 +25,9 @@ export class EndpointCmd extends BaseCmd {
       let arg = this.getArg(1);
       if (yes(arg)) return arg;
 
-      // If no title is passed but a tag is passed, use the tag as the title.
-      let tag = this.options.tag;
-      if (yes(tag)) return tag;
+      // // If no title is passed but a tag is passed, use the tag as the title.
+      // let tag = this.options.name;
+      // if (yes(tag)) return tag;
 
       throw new TitleNotFoundError();
     });
@@ -50,12 +51,12 @@ export class EndpointCmd extends BaseCmd {
       return ''; // No method provided
     });
 
-    let tag = _fn(() => {
-      let opt = this.options.tag;
-      if (yes(opt)) return _noSpace(opt!);
-
-      return _slug(title);
-    });
+    // let name = _fn(() => {
+    //   let opt = this.options.name;
+    //   if (yes(opt)) return _noSpace(opt!);
+    //
+    //   return _slug(title);
+    // });
 
     let ext = _fn(() => {
       let opt = this.options.ext;
@@ -69,14 +70,13 @@ export class EndpointCmd extends BaseCmd {
       method
     });
 
-    let filename = `${no(tag) ? _slug(title) : tag}.endpoint.${ext}`; // Todo - allow user to choose preferred extension?
+    let filename = `${no(name) ? _slug(title) : name}.${ext}`;
     // create the file (for test)
 
     let contents = `module.exports = {
   path: "${path}",
   method: "${method}",
   title: "${title}",
-  tag: "${tag}",
   request: {
     type: "",
     query: null,
@@ -89,12 +89,17 @@ export class EndpointCmd extends BaseCmd {
   }
 }`;
 
-    console.log({
-      contents
-    });
     const filepath = Path.resolve(fileUtil.getDefsDir(), filename);
     console.log({filepath});
     try {
+      if (FS.existsSync(filepath)) {
+        const msg = `A ${filename} file already exists. Would you like to overwrite it? (y/n)`;
+        const input = await askInput('input', msg);
+        if (input !== 'y' && input !== 'yes') {
+          conprint.plain('Ignoring...');
+          return;
+        }
+      }
       FS.writeFileSync(filepath, contents, {encoding: 'utf-8'});
     } catch (e) {
       console.error(e);

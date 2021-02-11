@@ -1,7 +1,8 @@
-import {ApiManifest, EndpointDef} from "../main/types";
-import {Response} from "express";
-import {HttpError} from "../main/lib/errors";
+import { ApiManifest, EndpointDef } from "../api/meta";
+import { Response } from "express";
+import { HttpError } from "../api/lib/errors";
 import slugify from "slugify";
+import config from "../config";
 
 const manifestUtil = {
   hasEndpoints(manifest: ApiManifest) {
@@ -52,8 +53,15 @@ const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: n
  */
 function _path(path: string | null): string {
   if (!path) return '';
+  // remove duplicated slashes
   path = path.replace(/\/{2,}/g, '/');
+
+  // remove trailing slash(es)
   path = path.replace(/\/+$/g, '');
+
+  // ensure begins with slash
+  path = path.replace(/^\/*/, '/')
+
   return path;
 }
 
@@ -67,6 +75,12 @@ function _def(def: EndpointDef): EndpointDef {
     path: _path(def.path),
     method: _method(def.method)
   };
+}
+
+function getDefFileStub(def: EndpointDef): string {
+  let pathStub = def.path.replace(/\//g, '>');
+  pathStub = pathStub.replace(/:/g, '@');
+  return `${def.method}>${pathStub}`;
 }
 
 // ----
@@ -141,6 +155,30 @@ function _noSpace(s: string) {
   return s.replace(/\s+/g, '');
 }
 
+export type DevLogParam = {
+  msg: any,
+  title?: string | null
+} | string;
+
+function devLog(p1:DevLogParam, _console?:Console) {
+  if (!config.isDev()) {
+    return;
+  }
+
+  let msg = null;
+  let title = null;
+  if (typeof p1 === 'string') {
+    msg = p1;
+  } else if (typeof p1 === 'object') {
+    msg = p1;
+  }
+
+  console.log();
+  let useConsole = _console ? _console : console;
+
+  useConsole.log(msg);
+}
+
 export {
   manifestUtil,
   httpFail,
@@ -155,7 +193,9 @@ export {
   arrayContains,
   _wait,
   _slug,
-  _noSpace
+  _noSpace,
+    devLog,
+    getDefFileStub
 };
 
 const _util = {

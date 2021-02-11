@@ -1,7 +1,7 @@
-import {ICommandInfo, ICommandOptions} from "../../cli-types";
+import {ICommandInfo, ICommandOptions} from "../../cli-meta";
 import execShellCmd from "../helpers/exec-shell-cmd";
 import parseError from "../helpers/parse-error";
-import {NullableString} from "../../../main/types";
+import {StringOrNull} from "../../../api/meta";
 
 export class BaseCmd {
   public commandInfo: ICommandInfo;
@@ -17,7 +17,7 @@ export class BaseCmd {
     this.options = commandInfo.options;
   }
 
-  getArg(position:number): NullableString {
+  getArg(position:number): StringOrNull {
     if (position < 1) position = 1;
     if (position > this.args.length) return null;
     return this.args[position - 1] || '';

@@ -3,7 +3,6 @@ import {SendHandle, Serializable} from "child_process";
 export interface ICommandOptions {
   path?: string;
   title?: string;
-  tag?: string;
   method?: string;
   filename?: string;
   file?: string;

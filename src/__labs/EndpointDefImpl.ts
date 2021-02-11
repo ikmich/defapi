@@ -1,8 +1,8 @@
-import {EndpointDef, NullableObject, NullableString, RequestDef, ResponseDef} from "../main/types";
+import {EndpointDef, ObjectOrNull, StringOrNull, RequestDef, ResponseDef} from "../api/meta";
 
 class EndpointDefImpl implements EndpointDef {
 
-  title?: NullableString;
+  title?: StringOrNull;
   method: string;
   path: string;
   request?: RequestDef;

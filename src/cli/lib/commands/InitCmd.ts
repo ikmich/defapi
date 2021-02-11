@@ -1,15 +1,20 @@
 import BaseCmd from "./BaseCmd";
-import {CONFIG_FILENAME, configKeys, DEFAULT_SRC_PATH} from "../../../constants";
+import {configKeys, DEFAULT_SRC_PATH} from "../../../constants";
 import conprint from "../helpers/conprint";
 import askInput from "../ask/ask-input";
 import fileUtil from "../../../util/file-util";
+import {askUtil} from "../helpers/ask-util";
+import {devLog} from "../../../util/_util";
 
 const FS = require('fs-extra');
 const Path = require('path');
 
+/**
+ * Creates a docapi-config.json file
+ */
 export class InitCmd extends BaseCmd {
   async run(): Promise<void> {
-    console.log('>> InitCmd');
+    devLog('>> InitCmd');
     await super.run();
 
     const confPath = fileUtil.getConfigPath();
@@ -17,7 +22,8 @@ export class InitCmd extends BaseCmd {
     if (FS.existsSync(confPath)) {
       const msg = 'A docapi-config.json file already exists. Would you like to overwrite it? (y/n)';
       const input = await askInput('input', msg);
-      if (input !== 'y' && input !== 'yes') {
+      devLog('>>> InitCmd', console);
+      if (!askUtil.isYesInput(input)) {
         return;
       }
     }

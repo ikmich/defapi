@@ -1,6 +1,6 @@
 import {cmd_endpoint, cmd_init} from "../../cli-cmds";
 import getCmdArgsString from "./get-cmd-args-string";
-import {ICommandInfo} from "../../cli-types";
+import {ICommandInfo} from "../../cli-meta";
 import {EndpointCmd} from "../commands/EndpointCmd";
 import {InitCmd} from "../commands/InitCmd";
 

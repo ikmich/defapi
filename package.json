@@ -26,6 +26,8 @@
     "express-list-endpoints": "^5.0.0",
     "fs-extra": "^9.0.1",
     "inquirer": "^7.3.3",
+    "node-fetch": "^2.6.1",
+    "prettier": "^2.2.1",
     "slugify": "^1.4.6",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",

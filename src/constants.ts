@@ -4,17 +4,18 @@ export const DEFAULT_SRC_PATH = '.';
 export const DEFS_DIR_NAME = '__docapi';
 // ----
 
-export const API_PATH_DOCAPI = '/docapi';
+export const API_PATH_MANIFEST = '/docapi/manifest';
 export const API_PATH_ENDPOINTS = '/docapi/endpoints';
 export const API_PATH_ENDPOINTS_DL = '/docapi/endpoints/dl';
 export const API_PATH_VIEW_DOCS = '/docapi/view';
+export const API_PATH_INIT = '/docapi/init';
 
 // ----
 
 export const excludedPaths = [
   API_PATH_ENDPOINTS_DL,
   API_PATH_ENDPOINTS,
-  API_PATH_DOCAPI,
+  API_PATH_MANIFEST,
   '*'
 ];
 

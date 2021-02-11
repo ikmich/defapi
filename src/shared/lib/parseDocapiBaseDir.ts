@@ -1,10 +1,10 @@
-import {EndpointDef} from "../types";
+import {EndpointDef} from "../../api/meta";
 import {_def} from "../../util/_util";
 
 import Path from 'path';
 import FS from 'fs';
 
-function readDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
+function parseDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
   if (!defs) defs = [];
   const entries = FS.readdirSync(dirPath);
 
@@ -17,7 +17,7 @@ function readDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[]
     const stat = FS.statSync(entrypath);
 
     if (stat.isDirectory()) {
-      return readDocapiBaseDir(entrypath, Array.from(defs));
+      return parseDocapiBaseDir(entrypath, Array.from(defs));
     } else if (stat.isFile()) {
       let obs: EndpointDef[] = [];
       let contentOb: any;
@@ -63,4 +63,4 @@ function readDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[]
 
   return defs;
 }
-export default readDocapiBaseDir;
+export default parseDocapiBaseDir;

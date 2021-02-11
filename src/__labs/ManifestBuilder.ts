@@ -1,4 +1,4 @@
-import {ApiManifest, EndpointDef, NullableObject, RequestDef} from "../main/types";
+import {ApiManifest, EndpointDef, ObjectOrNull, RequestDef} from "../api/meta";
 import {manifestUtil} from "../util/_util";
 import docapi from "../index";
 import {emptyApiDef} from "../constants";

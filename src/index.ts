@@ -1,7 +1,11 @@
-import {Express} from "express";
-import {DocapiOptions} from "./main/types";
-import {DEFAULT_SRC_PATH, SETTING_BASE_URI, SETTING_SRC_PATH} from "./constants";
-import docapiRouter from "./main/api/docapi-router";
+import { Express } from "express";
+import { DocapiOptions } from "./api/meta";
+import {
+  DEFAULT_SRC_PATH,
+  SETTING_BASE_URI,
+  SETTING_SRC_PATH,
+} from "./constants";
+import { docapiRouter } from "./api/docapi-router";
 import configUtil from "./util/config-util";
 
 /**
@@ -21,7 +25,7 @@ function register(app: Express, opts?: DocapiOptions) {
   // }
   //
   if (opts && opts?.base_uri) {
-    app.set(SETTING_BASE_URI, opts?.base_uri ?? '');
+    app.set(SETTING_BASE_URI, opts?.base_uri ?? "");
   } else {
     app.set(SETTING_BASE_URI, configUtil.getPropBaseUri());
   }
@@ -36,7 +40,7 @@ function register(app: Express, opts?: DocapiOptions) {
 }
 
 const docapi = {
-  register
+  register,
 };
 
 export default docapi;

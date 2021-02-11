@@ -1,4 +1,4 @@
-import {ICommandInfo} from "../../cli-types";
+import {ICommandInfo} from "../../cli-meta";
 import config from "../../../config";
 
 const parseCliArgs = (argv: any): ICommandInfo => {
