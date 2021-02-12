@@ -1,5 +1,5 @@
-import {EndpointDef} from "../../api/meta";
-import {_def} from "../../util/_util";
+import {EndpointDef} from "../api/meta";
+import {_def} from "../util/_util";
 
 import Path from 'path';
 import FS from 'fs';

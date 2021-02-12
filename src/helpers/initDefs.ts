@@ -1,10 +1,11 @@
-import { DocapiConfig, EndpointDef } from "../../api/meta";
+import { DocapiConfig, EndpointDef } from "../api/meta";
 import Path from "path";
 import FS from "fs-extra";
-import fileUtil from "../../util/file-util";
+import fileUtil from "../util/file-util";
 import { Express } from "express";
-import { getEndpoints } from "../../api/lib/get-endpoints";
-import { _def, getDefFileStub } from "../../util/_util";
+import { getEndpoints } from "../api/lib/get-endpoints";
+import { _def } from "../util/_util";
+import generateDefFile from "./generateDefFile";
 
 export type InitDefsResult = {
   error?: string | Error;
@@ -25,15 +26,17 @@ function initDefs(app: Express, config: DocapiConfig): InitDefsResult {
 
   let defsDir = fileUtil.getDefsDir();
   FS.ensureDirSync(defsDir);
+  console.log({defsDir});
 
   let isDirEmpty: boolean;
   let entries = FS.readdirSync(defsDir);
-  isDirEmpty = !(entries && entries.length);
+  isDirEmpty = !(Array.isArray(entries) && entries.length);
 
   if (!isDirEmpty) {
     result.message = "docapi defs dir is not empty";
+    
     // Todo - Remove dir deletion
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       FS.unlinkSync(Path.resolve(defsDir, entry));
     });
     isDirEmpty = true;
@@ -45,29 +48,10 @@ function initDefs(app: Express, config: DocapiConfig): InitDefsResult {
   if (isDirEmpty) {
     for (let def of defs) {
       def = _def(def);
+      def.title = `${def.method} ${def.path}`;
 
-      // [create endpoint def file]
-      const filename = `${getDefFileStub(def)}.js`;
-      const filepath = Path.resolve(defsDir, filename);
-
-      const defTitle = `${def.method} ${def.path}`;
-
-      let contents = `module.exports = {
-  path: "${def.path}",
-  method: "${def.method}",
-  title: "${defTitle}",
-  description: "",
-  request: {
-    type: "",
-    query: null,
-    body: null,
-    headers: null
-  },
-  response: {
-    type: "",
-    body: {}
-  }
-}`;
+      // create endpoint def file
+      let { filepath, contents } = generateDefFile(def);
 
       try {
         FS.writeFileSync(filepath, contents);

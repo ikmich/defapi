@@ -1,7 +1,7 @@
-import {ApiManifest, DocapiConfig, EndpointDef} from "../../api/meta";
-import {DEFS_DIR_NAME, MANIFEST_FILENAME, SETTING_BASE_URI, SETTING_SRC_PATH} from "../../constants";
-import {_def, httpFail} from "../../util/_util";
-import { getEndpoints } from "../../api/lib/get-endpoints";
+import {ApiManifest, DocapiConfig, EndpointDef} from "../api/meta";
+import {DEFS_DIR_NAME, MANIFEST_FILENAME, SETTING_BASE_URI, SETTING_SRC_PATH} from "../constants";
+import {_def, httpFail} from "../util/_util";
+import { getEndpoints } from "../api/lib/get-endpoints";
 import {Application, Express} from "express";
 import parseDocapiBaseDir from "./parseDocapiBaseDir";
 import Path from "path";

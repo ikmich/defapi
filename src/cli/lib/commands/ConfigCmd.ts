@@ -53,13 +53,13 @@ export class ConfigCmd extends BaseCmd {
       const config: DocapiConfig = require(configPath);
       let isUpdate = false;
       if (yes(opts.baseUri)) {
-        conprint.notice('Setting config.baseUri...');
+        conprint.notice("Setting config.baseUri...");
         isUpdate = true;
         config.baseUri = opts.baseUri;
       }
 
       if (yes(opts.srcPath)) {
-        conprint.notice('Setting config.srcPath...');
+        conprint.notice("Setting config.srcPath...");
         isUpdate = true;
         config.srcPath = opts.srcPath;
       }

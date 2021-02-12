@@ -70,7 +70,7 @@ export class EndpointCmd extends BaseCmd {
       method
     });
 
-    let filename = `${no(name) ? _slug(title) : name}.${ext}`;
+    let filename = `${_slug(title)}.${ext}`;
     // create the file (for test)
 
     let contents = `module.exports = {

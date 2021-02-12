@@ -20,8 +20,6 @@ const configUtil = {
         return defaultConfig;
       }
 
-      // const contents = FS.readFileSync(configPath, 'utf-8').toString();
-      // return JSON.parse(contents);
       return require(configPath);
     } catch (e) {
       console.error(e);

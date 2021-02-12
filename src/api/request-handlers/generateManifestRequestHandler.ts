@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SETTING_BASE_URI, SETTING_SRC_PATH } from "../../constants";
 import { httpFail, httpSuccess } from "../../util/_util";
-import { generateManifest } from "../../shared/lib/generateManifest";
+import { generateManifest } from "../../helpers/generateManifest";
 
 function generateManifestRequestHandler(req: Request, res: Response) {
   try {
