@@ -4,10 +4,10 @@ import {
   API_PATH_ENDPOINTS,
   API_PATH_ENDPOINTS_DL, API_PATH_INIT,
 } from "../constants";
-import getEndpointsRequestHandler from "./controllers/getEndpointsRequestHandler";
-import generateManifestRequestHandler from "./controllers/generateManifestRequestHandler";
-import dlEndpointsRequestHandler from "./controllers/dlEndpointsRequestHandler";
-import initDefsRequestHandler from "./controllers/initDefsRequestHandler";
+import getEndpointsRequestHandler from "./request-handlers/getEndpointsRequestHandler";
+import generateManifestRequestHandler from "./request-handlers/generateManifestRequestHandler";
+import dlEndpointsRequestHandler from "./request-handlers/dlEndpointsRequestHandler";
+import initDefsRequestHandler from "./request-handlers/initDefsRequestHandler";
 
 const docapiRouter = Router();
 

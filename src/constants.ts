@@ -1,5 +1,5 @@
 export const MANIFEST_FILENAME = 'docapi-manifest.js';
-export const CONFIG_FILENAME = 'docapi-config.json';
+export const CONFIG_FILENAME = 'docapi-config.js';
 export const DEFAULT_SRC_PATH = '.';
 export const DEFS_DIR_NAME = '__docapi';
 // ----

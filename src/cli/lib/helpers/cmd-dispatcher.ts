@@ -1,8 +1,8 @@
-import {cmd_endpoint, cmd_init} from "../../cli-cmds";
+import {cmd_endpoint, cmd_config} from "../../cli-cmds";
 import getCmdArgsString from "./get-cmd-args-string";
 import {ICommandInfo} from "../../cli-meta";
 import {EndpointCmd} from "../commands/EndpointCmd";
-import {InitCmd} from "../commands/InitCmd";
+import {ConfigCmd} from "../commands/ConfigCmd";
 
 const cmdDispatcher = {
   dispatch: async (commandInfo: ICommandInfo) => {
@@ -26,8 +26,8 @@ const cmdDispatcher = {
         await new EndpointCmd(commandInfo).run();
         break;
 
-      case cmd_init:
-        await new InitCmd(commandInfo).run();
+      case cmd_config:
+        await new ConfigCmd(commandInfo).run();
         break;
 
       default:

@@ -14,8 +14,8 @@ function generateManifestRequestHandler(req: Request, res: Response) {
 
     let { mergedDefs } = generateManifest(
       {
-        base_uri: baseUri,
-        src_path: srcPath,
+        baseUri: baseUri,
+        srcPath: srcPath,
       },
       req.app
     );

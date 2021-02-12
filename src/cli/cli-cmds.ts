@@ -6,10 +6,7 @@
  */
 export const cmd_endpoint = 'endpoint';
 
-/**
- * Generate html documentation
- * # docapi gen-doc
+/*
+ $ docapi config
  */
-export const cmd_gen_doc = 'gen-doc';
-
-export const cmd_init = 'init';
+export const cmd_config = 'config';

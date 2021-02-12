@@ -8,8 +8,8 @@ import Path from "path";
 import FS from "fs-extra";
 
 function generateManifest(input: DocapiConfig, app:Application) {
-  const baseUri = input.base_uri;
-  const srcPath = input.src_path ?? '.';
+  const baseUri = input.baseUri;
+  const srcPath = input.srcPath ?? '.';
   const baseDir = process.cwd();
 
   // ----

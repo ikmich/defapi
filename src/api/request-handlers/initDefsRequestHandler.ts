@@ -8,10 +8,14 @@ function initDefsRequestHandler(req: Request, res: Response) {
   try {
     const responseData: any = {};
     // ----
-    const initDefsResult = initDefs(req.app as Express, {
-      base_uri: configUtil.getPropBaseUri() ?? req.app.get(SETTING_BASE_URI),
-      src_path: configUtil.getPropSrcPath() ?? req.app.get(SETTING_SRC_PATH),
-    });
+    let config = {
+      baseUri: configUtil.getPropBaseUri() ?? req.app.get(SETTING_BASE_URI),
+      srcPath: configUtil.getPropSrcPath() ?? req.app.get(SETTING_SRC_PATH),
+    };
+
+    console.log(config);
+
+    const initDefsResult = initDefs(req.app as Express, config);
 
     console.log({ initDefsResult });
 

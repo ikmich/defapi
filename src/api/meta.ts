@@ -53,6 +53,6 @@ export type ResponseDef = {
  * Interface definition for the docapi-config.json file
  */
 export interface DocapiConfig {
-  base_uri?: string;
-  src_path?: string;
+  baseUri?: string;
+  srcPath?: string;
 }

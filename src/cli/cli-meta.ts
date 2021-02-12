@@ -7,6 +7,8 @@ export interface ICommandOptions {
   filename?: string;
   file?: string;
   ext?: 'js' | 'ts';
+  baseUri?: string;
+  srcPath?: string;
 }
 
 export interface ICommandInfo {
