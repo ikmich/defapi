@@ -1,5 +1,5 @@
 import chalk = require('chalk');
-import {yes} from "../../../util/_util";
+import {yes} from "../../util/_util";
 
 /**
  * Print to console.

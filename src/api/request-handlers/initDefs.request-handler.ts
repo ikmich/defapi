@@ -5,7 +5,7 @@ import {
   SETTING_SRC_PATH,
 } from "../../constants";
 import { httpFail, httpSuccess } from "../../util/_util";
-import initDefs from "../../helpers/initDefs";
+import initDefs from "../helpers/initDefs";
 import configUtil from "../../util/config-util";
 
 function initDefsRequestHandler(req: Request, res: Response) {
@@ -21,11 +21,9 @@ function initDefsRequestHandler(req: Request, res: Response) {
         DEFAULT_SRC_PATH,
     };
 
-    const initDefsResult = initDefs(req.app as Express, config);
+    const { message } = initDefs(req.app as Express, config);
 
-    console.log({ initDefsResult });
-
-    return httpSuccess(res, responseData);
+    return httpSuccess(res, responseData, message);
   } catch (e) {
     return httpFail(res, e);
   }

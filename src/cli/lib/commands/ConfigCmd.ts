@@ -1,16 +1,16 @@
 import BaseCmd from "./BaseCmd";
 import { configKeys, DEFAULT_SRC_PATH } from "../../../constants";
-import conprint from "../helpers/conprint";
+import conprint from "../../cli-helpers/conprint";
 import askInput from "../ask/ask-input";
 import fileUtil from "../../../util/file-util";
-import { askUtil } from "../helpers/ask-util";
+import { askUtil } from "../../cli-helpers/ask-util";
 import { yes } from "../../../util/_util";
 import { DocapiConfig } from "../../../api/meta";
 
 const FS = require("fs-extra");
 
 /**
- * Creates a docapi-config.json file
+ * Command handler for the `docapi config` command. Creates a docapi-config.json file
  */
 export class ConfigCmd extends BaseCmd {
   async run(): Promise<void> {
