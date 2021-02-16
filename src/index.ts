@@ -26,9 +26,13 @@ function register(app: Express, opts?: ApidefConfig) {
   app.use(apidefRouter);
 }
 
+export interface Foo {
+  a: string;
+  b: number;
+}
 
 const apidef = {
-  register,
+  register
 };
 
 export default apidef;
