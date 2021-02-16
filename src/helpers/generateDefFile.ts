@@ -15,8 +15,7 @@ export default function generateDefFile(def: EndpointDef) {
   const filepath = Path.resolve(defsDir, filename);
 
   let defaultTitle = `${def.method} ${def.path}`;
-  let contents = `
-/**
+  let contents = `/**
  @type {EndpointDef}
  */
 const def = {
