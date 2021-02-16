@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -9,7 +18,7 @@ const EndpointCmd_1 = require("../commands/EndpointCmd");
 const ConfigCmd_1 = require("../commands/ConfigCmd");
 const InitCmd_1 = require("../commands/InitCmd");
 const cmdDispatcher = {
-    dispatch: async (commandInfo) => {
+    dispatch: (commandInfo) => __awaiter(void 0, void 0, void 0, function* () {
         let mainCommand = commandInfo.name;
         console.log({ mainCommand });
         // Protect from dangerous commands
@@ -25,16 +34,16 @@ const cmdDispatcher = {
         }
         switch (mainCommand) {
             case cli_cmds_1.CMD_ENDPOINT:
-                await new EndpointCmd_1.EndpointCmd(commandInfo).run();
+                yield new EndpointCmd_1.EndpointCmd(commandInfo).run();
                 break;
             case cli_cmds_1.CMD_CONFIG:
-                await new ConfigCmd_1.ConfigCmd(commandInfo).run();
+                yield new ConfigCmd_1.ConfigCmd(commandInfo).run();
                 break;
             case cli_cmds_1.CMD_INIT:
-                await new InitCmd_1.InitCmd(commandInfo).run();
+                yield new InitCmd_1.InitCmd(commandInfo).run();
                 break;
             default:
-                const cliCommand = await get_cmd_args_string_1.default();
+                const cliCommand = yield get_cmd_args_string_1.default();
                 if (cliCommand) {
                 }
                 else {
@@ -42,6 +51,6 @@ const cmdDispatcher = {
                 }
                 break;
         }
-    },
+    }),
 };
 exports.default = cmdDispatcher;
