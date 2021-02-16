@@ -27,7 +27,7 @@ function initDefs(app: Express, config: DocapiConfig): InitDefsResult {
   isDirEmpty = !(Array.isArray(entries) && entries.length);
 
   if (!isDirEmpty) {
-    result.message = "docapi endpoint defs dir is not empty";
+    result.message = "Docapi endpoint defs dir is not empty";
     
     // // Todo - Remove dir deletion
     // entries.forEach((entry) => {
