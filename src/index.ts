@@ -26,6 +26,7 @@ function register(app: Express, opts?: ApidefConfig) {
   app.use(apidefRouter);
 }
 
+
 const apidef = {
   register,
 };
