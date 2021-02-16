@@ -1,6 +1,6 @@
 {
   "name": "apidef",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha",
   "description": "Generate api definition files and docs",
   "main": "dist/index.js",
   "scripts": {
