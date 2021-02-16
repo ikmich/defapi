@@ -17,8 +17,7 @@ function generateDefFile(def) {
     const filename = `${_util_1.getDefFileStub(def)}.js`;
     const filepath = path_1.default.resolve(defsDir, filename);
     let defaultTitle = `${def.method} ${def.path}`;
-    let contents = `
-/**
+    let contents = `/**
  @type {EndpointDef}
  */
 const def = {
@@ -38,7 +37,7 @@ const def = {
     type: "",
     body: {}
   }
-}
+};
 module.exports = def;`;
     try {
         fs_extra_1.default.writeFileSync(filepath, contents);

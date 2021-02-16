@@ -48,7 +48,8 @@ class ConfigCmd extends BaseCmd_1.default {
                         return;
                     }
                 }
-                let contents = `module.exports = {
+                let contents = `
+module.exports = {
   "${constants_1.configKeys.baseUri}": "${opts.baseUri}",
   "${constants_1.configKeys.srcPath}": "${(_c = opts.srcPath) !== null && _c !== void 0 ? _c : constants_1.DEFAULT_SRC_PATH}"
 }`;
