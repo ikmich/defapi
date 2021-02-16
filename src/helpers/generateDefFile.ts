@@ -1,11 +1,11 @@
 import { EndpointDef } from "../api/meta";
-import { getDefFileStub } from "../util/_util";
+import { getDefFileStub, yes } from "../util/_util";
 import Path from "path";
 import fileUtil from "../util/file-util";
 import FS from "fs-extra";
 
 /**
- * Generate a definition file for an endpoint.
+ * Generates a definition file for an endpoint.
  * @param def
  */
 export default function generateDefFile(def: EndpointDef) {
@@ -14,10 +14,15 @@ export default function generateDefFile(def: EndpointDef) {
   const filename = `${getDefFileStub(def)}.js`;
   const filepath = Path.resolve(defsDir, filename);
 
-  let contents = `module.exports = {
+  let defaultTitle = `${def.method} ${def.path}`;
+  let contents = `
+/**
+ @type {EndpointDef}
+ */
+const def = {
   path: "${def.path}",
   method: "${def.method}",
-  title: "${def.title ?? ""}",
+  title: "${yes(def.title) ? def.title : defaultTitle}",
   description: "${def.description ?? ""}",
   request: {
     /** Defaults to "application/json" if not set. */
@@ -31,7 +36,8 @@ export default function generateDefFile(def: EndpointDef) {
     type: "",
     body: {}
   }
-}`;
+};
+module.exports = def;`;
 
   try {
     FS.writeFileSync(filepath, contents);

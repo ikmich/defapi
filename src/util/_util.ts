@@ -12,7 +12,7 @@ const manifestUtil = {
 
 const httpSuccess = (res: Response, data?: any, message?: string) => {
   let body: any = {
-    status: 'success'
+    status: "success",
   };
 
   if (data) {
@@ -24,12 +24,17 @@ const httpSuccess = (res: Response, data?: any, message?: string) => {
   }
 
   res.status(200).json(body);
-}
+};
 
-const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: number | null, data?: any) => {
+const httpFail = (
+  res: Response,
+  error: string | Error | HttpError,
+  httpCode?: number | null,
+  data?: any
+) => {
   let body: any = {
-    status: 'fail',
-    message: typeof error === 'string' ? error : error.message
+    status: "fail",
+    message: typeof error === "string" ? error : error.message,
   };
 
   if (data) {
@@ -52,17 +57,22 @@ const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: n
  * @param path
  */
 function _path(path: string | null): string {
-  if (!path) return '';
+  if (!path) return "";
   // remove duplicated slashes
-  path = path.replace(/\/{2,}/g, '/');
+  path = path.replace(/\/{2,}/g, "/");
 
   // remove trailing slash(es)
-  path = path.replace(/\/+$/g, '');
+  path = path.replace(/\/+$/g, "");
 
   // ensure begins with slash
-  path = path.replace(/^\/*/, '/')
+  path = path.replace(/^\/*/, "/");
 
   return path;
+}
+
+function _baseUri(baseUri: string) {
+  // Remove any trailing slashes in base uri
+  return baseUri.replace(/\/+$/, "");
 }
 
 function _method(method: string): string {
@@ -73,22 +83,22 @@ function _def(def: EndpointDef): EndpointDef {
   return {
     ...def,
     path: _path(def.path),
-    method: _method(def.method)
+    method: _method(def.method),
   };
 }
 
 function getDefFileStub(def: EndpointDef): string {
-  let pathStub = def.path.replace(/\//g, '>');
-  pathStub = pathStub.replace(/:/g, '@');
+  let pathStub = def.path.replace(/\//g, ">");
+  pathStub = pathStub.replace(/:/g, "@");
   return `${def.method}>${pathStub}`;
 }
 
 // ----
 
 function yes(o: any) {
-  let b = (o !== undefined && o !== null);
-  if (b && typeof o === 'string') {
-    b = (b && o !== '');
+  let b = o !== undefined && o !== null;
+  if (b && typeof o === "string") {
+    b = b && o !== "";
   }
 
   return b;
@@ -117,13 +127,13 @@ function isEmpty(subject: any): boolean {
   }
 
   switch (true) {
-    case typeof subject === 'string':
+    case typeof subject === "string":
       return no(subject);
     case Array.isArray(subject):
       return subject.length === 0;
-    case typeof subject === 'object':
+    case typeof subject === "object":
       return Object.keys(subject).length === 0;
-    case typeof subject === 'number':
+    case typeof subject === "number":
       return subject === 0;
     default:
       return no(subject);
@@ -137,7 +147,7 @@ function _fn(f?: () => any) {
 }
 
 function _wait(ms: number) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(null);
     }, ms);
@@ -147,29 +157,31 @@ function _wait(ms: number) {
 function _slug(s: string) {
   return slugify(s, {
     lower: true,
-    replacement: '-'
+    replacement: "-",
   });
 }
 
 function _noSpace(s: string) {
-  return s.replace(/\s+/g, '');
+  return s.replace(/\s+/g, "");
 }
 
-export type DevLogParam = {
-  msg: any,
-  title?: string | null
-} | string;
+export type DevLogParam =
+  | {
+      msg: any;
+      title?: string | null;
+    }
+  | string;
 
-function devLog(p1:DevLogParam, _console?:Console) {
+function devLog(p1: DevLogParam, _console?: Console) {
   if (!config.isDev()) {
     return;
   }
 
   let msg = null;
   let title = null;
-  if (typeof p1 === 'string') {
+  if (typeof p1 === "string") {
     msg = p1;
-  } else if (typeof p1 === 'object') {
+  } else if (typeof p1 === "object") {
     msg = p1;
   }
 
@@ -194,8 +206,9 @@ export {
   _wait,
   _slug,
   _noSpace,
-    devLog,
-    getDefFileStub
+  devLog,
+  getDefFileStub,
+  _baseUri,
 };
 
 const _util = {
@@ -203,7 +216,7 @@ const _util = {
     if (f) {
       return f();
     }
-  }
+  },
 };
 
 export default _util;

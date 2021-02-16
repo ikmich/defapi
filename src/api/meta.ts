@@ -12,17 +12,11 @@ export interface EndpointDef {
   group?: StringOrNull;
 }
 
-// export type ApiManifestEntry = IEndpointGroup | IEndpointDef;
-export type ApidefOptions = {
-  base_uri?: string;
-  src_path?: string;
-}
-
 export type TResponseBody = {
   [k in 'success' | 'ok' | 'fail' | 'error' | string]: object;
 } | ObjectOrNull;
 
-export type RequestTypeDef = 'application/json' | 'multipart/form-data' | 'multipart/url-encoded' | 'text' | null;
+export type RequestTypeDef = StringOrNull /*'application/json' | 'multipart/form-data' | 'multipart/url-encoded' | 'text' | null*/;
 
 export type TypeDef = {
   type: string;
@@ -40,13 +34,13 @@ export type RequestDef = {
   query?: ObjectOrNull;
   body?: ObjectOrNull;
   headers?: ObjectOrNull;
-  [k: string]: any;
+  // [k: string]: any;
 };
 
 export type ResponseDef = {
   type?: StringOrNull; // mime type
   body?: TResponseBody;
-  [k: string]: any;
+  // [k: string]: any;
 };
 
 /**

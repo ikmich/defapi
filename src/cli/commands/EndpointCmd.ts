@@ -1,15 +1,15 @@
 import { BaseCmd } from "./BaseCmd";
-import _util, { getDefFileStub, no, yes } from "../../../util/_util";
-import { NoMethodError, NoPathError } from "../errors";
+import _util, { getDefFileStub, no, yes } from "../../util/_util";
+import { NoMethodError, NoPathError } from "../lib/errors";
 
 import FS from "fs-extra";
 import Path from "path";
-import fileUtil from "../../../util/file-util";
-import conprint from "../../cli-helpers/conprint";
-import askInput from "../ask/ask-input";
-import { EndpointDef, StringOrNull } from "../../../api/meta";
-import { askUtil } from "../../cli-helpers/ask-util";
-import generateDefFile from "../../../helpers/generateDefFile";
+import fileUtil from "../../util/file-util";
+import conprint from "../cli-helpers/conprint";
+import askInput from "../lib/ask/ask-input";
+import { EndpointDef, StringOrNull } from "../../api/meta";
+import { askUtil } from "../cli-helpers/ask-util";
+import generateDefFile from "../../helpers/generateDefFile";
 
 /**
  * Command handler class for the `apidef endpoint` command.
@@ -68,7 +68,7 @@ export class EndpointCmd extends BaseCmd {
 
     try {
       if (FS.existsSync(filepath)) {
-        const msg = `A "${filename}" file already exists. Would you like to overwrite it? (y/n)`;
+        const msg = `File: "${filename}", already exists. Would you like to overwrite it? (y/n)`;
         const input = await askInput("input", msg);
         if (!askUtil.isYesInput(input)) {
           conprint.plain("Ignoring...");

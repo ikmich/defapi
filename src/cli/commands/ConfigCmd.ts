@@ -1,11 +1,11 @@
 import BaseCmd from "./BaseCmd";
-import { configKeys, DEFAULT_SRC_PATH } from "../../../constants";
-import conprint from "../../cli-helpers/conprint";
-import askInput from "../ask/ask-input";
-import fileUtil from "../../../util/file-util";
-import { askUtil } from "../../cli-helpers/ask-util";
-import { yes } from "../../../util/_util";
-import { ApidefConfig } from "../../../api/meta";
+import { configKeys, DEFAULT_SRC_PATH } from "../../constants";
+import conprint from "../cli-helpers/conprint";
+import askInput from "../lib/ask/ask-input";
+import fileUtil from "../../util/file-util";
+import { askUtil } from "../cli-helpers/ask-util";
+import {_baseUri, yes} from "../../util/_util";
+import { ApidefConfig } from "../../api/meta";
 
 const FS = require("fs-extra");
 
@@ -20,14 +20,14 @@ export class ConfigCmd extends BaseCmd {
     const configExists = FS.existsSync(configPath);
 
     let opts = {
-      baseUri: this.options.baseUri ?? "",
+      baseUri: _baseUri(this.options.baseUri ?? ""),
       srcPath: this.options.srcPath ?? "",
     };
 
     const fnCreateDefaultConfig = async () => {
       if (configExists) {
         const msg =
-          "A apidef-config.json file already exists. Would you like to overwrite it? (y/n)";
+          "An apidef-config.json file already exists. Would you like to overwrite it? (y/n)";
         const input = await askInput("input", msg);
         if (!askUtil.isYesInput(input)) {
           process.exit(0);
@@ -35,9 +35,10 @@ export class ConfigCmd extends BaseCmd {
         }
       }
 
-      let contents = `module.exports = {
-  "${configKeys.base_uri}": "${opts.baseUri}",
-  "${configKeys.src_path}": "${opts.srcPath ?? DEFAULT_SRC_PATH}"
+      let contents = `
+module.exports = {
+  "${configKeys.baseUri}": "${opts.baseUri}",
+  "${configKeys.srcPath}": "${opts.srcPath ?? DEFAULT_SRC_PATH}"
 }`;
 
       try {

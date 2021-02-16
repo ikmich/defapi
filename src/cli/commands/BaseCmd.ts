@@ -1,7 +1,7 @@
-import {ICommandInfo, ICommandOptions} from "../../cli-meta";
-import execShellCmd from "../../cli-helpers/exec-shell-cmd";
-import parseError from "../../cli-helpers/parse-error";
-import {StringOrNull} from "../../../api/meta";
+import {ICommandInfo, ICommandOptions} from "../cli-meta";
+import execShellCmd from "../cli-helpers/exec-shell-cmd";
+import parseError from "../cli-helpers/parse-error";
+import {StringOrNull} from "../../api/meta";
 
 export class BaseCmd {
   public commandInfo: ICommandInfo;

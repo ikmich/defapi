@@ -1,7 +1,7 @@
 import BaseCmd from "./BaseCmd";
-import configUtil from "../../../util/config-util";
-import { API_PATH_INIT } from "../../../constants";
-import _request from "../../../helpers/_request";
+import configUtil from "../../util/config-util";
+import { API_PATH_INIT } from "../../constants";
+import _request from "../../helpers/_request";
 
 /**
  * Command handler for the `apidef init` command.

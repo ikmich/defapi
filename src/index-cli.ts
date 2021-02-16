@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import yargs from "yargs";
-import {CMD_ENDPOINT, CMD_CONFIG} from "./cli/cli-cmds";
+import {CMD_ENDPOINT, CMD_CONFIG} from "./cli/commands/cli-cmds";
 import parseCliArgs from "./cli/cli-helpers/parse-cli-args";
 import cmdDispatcher from "./cli/cli-helpers/cmd-dispatcher";
 

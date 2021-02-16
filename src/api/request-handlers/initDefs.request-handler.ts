@@ -4,7 +4,7 @@ import {
   SETTING_BASE_URI,
   SETTING_SRC_PATH,
 } from "../../constants";
-import { httpFail, httpSuccess } from "../../util/_util";
+import { _baseUri, httpFail, httpSuccess } from "../../util/_util";
 import initDefs from "../helpers/initDefs";
 import configUtil from "../../util/config-util";
 
@@ -13,8 +13,9 @@ function initDefsRequestHandler(req: Request, res: Response) {
     const responseData: any = {};
 
     let config = {
-      baseUri:
-        configUtil.getPropBaseUri() ?? req.app.get(SETTING_BASE_URI) ?? "",
+      baseUri: _baseUri(
+        configUtil.getPropBaseUri() ?? req.app.get(SETTING_BASE_URI) ?? ""
+      ),
       srcPath:
         configUtil.getPropSrcPath() ??
         req.app.get(SETTING_SRC_PATH) ??
