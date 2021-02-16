@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Get the arguments passed to the cli command for the calling context.
  */
-const getCmdArgsString = () => {
-    let command = '';
-    process.argv.forEach((entry, i) => {
+var getCmdArgsString = function () {
+    var command = '';
+    process.argv.forEach(function (entry, i) {
         if (i > 1) {
             command += entry + ' ';
         }
