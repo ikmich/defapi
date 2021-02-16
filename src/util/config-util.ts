@@ -1,18 +1,18 @@
 import { yes } from "./_util";
 import { CONFIG_FILENAME, DEFAULT_SRC_PATH } from "../constants";
 import FS from "fs";
-import { DocapiConfig } from "../api/meta";
+import { ApidefConfig } from "../api/meta";
 
 const Path = require("path");
 
-const defaultConfig: DocapiConfig = {
+const defaultConfig: ApidefConfig = {
   baseUri: '',
   srcPath: DEFAULT_SRC_PATH
 };
 
 const configUtil = {
 
-  getConfig(): DocapiConfig {
+  getConfig(): ApidefConfig {
     try {
       const baseDir = process.cwd();
       let configPath = Path.resolve(baseDir, CONFIG_FILENAME);

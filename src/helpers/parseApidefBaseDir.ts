@@ -4,7 +4,7 @@ import {_def} from "../util/_util";
 import Path from 'path';
 import FS from 'fs';
 
-function parseDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
+function parseApidefBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
   if (!defs) defs = [];
   const entries = FS.readdirSync(dirPath);
 
@@ -17,7 +17,7 @@ function parseDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[
     const stat = FS.statSync(entrypath);
 
     if (stat.isDirectory()) {
-      return parseDocapiBaseDir(entrypath, Array.from(defs));
+      return parseApidefBaseDir(entrypath, Array.from(defs));
     } else if (stat.isFile()) {
       let obs: EndpointDef[] = [];
       let contentOb: any;
@@ -63,4 +63,4 @@ function parseDocapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[
 
   return defs;
 }
-export default parseDocapiBaseDir;
+export default parseApidefBaseDir;

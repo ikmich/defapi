@@ -13,7 +13,7 @@ export interface EndpointDef {
 }
 
 // export type ApiManifestEntry = IEndpointGroup | IEndpointDef;
-export type DocapiOptions = {
+export type ApidefOptions = {
   base_uri?: string;
   src_path?: string;
 }
@@ -50,9 +50,9 @@ export type ResponseDef = {
 };
 
 /**
- * Interface definition for the docapi-config.json file
+ * Interface definition for the apidef-config.json file
  */
-export interface DocapiConfig {
+export interface ApidefConfig {
   baseUri?: string;
   srcPath?: string;
 }

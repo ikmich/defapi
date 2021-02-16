@@ -12,7 +12,7 @@ import { askUtil } from "../../cli-helpers/ask-util";
 import generateDefFile from "../../../helpers/generateDefFile";
 
 /**
- * Command handler class for the `docapi endpoint` command.
+ * Command handler class for the `apidef endpoint` command.
  */
 export class EndpointCmd extends BaseCmd {
   async run(): Promise<void> {

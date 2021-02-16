@@ -1,7 +1,7 @@
 {
-  "name": "docapi",
+  "name": "apidef",
   "version": "1.0.0",
-  "description": "Generate api docs",
+  "description": "Generate api definition files and docs",
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
@@ -10,7 +10,7 @@
     "tscheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "cli": "cross-env NODE_ENV=development ts-node src/index-cli.ts",
-    "depl": "cross-env NODE_ENV=development npm uninstall -g docapi && yarn build && npm install -g && yarn push-src"
+    "depl": "cross-env NODE_ENV=development npm uninstall -g apidef && yarn build && npm install -g && yarn push-src"
   },
   "author": "Ikmich",
   "license": "ISC",
@@ -34,6 +34,6 @@
     "yargs": "^16.2.0"
   },
   "bin": {
-    "docapi": "dist/index-cli.js"
+    "apidef": "dist/index-cli.js"
   }
 }

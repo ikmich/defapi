@@ -5,12 +5,12 @@ import askInput from "../ask/ask-input";
 import fileUtil from "../../../util/file-util";
 import { askUtil } from "../../cli-helpers/ask-util";
 import { yes } from "../../../util/_util";
-import { DocapiConfig } from "../../../api/meta";
+import { ApidefConfig } from "../../../api/meta";
 
 const FS = require("fs-extra");
 
 /**
- * Command handler for the `docapi config` command. Creates a docapi-config.json file
+ * Command handler for the `apidef config` command. Creates a apidef-config.json file
  */
 export class ConfigCmd extends BaseCmd {
   async run(): Promise<void> {
@@ -27,7 +27,7 @@ export class ConfigCmd extends BaseCmd {
     const fnCreateDefaultConfig = async () => {
       if (configExists) {
         const msg =
-          "A docapi-config.json file already exists. Would you like to overwrite it? (y/n)";
+          "A apidef-config.json file already exists. Would you like to overwrite it? (y/n)";
         const input = await askInput("input", msg);
         if (!askUtil.isYesInput(input)) {
           process.exit(0);
@@ -50,7 +50,7 @@ export class ConfigCmd extends BaseCmd {
     };
 
     if (configExists) {
-      const config: DocapiConfig = require(configPath);
+      const config: ApidefConfig = require(configPath);
       let isUpdate = false;
       if (yes(opts.baseUri)) {
         conprint.notice("Setting config.baseUri...");

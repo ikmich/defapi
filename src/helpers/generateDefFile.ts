@@ -20,13 +20,15 @@ export default function generateDefFile(def: EndpointDef) {
   title: "${def.title ?? ""}",
   description: "${def.description ?? ""}",
   request: {
-    type: "", // Set the request type here. Defaults to "application/json" if not set.
+    /** Defaults to "application/json" if not set. */
+    type: "",
     query: null,
     body: null,
     headers: null
   },
   response: {
-    type: "", // Set the response type here. Defaults to "application/json" if not set.
+    /** Defaults to "application/json" if not set. */
+    type: "",
     body: {}
   }
 }`;

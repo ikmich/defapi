@@ -1,4 +1,4 @@
-import { DocapiConfig, EndpointDef } from "../meta";
+import { ApidefConfig, EndpointDef } from "../meta";
 import FS from "fs-extra";
 import fileUtil from "../../util/file-util";
 import { Express } from "express";
@@ -16,7 +16,7 @@ export type InitDefsResult = {
  * @param app
  * @param config
  */
-function initDefs(app: Express, config: DocapiConfig): InitDefsResult {
+function initDefs(app: Express, config: ApidefConfig): InitDefsResult {
   let result: InitDefsResult = {};
 
   let defsDir = fileUtil.getDefsDir();
@@ -27,7 +27,7 @@ function initDefs(app: Express, config: DocapiConfig): InitDefsResult {
   isDirEmpty = !(Array.isArray(entries) && entries.length);
 
   if (!isDirEmpty) {
-    result.message = "Docapi endpoint defs dir is not empty";
+    result.message = "Apidef endpoint defs dir is not empty";
     
     // // Todo - Remove dir deletion
     // entries.forEach((entry) => {

@@ -7,7 +7,7 @@ import cmdDispatcher from "./cli/cli-helpers/cmd-dispatcher";
 
 const argv = yargs
     .command(CMD_ENDPOINT, 'Create endpoint definition file')
-    .command(CMD_CONFIG, 'Create docapi configuration json file')
+    .command(CMD_CONFIG, 'Create apidef configuration json file')
     .help().argv;
 
 const commandInfo = parseCliArgs(argv);

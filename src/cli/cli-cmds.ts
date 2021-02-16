@@ -1,13 +1,13 @@
 
 /*
- # usage: docapi endpoint <title> <path> <method>
- # usage: docapi endpoint register-driver --path=<path> --method=<method>
- $ docapi endpoint register-driver --path='/registration' --method=POST
+ # usage: apidef endpoint <title> <path> <method>
+ # usage: apidef endpoint register-driver --path=<path> --method=<method>
+ $ apidef endpoint register-driver --path='/registration' --method=POST
  */
 export const CMD_ENDPOINT = 'endpoint';
 
 /*
- $ docapi config
+ $ apidef config
  */
 export const CMD_CONFIG = 'config';
 

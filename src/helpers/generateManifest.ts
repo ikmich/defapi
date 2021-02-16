@@ -1,13 +1,13 @@
-import {ApiManifest, DocapiConfig, EndpointDef} from "../api/meta";
+import {ApiManifest, ApidefConfig, EndpointDef} from "../api/meta";
 import {DEFS_DIR_NAME, MANIFEST_FILENAME, SETTING_BASE_URI, SETTING_SRC_PATH} from "../constants";
 import {_def, httpFail} from "../util/_util";
 import { getEndpoints } from "../api/lib/get-endpoints";
 import {Application, Express} from "express";
-import parseDocapiBaseDir from "./parseDocapiBaseDir";
+import parseApidefBaseDir from "./parseApidefBaseDir";
 import Path from "path";
 import FS from "fs-extra";
 
-function generateManifest(input: DocapiConfig, app:Application) {
+function generateManifest(input: ApidefConfig, app:Application) {
   const baseUri = input.baseUri;
   const srcPath = input.srcPath ?? '.';
   const baseDir = process.cwd();
@@ -19,8 +19,8 @@ function generateManifest(input: DocapiConfig, app:Application) {
     throw new Error('Unable to resolve src_path');
   }
 
-  let docapiBaseDir = Path.resolve(srcDir, DEFS_DIR_NAME);
-  FS.ensureDirSync(docapiBaseDir);
+  let apidefBaseDir = Path.resolve(srcDir, DEFS_DIR_NAME);
+  FS.ensureDirSync(apidefBaseDir);
 
   // ----
 
@@ -74,11 +74,11 @@ function generateManifest(input: DocapiConfig, app:Application) {
     mergedDefs.push(manifestDict[key]);
   });
 
-  // Read entries in docapiBaseDir and merge to manifest.
-  mergedDefs = parseDocapiBaseDir(docapiBaseDir, mergedDefs);
+  // Read entries in apidefBaseDir and merge to manifest.
+  mergedDefs = parseApidefBaseDir(apidefBaseDir, mergedDefs);
 
   let contents = `/**
-* Generated docapi manifest.
+* Generated apidef manifest.
 */
 module.exports = {
   baseUri: '${baseUri}',

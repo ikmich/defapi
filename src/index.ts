@@ -1,25 +1,25 @@
 import { Express } from "express";
-import { DocapiOptions } from "./api/meta";
+import { ApidefOptions } from "./api/meta";
 import {
   DEFAULT_SRC_PATH,
   SETTING_BASE_URI,
   SETTING_SRC_PATH,
 } from "./constants";
-import { docapiRouter } from "./api/docapi-router";
+import { apidefRouter } from "./api/apidef-router";
 import configUtil from "./util/config-util";
 
 /**
- * Register your express app instance with docapi routes.
+ * Register your express app instance with apidef routes.
  * @param app
- * @param opts If not provided, the values in docapi-config.json are used; otherwise, this parameter takes precedence.
+ * @param opts If not provided, the values in apidef-config.json are used; otherwise, this parameter takes precedence.
  */
-function register(app: Express, opts?: DocapiOptions) {
+function register(app: Express, opts?: ApidefOptions) {
   // Set options
   // if (opts) {
   //   app.set(SETTING_BASE_URI, opts?.base_uri ?? '');
   //   app.set(SETTING_SRC_PATH, opts?.src_path ?? DEFAULT_SRC_PATH);
   // } else {
-  //   // read from docapi-config
+  //   // read from apidef-config
   //   app.set(SETTING_BASE_URI, configUtil.getPropBaseUri());
   //   app.set(SETTING_SRC_PATH, configUtil.getPropSrcPath());
   // }
@@ -36,11 +36,11 @@ function register(app: Express, opts?: DocapiOptions) {
     app.set(SETTING_SRC_PATH, configUtil.getPropSrcPath());
   }
 
-  app.use(docapiRouter);
+  app.use(apidefRouter);
 }
 
-const docapi = {
+const apidef = {
   register,
 };
 
-export default docapi;
+export default apidef;

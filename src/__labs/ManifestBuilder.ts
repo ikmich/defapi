@@ -1,6 +1,6 @@
 import {ApiManifest, EndpointDef, ObjectOrNull, RequestDef} from "../api/meta";
 import {manifestUtil} from "../util/_util";
-import docapi from "../index";
+import apidef from "../index";
 import {emptyApiDef} from "../constants";
 
 class ManifestBuilder {
