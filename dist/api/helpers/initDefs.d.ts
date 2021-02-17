@@ -1,5 +1,5 @@
 import { Express } from "express";
-import { ApidefConfig } from "../../index";
+import { DefapiConfig } from "../../index";
 export declare type InitDefsResult = {
     error?: string | Error;
     message?: string;
@@ -9,5 +9,5 @@ export declare type InitDefsResult = {
  * @param app
  * @param config
  */
-declare function initDefs(app: Express, config: ApidefConfig): InitDefsResult;
+declare function initDefs(app: Express, config: DefapiConfig): InitDefsResult;
 export default initDefs;

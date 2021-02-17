@@ -4,7 +4,7 @@ import Path from 'path';
 import FS from 'fs';
 import {EndpointDef} from "../index";
 
-function parseApidefBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
+function parseDefapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
   if (!defs) defs = [];
   const entries = FS.readdirSync(dirPath);
 
@@ -17,7 +17,7 @@ function parseApidefBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[
     const stat = FS.statSync(entrypath);
 
     if (stat.isDirectory()) {
-      return parseApidefBaseDir(entrypath, Array.from(defs));
+      return parseDefapiBaseDir(entrypath, Array.from(defs));
     } else if (stat.isFile()) {
       let obs: EndpointDef[] = [];
       let contentOb: any;
@@ -63,4 +63,4 @@ function parseApidefBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[
 
   return defs;
 }
-export default parseApidefBaseDir;
+export default parseDefapiBaseDir;

@@ -2,7 +2,7 @@
 <plan 1>
 - User: Use cli to generate endpoint def stubs
 - User: Edit endpoint defs accordingly
-  -- Apidef: Endpoint to help generate default endpoint defs from the
+  -- Defapi: Endpoint to help generate default endpoint defs from the
   bare endpoints list
 - User: Use http request to generate manifest by reading the generated endpoint defs
 </plan 1>

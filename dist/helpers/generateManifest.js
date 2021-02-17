@@ -7,7 +7,7 @@ exports.generateManifest = void 0;
 const constants_1 = require("../constants");
 const _util_1 = require("../util/_util");
 const get_endpoints_1 = require("../api/lib/get-endpoints");
-const parseApidefBaseDir_1 = __importDefault(require("./parseApidefBaseDir"));
+const parseDefapiBaseDir_1 = __importDefault(require("./parseDefapiBaseDir"));
 const path_1 = __importDefault(require("path"));
 const fs_extra_1 = __importDefault(require("fs-extra"));
 function generateManifest(input, app) {
@@ -20,8 +20,8 @@ function generateManifest(input, app) {
     if (!fs_extra_1.default.existsSync(srcDir)) {
         throw new Error('Unable to resolve src_path');
     }
-    let apidefBaseDir = path_1.default.resolve(srcDir, constants_1.DEFS_DIR_NAME);
-    fs_extra_1.default.ensureDirSync(apidefBaseDir);
+    let defapiBaseDir = path_1.default.resolve(srcDir, constants_1.DEFS_DIR_NAME);
+    fs_extra_1.default.ensureDirSync(defapiBaseDir);
     // ----
     let defaultDict = {};
     let manifestDict = {};
@@ -64,10 +64,10 @@ function generateManifest(input, app) {
     Object.keys(manifestDict).forEach(key => {
         mergedDefs.push(manifestDict[key]);
     });
-    // Read entries in apidefBaseDir and merge to manifest.
-    mergedDefs = parseApidefBaseDir_1.default(apidefBaseDir, mergedDefs);
+    // Read entries in defapiBaseDir and merge to manifest.
+    mergedDefs = parseDefapiBaseDir_1.default(defapiBaseDir, mergedDefs);
     let contents = `/**
-* Generated apidef manifest.
+* Generated defapi manifest.
 */
 module.exports = {
   baseUri: '${baseUri}',

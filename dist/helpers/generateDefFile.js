@@ -19,7 +19,7 @@ function generateDefFile(def, update) {
     const filepath = path_1.default.resolve(defsDir, filename);
     let defaultTitle = `${def.method} ${def.path}`;
     let contents = `/**
- * @typedef {import('apidef').EndpointDef} EndpointDef
+ * @typedef {import('defapi').EndpointDef} EndpointDef
  * @type {EndpointDef}
  */
 const def = {

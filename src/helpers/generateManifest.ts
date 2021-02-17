@@ -2,12 +2,12 @@ import {DEFS_DIR_NAME, MANIFEST_FILENAME, SETTING_BASE_URI, SETTING_SRC_PATH} fr
 import {_def, httpFail} from "../util/_util";
 import { getEndpoints } from "../api/lib/get-endpoints";
 import {Application, Express} from "express";
-import parseApidefBaseDir from "./parseApidefBaseDir";
+import parseDefapiBaseDir from "./parseDefapiBaseDir";
 import Path from "path";
 import FS from "fs-extra";
-import {ApidefConfig, ApiManifest, EndpointDef} from "../index";
+import {DefapiConfig, ApiManifest, EndpointDef} from "../index";
 
-function generateManifest(input: ApidefConfig, app:Application) {
+function generateManifest(input: DefapiConfig, app:Application) {
   const baseUri = input.baseUri;
   const srcPath = input.srcPath ?? '.';
   const baseDir = process.cwd();
@@ -19,8 +19,8 @@ function generateManifest(input: ApidefConfig, app:Application) {
     throw new Error('Unable to resolve src_path');
   }
 
-  let apidefBaseDir = Path.resolve(srcDir, DEFS_DIR_NAME);
-  FS.ensureDirSync(apidefBaseDir);
+  let defapiBaseDir = Path.resolve(srcDir, DEFS_DIR_NAME);
+  FS.ensureDirSync(defapiBaseDir);
 
   // ----
 
@@ -74,11 +74,11 @@ function generateManifest(input: ApidefConfig, app:Application) {
     mergedDefs.push(manifestDict[key]);
   });
 
-  // Read entries in apidefBaseDir and merge to manifest.
-  mergedDefs = parseApidefBaseDir(apidefBaseDir, mergedDefs);
+  // Read entries in defapiBaseDir and merge to manifest.
+  mergedDefs = parseDefapiBaseDir(defapiBaseDir, mergedDefs);
 
   let contents = `/**
-* Generated apidef manifest.
+* Generated defapi manifest.
 */
 module.exports = {
   baseUri: '${baseUri}',

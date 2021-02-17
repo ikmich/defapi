@@ -8,7 +8,7 @@ import { SendHandle, Serializable } from "child_process";
 
 const argv = yargs
   .command(CMD_ENDPOINT, "Create endpoint definition file")
-  .command(CMD_CONFIG, "Create apidef configuration json file")
+  .command(CMD_CONFIG, "Create defapi configuration json file")
   .help().argv;
 
 const commandInfo = parseCliArgs(argv);

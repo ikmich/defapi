@@ -1,5 +1,5 @@
 {
-  "name": "apidef",
+  "name": "defapi",
   "version": "0.0.1-alpha",
   "description": "Generate api definition files and docs",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "tscheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "cli": "cross-env NODE_ENV=development ts-node src/cli/index.ts",
-    "depl": "cross-env NODE_ENV=development npm uninstall -g apidef && yarn build && npm install -g"
+    "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && yarn build && npm install -g"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "ISC",
@@ -34,10 +34,10 @@
     "yargs": "^16.2.0"
   },
   "bin": {
-    "apidef": "dist/cli/index.js"
+    "defapi": "dist/cli/index.js"
   },
   "keywords": [
-    "apidef",
+    "defapi",
     "api",
     "api doc",
     "api documentation",
@@ -45,10 +45,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikmich/apidef"
+    "url": "https://github.com/ikmich/defapi"
   },
   "bugs": {
     "email": "michfx@gmail.com",
-    "url": "https://github.com/ikmich/apidef/issues"
+    "url": "https://github.com/ikmich/defapi/issues"
   }
 }

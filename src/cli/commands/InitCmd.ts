@@ -4,7 +4,7 @@ import { API_PATH_INIT } from "../../constants";
 import _request from "../../helpers/_request";
 
 /**
- * Command handler for the `apidef init` command.
+ * Command handler for the `defapi init` command.
  */
 export class InitCmd extends BaseCmd {
   async run() {

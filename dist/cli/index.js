@@ -10,7 +10,7 @@ const parse_cli_args_1 = __importDefault(require("./cli-helpers/parse-cli-args")
 const cmd_dispatcher_1 = __importDefault(require("./cli-helpers/cmd-dispatcher"));
 const argv = yargs_1.default
     .command(cli_cmds_1.CMD_ENDPOINT, "Create endpoint definition file")
-    .command(cli_cmds_1.CMD_CONFIG, "Create apidef configuration json file")
+    .command(cli_cmds_1.CMD_CONFIG, "Create defapi configuration json file")
     .help().argv;
 const commandInfo = parse_cli_args_1.default(argv);
 cmd_dispatcher_1.default.dispatch(commandInfo).catch(err => {

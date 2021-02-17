@@ -5,12 +5,12 @@ import askInput from "../lib/ask/ask-input";
 import fileUtil from "../../util/file-util";
 import { askUtil } from "../cli-helpers/ask-util";
 import {_baseUri, yes} from "../../util/_util";
-import {ApidefConfig} from "../../index";
+import {DefapiConfig} from "../../index";
 
 const FS = require("fs-extra");
 
 /**
- * Command handler for the `apidef config` command. Creates a apidef-config.json file
+ * Command handler for the `defapi config` command. Creates a defapi-config.json file
  */
 export class ConfigCmd extends BaseCmd {
   async run(): Promise<void> {
@@ -27,7 +27,7 @@ export class ConfigCmd extends BaseCmd {
     const fnCreateDefaultConfig = async () => {
       if (configExists) {
         const msg =
-          "An apidef-config.json file already exists. Would you like to overwrite it? (y/n)";
+          "An defapi-config.json file already exists. Would you like to overwrite it? (y/n)";
         const input = await askInput("input", msg);
         if (!askUtil.isYesInput(input)) {
           process.exit(0);
@@ -51,7 +51,7 @@ module.exports = {
     };
 
     if (configExists) {
-      const config: ApidefConfig = require(configPath);
+      const config: DefapiConfig = require(configPath);
       let isUpdate = false;
       if (yes(opts.baseUri)) {
         conprint.notice("Setting config.baseUri...");

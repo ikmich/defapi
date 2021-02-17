@@ -4,7 +4,7 @@ import { getEndpoints } from "../lib/get-endpoints";
 function dlEndpointsRequestHandler(req:Request, res: Response) {
   const endpoints = getEndpoints(<Express>req.app);
   const json = JSON.stringify(endpoints, null, 2);
-  const filename = 'apidef-endpoints.json';
+  const filename = 'defapi-endpoints.json';
 
   res.setHeader('Content-Type', 'application/octet-stream');
   res.setHeader('Content-Disposition', `attachment; filename=${filename}`);

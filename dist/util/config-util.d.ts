@@ -1,6 +1,6 @@
-import { ApidefConfig } from "../index";
+import { DefapiConfig } from "../index";
 declare const configUtil: {
-    getConfig(): ApidefConfig;
+    getConfig(): DefapiConfig;
     getPropSrcPath(): string;
     getPropBaseUri(): string;
 };

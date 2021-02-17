@@ -18,7 +18,7 @@ const config_util_1 = __importDefault(require("../../util/config-util"));
 const constants_1 = require("../../constants");
 const _request_1 = __importDefault(require("../../helpers/_request"));
 /**
- * Command handler for the `apidef init` command.
+ * Command handler for the `defapi init` command.
  */
 class InitCmd extends BaseCmd_1.default {
     run() {

@@ -35,19 +35,19 @@ export declare type ResponseDef = {
     body?: TResponseBody;
 };
 /**
- * Interface definition for the apidef-config.json file
+ * Interface definition for the defapi-config.json file
  */
-export interface ApidefConfig {
+export interface DefapiConfig {
     baseUri?: string;
     srcPath?: string;
 }
 /**
- * Register your express app instance with apidef routes.
+ * Register your express app instance with defapi routes.
  * @param app
- * @param opts If not provided, the values in apidef-config.json are used; otherwise, this parameter takes precedence.
+ * @param opts If not provided, the values in defapi-config.json are used; otherwise, this parameter takes precedence.
  */
-declare function register(app: Express, opts?: ApidefConfig): void;
-declare const apidef: {
+declare function register(app: Express, opts?: DefapiConfig): void;
+declare const defapi: {
     register: typeof register;
 };
-export default apidef;
+export default defapi;

@@ -4,7 +4,7 @@ import { Express } from "express";
 import { getEndpoints } from "../lib/get-endpoints";
 import {_def, no} from "../../util/_util";
 import generateDefFile from "../../helpers/generateDefFile";
-import {ApidefConfig, EndpointDef} from "../../index";
+import {DefapiConfig, EndpointDef} from "../../index";
 
 export type InitDefsResult = {
   error?: string | Error;
@@ -16,7 +16,7 @@ export type InitDefsResult = {
  * @param app
  * @param config
  */
-function initDefs(app: Express, config: ApidefConfig): InitDefsResult {
+function initDefs(app: Express, config: DefapiConfig): InitDefsResult {
   let result: InitDefsResult = {};
 
   let defsDir = fileUtil.getDefsDir();

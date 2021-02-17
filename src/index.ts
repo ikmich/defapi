@@ -4,7 +4,7 @@ import {
   SETTING_BASE_URI,
   SETTING_SRC_PATH,
 } from "./constants";
-import { apidefRouter } from "./api/apidef-router";
+import { defapiRouter } from "./api/defapi-router";
 import configUtil from "./util/config-util";
 import { yes } from "./util/_util";
 
@@ -49,19 +49,19 @@ export type ResponseDef = {
 };
 
 /**
- * Interface definition for the apidef-config.json file
+ * Interface definition for the defapi-config.json file
  */
-export interface ApidefConfig {
+export interface DefapiConfig {
   baseUri?: string;
   srcPath?: string;
 }
 
 /**
- * Register your express app instance with apidef routes.
+ * Register your express app instance with defapi routes.
  * @param app
- * @param opts If not provided, the values in apidef-config.json are used; otherwise, this parameter takes precedence.
+ * @param opts If not provided, the values in defapi-config.json are used; otherwise, this parameter takes precedence.
  */
-function register(app: Express, opts?: ApidefConfig) {
+function register(app: Express, opts?: DefapiConfig) {
   if (opts && yes(opts?.baseUri)) {
     app.set(SETTING_BASE_URI, opts?.baseUri);
   } else {
@@ -74,11 +74,11 @@ function register(app: Express, opts?: ApidefConfig) {
     app.set(SETTING_SRC_PATH, configUtil.getPropSrcPath());
   }
 
-  app.use(apidefRouter);
+  app.use(defapiRouter);
 }
 
-const apidef = {
+const defapi = {
   register,
 };
 
-export default apidef;
+export default defapi;

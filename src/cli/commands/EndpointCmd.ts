@@ -12,7 +12,7 @@ import generateDefFile from "../../helpers/generateDefFile";
 import {EndpointDef, StringOrNull} from "../../index";
 
 /**
- * Command handler class for the `apidef endpoint` command.
+ * Command handler class for the `defapi endpoint` command.
  */
 export class EndpointCmd extends BaseCmd {
   async run(): Promise<void> {

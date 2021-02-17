@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const constants_1 = require("./constants");
-const apidef_router_1 = require("./api/apidef-router");
+const defapi_router_1 = require("./api/defapi-router");
 const config_util_1 = __importDefault(require("./util/config-util"));
 const _util_1 = require("./util/_util");
 /**
- * Register your express app instance with apidef routes.
+ * Register your express app instance with defapi routes.
  * @param app
- * @param opts If not provided, the values in apidef-config.json are used; otherwise, this parameter takes precedence.
+ * @param opts If not provided, the values in defapi-config.json are used; otherwise, this parameter takes precedence.
  */
 function register(app, opts) {
     var _a;
@@ -26,9 +26,9 @@ function register(app, opts) {
     else {
         app.set(constants_1.SETTING_SRC_PATH, config_util_1.default.getPropSrcPath());
     }
-    app.use(apidef_router_1.apidefRouter);
+    app.use(defapi_router_1.defapiRouter);
 }
-const apidef = {
+const defapi = {
     register,
 };
-exports.default = apidef;
+exports.default = defapi;

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _util_1 = require("../util/_util");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-function parseApidefBaseDir(dirPath, defs) {
+function parseDefapiBaseDir(dirPath, defs) {
     if (!defs)
         defs = [];
     const entries = fs_1.default.readdirSync(dirPath);
@@ -17,7 +17,7 @@ function parseApidefBaseDir(dirPath, defs) {
         const entrypath = path_1.default.resolve(dirPath, entry);
         const stat = fs_1.default.statSync(entrypath);
         if (stat.isDirectory()) {
-            return parseApidefBaseDir(entrypath, Array.from(defs));
+            return parseDefapiBaseDir(entrypath, Array.from(defs));
         }
         else if (stat.isFile()) {
             let obs = [];
@@ -58,4 +58,4 @@ function parseApidefBaseDir(dirPath, defs) {
     }
     return defs;
 }
-exports.default = parseApidefBaseDir;
+exports.default = parseDefapiBaseDir;

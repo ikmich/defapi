@@ -43,7 +43,7 @@ const ask_input_1 = __importDefault(require("../lib/ask/ask-input"));
 const ask_util_1 = require("../cli-helpers/ask-util");
 const generateDefFile_1 = __importDefault(require("../../helpers/generateDefFile"));
 /**
- * Command handler class for the `apidef endpoint` command.
+ * Command handler class for the `defapi endpoint` command.
  */
 class EndpointCmd extends BaseCmd_1.BaseCmd {
     run() {

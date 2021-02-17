@@ -17,7 +17,7 @@ export default function generateDefFile(def: EndpointDef, update?: false) {
 
   let defaultTitle = `${def.method} ${def.path}`;
   let contents = `/**
- * @typedef {import('apidef').EndpointDef} EndpointDef
+ * @typedef {import('defapi').EndpointDef} EndpointDef
  * @type {EndpointDef}
  */
 const def = {

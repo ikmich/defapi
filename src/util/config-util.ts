@@ -1,18 +1,18 @@
 import { yes } from "./_util";
 import { CONFIG_FILENAME, DEFAULT_SRC_PATH } from "../constants";
 import FS from "fs";
-import {ApidefConfig} from "../index";
+import {DefapiConfig} from "../index";
 
 const Path = require("path");
 
-const defaultConfig: ApidefConfig = {
+const defaultConfig: DefapiConfig = {
   baseUri: '',
   srcPath: DEFAULT_SRC_PATH
 };
 
 const configUtil = {
 
-  getConfig(): ApidefConfig {
+  getConfig(): DefapiConfig {
     try {
       const baseDir = process.cwd();
       let configPath = Path.resolve(baseDir, CONFIG_FILENAME);

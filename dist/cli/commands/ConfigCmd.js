@@ -22,7 +22,7 @@ const ask_util_1 = require("../cli-helpers/ask-util");
 const _util_1 = require("../../util/_util");
 const FS = require("fs-extra");
 /**
- * Command handler for the `apidef config` command. Creates a apidef-config.json file
+ * Command handler for the `defapi config` command. Creates a defapi-config.json file
  */
 class ConfigCmd extends BaseCmd_1.default {
     run() {
@@ -41,7 +41,7 @@ class ConfigCmd extends BaseCmd_1.default {
             const fnCreateDefaultConfig = () => __awaiter(this, void 0, void 0, function* () {
                 var _c;
                 if (configExists) {
-                    const msg = "An apidef-config.json file already exists. Would you like to overwrite it? (y/n)";
+                    const msg = "An defapi-config.json file already exists. Would you like to overwrite it? (y/n)";
                     const input = yield ask_input_1.default("input", msg);
                     if (!ask_util_1.askUtil.isYesInput(input)) {
                         process.exit(0);
