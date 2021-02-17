@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var config = {
-    isDev: function () {
+const config = {
+    isDev() {
         return process.env.NODE_ENV === 'development';
     },
 };

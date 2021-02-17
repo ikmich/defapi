@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var constants_1 = require("./constants");
-var apidef_router_1 = require("./api/apidef-router");
-var config_util_1 = __importDefault(require("./util/config-util"));
-var _util_1 = require("./util/_util");
+const constants_1 = require("./constants");
+const apidef_router_1 = require("./api/apidef-router");
+const config_util_1 = __importDefault(require("./util/config-util"));
+const _util_1 = require("./util/_util");
 /**
  * Register your express app instance with apidef routes.
  * @param app
@@ -28,7 +28,7 @@ function register(app, opts) {
     }
     app.use(apidef_router_1.apidefRouter);
 }
-var apidef = {
-    register: register,
+const apidef = {
+    register,
 };
 exports.default = apidef;

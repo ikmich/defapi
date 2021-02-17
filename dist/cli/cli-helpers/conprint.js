@@ -1,17 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var chalk = require("chalk");
-var _util_1 = require("../../util/_util");
+const chalk = require("chalk");
+const _util_1 = require("../../util/_util");
 /**
  * Print to console.
  */
-var conprint = {
-    info: function (msg) {
+const conprint = {
+    info: (msg) => {
         if (_util_1.yes(msg)) {
             console.log(chalk.blueBright(msg));
         }
     },
-    error: function (msg) {
+    error: (msg) => {
         if (typeof msg === 'string') {
             if (_util_1.yes(msg)) {
                 console.log(chalk.red(msg));
@@ -21,17 +21,17 @@ var conprint = {
             console.log(chalk.red(msg.message));
         }
     },
-    notice: function (msg) {
+    notice: (msg) => {
         if (_util_1.yes(msg)) {
             console.log(chalk.yellow(msg));
         }
     },
-    success: function (msg) {
+    success: (msg) => {
         if (_util_1.yes(msg)) {
             console.log(chalk.greenBright(msg));
         }
     },
-    plain: function (msg) {
+    plain: (msg) => {
         if (_util_1.yes(msg)) {
             console.log(msg);
         }
