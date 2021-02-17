@@ -6,9 +6,10 @@ import {EndpointDef} from "../index";
 
 /**
  * Generates a definition file for an endpoint.
- * @param def
+ * @param {EndpointDef} def
+ * @param {boolean} update Whether to update an existing def file
  */
-export default function generateDefFile(def: EndpointDef) {
+export default function generateDefFile(def: EndpointDef, update?: false) {
   let defsDir = fileUtil.getDefsDir();
 
   const filename = `${getDefFileStub(def)}.js`;
@@ -16,14 +17,14 @@ export default function generateDefFile(def: EndpointDef) {
 
   let defaultTitle = `${def.method} ${def.path}`;
   let contents = `/**
- * @typedef {import("apidef").EndpointDef} EndpointDef
+ * @typedef {import('apidef').EndpointDef} EndpointDef
  * @type {EndpointDef}
  */
 const def = {
   path: "${def.path}",
   method: "${def.method}",
   title: "${yes(def.title) ? def.title : defaultTitle}",
-  description: "${def.description ?? ""}",
+  description: "${def.description ?? ''}",
   request: {
     /** Defaults to "application/json" if not set. */
     type: "",
