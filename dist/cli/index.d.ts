@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /// <reference types="node" />
 import { SendHandle, Serializable } from "child_process";
 export interface ICommandOptions {
@@ -6,7 +7,7 @@ export interface ICommandOptions {
     method?: string;
     filename?: string;
     file?: string;
-    ext?: 'js' | 'ts';
+    ext?: "js" | "ts";
     baseUri?: string;
     srcPath?: string;
 }

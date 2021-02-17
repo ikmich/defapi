@@ -9,7 +9,7 @@
     "push-src": "./push-src.sh",
     "tscheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cli": "cross-env NODE_ENV=development ts-node src/index-cli.ts",
+    "cli": "cross-env NODE_ENV=development ts-node src/cli/index.ts",
     "depl": "cross-env NODE_ENV=development npm uninstall -g apidef && yarn build && npm install -g"
   },
   "author": "Ikmich",
@@ -34,6 +34,6 @@
     "yargs": "^16.2.0"
   },
   "bin": {
-    "apidef": "dist/index-cli.js"
+    "apidef": "dist/cli/index.js"
   }
 }

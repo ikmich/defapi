@@ -1,5 +1,5 @@
-import { ICommandInfo, ICommandOptions } from "../cli-meta";
 import { StringOrNull } from "../../index";
+import { ICommandInfo, ICommandOptions } from "../index";
 export declare class BaseCmd {
     commandInfo: ICommandInfo;
     protected name: string;

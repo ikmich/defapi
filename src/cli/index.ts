@@ -1,4 +1,21 @@
-import {SendHandle, Serializable} from "child_process";
+#!/usr/bin/env node
+
+import yargs from "yargs";
+import { CMD_CONFIG, CMD_ENDPOINT } from "./commands/cli-cmds";
+import parseCliArgs from "./cli-helpers/parse-cli-args";
+import cmdDispatcher from "./cli-helpers/cmd-dispatcher";
+import { SendHandle, Serializable } from "child_process";
+
+const argv = yargs
+  .command(CMD_ENDPOINT, "Create endpoint definition file")
+  .command(CMD_CONFIG, "Create apidef configuration json file")
+  .help().argv;
+
+const commandInfo = parseCliArgs(argv);
+
+cmdDispatcher.dispatch(commandInfo).catch(err => {
+  console.error(err);
+});
 
 export interface ICommandOptions {
   path?: string;
@@ -6,7 +23,7 @@ export interface ICommandOptions {
   method?: string;
   filename?: string;
   file?: string;
-  ext?: 'js' | 'ts';
+  ext?: "js" | "ts";
   baseUri?: string;
   srcPath?: string;
 }

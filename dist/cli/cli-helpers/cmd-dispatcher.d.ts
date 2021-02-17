@@ -1,4 +1,4 @@
-import { ICommandInfo } from "../cli-meta";
+import { ICommandInfo } from "../index";
 declare const cmdDispatcher: {
     dispatch: (commandInfo: ICommandInfo) => Promise<void>;
 };

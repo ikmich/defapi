@@ -1,5 +1,5 @@
-import {ICommandInfo} from "../cli-meta";
 import config from "../../config";
+import {ICommandInfo} from "../index";
 
 const parseCliArgs = (argv: any): ICommandInfo => {
   let commandInfo: ICommandInfo = {
