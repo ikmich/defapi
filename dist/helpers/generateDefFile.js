@@ -9,23 +9,24 @@ const file_util_1 = __importDefault(require("../util/file-util"));
 const fs_extra_1 = __importDefault(require("fs-extra"));
 /**
  * Generates a definition file for an endpoint.
- * @param def
+ * @param {EndpointDef} def
+ * @param {boolean} update Whether to update an existing def file
  */
-function generateDefFile(def) {
+function generateDefFile(def, update) {
     var _a;
     let defsDir = file_util_1.default.getDefsDir();
     const filename = `${_util_1.getDefFileStub(def)}.js`;
     const filepath = path_1.default.resolve(defsDir, filename);
     let defaultTitle = `${def.method} ${def.path}`;
     let contents = `/**
- * @typedef {import("apidef").EndpointDef} EndpointDef
+ * @typedef {import('apidef').EndpointDef} EndpointDef
  * @type {EndpointDef}
  */
 const def = {
   path: "${def.path}",
   method: "${def.method}",
   title: "${_util_1.yes(def.title) ? def.title : defaultTitle}",
-  description: "${(_a = def.description) !== null && _a !== void 0 ? _a : ""}",
+  description: "${(_a = def.description) !== null && _a !== void 0 ? _a : ''}",
   request: {
     /** Defaults to "application/json" if not set. */
     type: "",
