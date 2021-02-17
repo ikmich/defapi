@@ -12,7 +12,7 @@
     "cli": "cross-env NODE_ENV=development ts-node src/cli/index.ts",
     "depl": "cross-env NODE_ENV=development npm uninstall -g apidef && yarn build && npm install -g"
   },
-  "author": "Ikmich",
+  "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.17.9",
@@ -35,5 +35,20 @@
   },
   "bin": {
     "apidef": "dist/cli/index.js"
+  },
+  "keywords": [
+    "apidef",
+    "api",
+    "api doc",
+    "api documentation",
+    "api definition"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikmich/apidef"
+  },
+  "bugs": {
+    "email": "michfx@gmail.com",
+    "url": "https://github.com/ikmich/apidef/issues"
   }
 }
