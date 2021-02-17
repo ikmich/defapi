@@ -7,9 +7,9 @@ import Path from "path";
 import fileUtil from "../../util/file-util";
 import conprint from "../cli-helpers/conprint";
 import askInput from "../lib/ask/ask-input";
-import { EndpointDef, StringOrNull } from "../../api/meta";
 import { askUtil } from "../cli-helpers/ask-util";
 import generateDefFile from "../../helpers/generateDefFile";
+import {EndpointDef, StringOrNull} from "../../index";
 
 /**
  * Command handler class for the `apidef endpoint` command.

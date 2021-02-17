@@ -1,7 +1,7 @@
 import { yes } from "./_util";
 import { CONFIG_FILENAME, DEFAULT_SRC_PATH } from "../constants";
 import FS from "fs";
-import { ApidefConfig } from "../api/meta";
+import {ApidefConfig} from "../index";
 
 const Path = require("path");
 

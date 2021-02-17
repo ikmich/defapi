@@ -1,8 +1,8 @@
-import { EndpointDef } from "../api/meta";
 import { getDefFileStub, yes } from "../util/_util";
 import Path from "path";
 import fileUtil from "../util/file-util";
 import FS from "fs-extra";
+import {EndpointDef} from "../index";
 
 /**
  * Generates a definition file for an endpoint.

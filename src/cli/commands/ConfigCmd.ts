@@ -5,7 +5,7 @@ import askInput from "../lib/ask/ask-input";
 import fileUtil from "../../util/file-util";
 import { askUtil } from "../cli-helpers/ask-util";
 import {_baseUri, yes} from "../../util/_util";
-import { ApidefConfig } from "../../api/meta";
+import {ApidefConfig} from "../../index";
 
 const FS = require("fs-extra");
 

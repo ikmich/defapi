@@ -1,10 +1,10 @@
-import { ApidefConfig, EndpointDef } from "../meta";
 import FS from "fs-extra";
 import fileUtil from "../../util/file-util";
 import { Express } from "express";
 import { getEndpoints } from "../lib/get-endpoints";
 import {_def, no} from "../../util/_util";
 import generateDefFile from "../../helpers/generateDefFile";
+import {ApidefConfig, EndpointDef} from "../../index";
 
 export type InitDefsResult = {
   error?: string | Error;

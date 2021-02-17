@@ -1,4 +1,3 @@
-import {ApiManifest, ApidefConfig, EndpointDef} from "../api/meta";
 import {DEFS_DIR_NAME, MANIFEST_FILENAME, SETTING_BASE_URI, SETTING_SRC_PATH} from "../constants";
 import {_def, httpFail} from "../util/_util";
 import { getEndpoints } from "../api/lib/get-endpoints";
@@ -6,6 +5,7 @@ import {Application, Express} from "express";
 import parseApidefBaseDir from "./parseApidefBaseDir";
 import Path from "path";
 import FS from "fs-extra";
+import {ApidefConfig, ApiManifest, EndpointDef} from "../index";
 
 function generateManifest(input: ApidefConfig, app:Application) {
   const baseUri = input.baseUri;

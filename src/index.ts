@@ -1,9 +1,60 @@
-import {Express} from "express";
-import {ApidefConfig} from "./api/meta";
-import {DEFAULT_SRC_PATH, SETTING_BASE_URI, SETTING_SRC_PATH,} from "./constants";
-import {apidefRouter} from "./api/apidef-router";
+import { Express } from "express";
+import {
+  DEFAULT_SRC_PATH,
+  SETTING_BASE_URI,
+  SETTING_SRC_PATH,
+} from "./constants";
+import { apidefRouter } from "./api/apidef-router";
 import configUtil from "./util/config-util";
-import {yes} from "./util/_util";
+import { yes } from "./util/_util";
+
+export type ObjectOrNull = object | null;
+export type StringOrNull = string | null;
+export type ArrayOrNull<T> = Array<T> | null;
+
+export interface EndpointDef {
+  path: string;
+  method: string;
+  title?: StringOrNull;
+  description?: StringOrNull;
+  request?: RequestDef;
+  response?: ResponseDef;
+  group?: StringOrNull;
+}
+
+export type TResponseBody = {
+  [k in 'success' | 'ok' | 'fail' | 'error' | string]: object;
+} | ObjectOrNull;
+export type RequestTypeDef = StringOrNull /*'application/json' | 'multipart/form-data' | 'multipart/url-encoded' | 'text' | null*/;
+export type TypeDef = {
+  type: string;
+  description: string;
+  default: any;
+} | StringOrNull;
+export type ApiManifest = {
+  baseUri: string;
+  endpoints: Array<EndpointDef>
+};
+export type RequestDef = {
+  type?: StringOrNull;
+  query?: ObjectOrNull;
+  body?: ObjectOrNull;
+  headers?: ObjectOrNull;
+  // [k: string]: any;
+};
+export type ResponseDef = {
+  type?: StringOrNull; // mime type
+  body?: TResponseBody;
+  // [k: string]: any;
+};
+
+/**
+ * Interface definition for the apidef-config.json file
+ */
+export interface ApidefConfig {
+  baseUri?: string;
+  srcPath?: string;
+}
 
 /**
  * Register your express app instance with apidef routes.

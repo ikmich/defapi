@@ -1,8 +1,8 @@
-import {EndpointDef} from "../api/meta";
 import {_def} from "../util/_util";
 
 import Path from 'path';
 import FS from 'fs';
+import {EndpointDef} from "../index";
 
 function parseApidefBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
   if (!defs) defs = [];

@@ -1,8 +1,8 @@
-import { ApiManifest, EndpointDef } from "../api/meta";
 import { Response } from "express";
 import { HttpError } from "../api/lib/errors";
 import slugify from "slugify";
 import config from "../config";
+import {ApiManifest, EndpointDef} from "../index";
 
 const manifestUtil = {
   hasEndpoints(manifest: ApiManifest) {
