@@ -7,7 +7,7 @@ export const DEFS_DIR_NAME = "__defapi";
 export const API_PATH_MANIFEST = "/defapi/manifest";
 export const API_PATH_ENDPOINTS = "/defapi/endpoints";
 export const API_PATH_ENDPOINTS_DL = "/defapi/endpoints/dl";
-export const API_PATH_VIEW_DOCS = "/defapi/view";
+export const API_PATH_VIEW_DOCS = "/defapi/docs/view";
 export const API_PATH_INIT = "/defapi/init";
 
 // ----

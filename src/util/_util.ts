@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { HttpError } from "../api/lib/errors";
+import { HttpError } from "../errors";
 import slugify from "slugify";
 import config from "../config";
 import {ApiManifest, EndpointDef} from "../index";

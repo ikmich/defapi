@@ -1,12 +1,9 @@
 import { Express } from "express";
-import {
-  DEFAULT_SRC_PATH,
-  SETTING_BASE_URI,
-  SETTING_SRC_PATH,
-} from "./constants";
+import { CONFIG_FILENAME } from "./constants";
 import { defapiRouter } from "./api/defapi-router";
-import configUtil from "./util/config-util";
-import { yes } from "./util/_util";
+import fileUtil from "./util/file-util";
+import * as FS from "fs-extra";
+import { DefapiError } from "./errors";
 
 export type ObjectOrNull = object | null;
 export type StringOrNull = string | null;
@@ -22,30 +19,42 @@ export interface EndpointDef {
   group?: StringOrNull;
 }
 
-export type TResponseBody = {
-  [k in 'success' | 'ok' | 'fail' | 'error' | string]: object;
-} | ObjectOrNull;
-export type RequestTypeDef = StringOrNull /*'application/json' | 'multipart/form-data' | 'multipart/url-encoded' | 'text' | null*/;
-export type TypeDef = {
-  type: string;
-  description: string;
-  default: any;
-} | StringOrNull;
+export type TResponseDef =
+  | { [k: string]: TResponseBody }
+  | TResponseBody
+  | null;
+
+export type TResponseBody =
+  | {
+      [k: string]: DataDef;
+    }
+  | null;
+
+export type DataDef =
+  | {
+      type: string;
+      description: string;
+      default: any;
+    }
+  | StringOrNull;
+
 export type ApiManifest = {
   baseUri: string;
-  endpoints: Array<EndpointDef>
+  endpoints: Array<EndpointDef>;
 };
+
 export type RequestDef = {
   type?: StringOrNull;
   query?: ObjectOrNull;
   body?: ObjectOrNull;
   headers?: ObjectOrNull;
-  // [k: string]: any;
+  [k: string]: any;
 };
+
 export type ResponseDef = {
-  type?: StringOrNull; // mime type
+  type?: StringOrNull;
   body?: TResponseBody;
-  // [k: string]: any;
+  [k: string]: any;
 };
 
 /**
@@ -56,22 +65,18 @@ export interface DefapiConfig {
   srcPath?: string;
 }
 
-/**
- * Register your express app instance with defapi routes.
- * @param app
- * @param opts If not provided, the values in defapi-config.json are used; otherwise, this parameter takes precedence.
- */
-function register(app: Express, opts?: DefapiConfig) {
-  if (opts && yes(opts?.baseUri)) {
-    app.set(SETTING_BASE_URI, opts?.baseUri);
-  } else {
-    app.set(SETTING_BASE_URI, configUtil.getPropBaseUri());
-  }
+// ----
 
-  if (opts && yes(opts?.srcPath)) {
-    app.set(SETTING_SRC_PATH, opts?.srcPath ?? DEFAULT_SRC_PATH);
-  } else {
-    app.set(SETTING_SRC_PATH, configUtil.getPropSrcPath());
+/**
+ * Register your express app instance to use defapi routes.
+ * @param app
+ */
+function register(app: Express) {
+  const configPath = fileUtil.getConfigPath();
+  if (!FS.existsSync(configPath)) {
+    throw new DefapiError(
+      `${CONFIG_FILENAME} file not found. Run \`defapi config\` from your project root to create a config file.`
+    );
   }
 
   app.use(defapiRouter);

@@ -8,7 +8,7 @@ import fileUtil from "../../util/file-util";
 import conprint from "../cli-helpers/conprint";
 import askInput from "../lib/ask/ask-input";
 import { askUtil } from "../cli-helpers/ask-util";
-import generateDefFile from "../../helpers/generateDefFile";
+import {generateDefFile} from "../../helpers/generateDefFile";
 import {EndpointDef, StringOrNull} from "../../index";
 
 /**

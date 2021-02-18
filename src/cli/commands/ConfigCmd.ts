@@ -1,11 +1,10 @@
 import BaseCmd from "./BaseCmd";
-import { configKeys, DEFAULT_SRC_PATH } from "../../constants";
+import { DEFAULT_SRC_PATH } from "../../constants";
 import conprint from "../cli-helpers/conprint";
-import askInput from "../lib/ask/ask-input";
 import fileUtil from "../../util/file-util";
-import { askUtil } from "../cli-helpers/ask-util";
-import {_baseUri, yes} from "../../util/_util";
-import {DefapiConfig} from "../../index";
+import { _baseUri, yes } from "../../util/_util";
+import { DefapiConfig } from "../../index";
+import { generateConfigFile } from "../../helpers/generateConfigFile";
 
 const FS = require("fs-extra");
 
@@ -21,33 +20,9 @@ export class ConfigCmd extends BaseCmd {
 
     let opts = {
       baseUri: _baseUri(this.options.baseUri ?? ""),
-      srcPath: this.options.srcPath ?? "",
-    };
-
-    const fnCreateDefaultConfig = async () => {
-      if (configExists) {
-        const msg =
-          "An defapi-config.json file already exists. Would you like to overwrite it? (y/n)";
-        const input = await askInput("input", msg);
-        if (!askUtil.isYesInput(input)) {
-          process.exit(0);
-          return;
-        }
-      }
-
-      let contents = `
-module.exports = {
-  "${configKeys.baseUri}": "${opts.baseUri}",
-  "${configKeys.srcPath}": "${opts.srcPath ?? DEFAULT_SRC_PATH}"
-}`;
-
-      try {
-        FS.writeFileSync(configPath, contents, { encoding: "utf-8" });
-        console.log(`${configPath} created`);
-      } catch (e) {
-        conprint.error(`[Error creating config file:]`);
-        console.error(e);
-      }
+      srcPath: yes(this.options.srcPath)
+        ? this.options.srcPath
+        : DEFAULT_SRC_PATH,
     };
 
     if (configExists) {
@@ -55,13 +30,13 @@ module.exports = {
       let isUpdate = false;
       if (yes(opts.baseUri)) {
         conprint.notice("Setting config.baseUri...");
-        isUpdate = true;
+        isUpdate = configExists;
         config.baseUri = opts.baseUri;
       }
 
       if (yes(opts.srcPath)) {
         conprint.notice("Setting config.srcPath...");
-        isUpdate = true;
+        isUpdate = configExists;
         config.srcPath = opts.srcPath;
       }
 
@@ -74,7 +49,7 @@ module.exports = {
       conprint.info(JSON.stringify(config, null, 2));
     } else {
       // create default config
-      await fnCreateDefaultConfig();
+      await generateConfigFile(opts);
     }
   }
 }

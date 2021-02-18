@@ -1,0 +1,5 @@
+src/
+.idea/
+.vscode/
+push-src.sh
+scratch/

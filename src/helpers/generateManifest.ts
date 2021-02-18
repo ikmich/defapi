@@ -6,6 +6,7 @@ import parseDefapiBaseDir from "./parseDefapiBaseDir";
 import Path from "path";
 import FS from "fs-extra";
 import {DefapiConfig, ApiManifest, EndpointDef} from "../index";
+import {DefapiError} from "../errors";
 
 function generateManifest(input: DefapiConfig, app:Application) {
   const baseUri = input.baseUri;
@@ -16,7 +17,7 @@ function generateManifest(input: DefapiConfig, app:Application) {
 
   let srcDir = Path.resolve(baseDir, srcPath);
   if (!FS.existsSync(srcDir)) {
-    throw new Error('Unable to resolve src_path');
+    throw new DefapiError('Unable to resolve src_path');
   }
 
   let defapiBaseDir = Path.resolve(srcDir, DEFS_DIR_NAME);

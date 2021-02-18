@@ -1,9 +1,9 @@
 class HttpError extends Error {
-  public error:Error;
+  public error: Error;
 
   constructor(public message: string, public statusCode: number = 500) {
     super(message);
-    this.error = new Error(message);
+    this.error = new DefapiError(message);
   }
 
   public static fromError(args: {
@@ -15,9 +15,9 @@ class HttpError extends Error {
       args.statusCode = 500;
     }
 
-    let msg = '';
+    let msg = "";
     if (args.what) {
-      msg += '[' + args.what + '] ';
+      msg += "[" + args.what + "] ";
     }
     msg += args.error.message;
 
@@ -28,6 +28,10 @@ class HttpError extends Error {
   }
 }
 
-export {
-  HttpError
+class DefapiError extends Error {
+  constructor(message: string) {
+    super(`[defapi] ${message}`);
+  }
 }
+
+export { HttpError, DefapiError };

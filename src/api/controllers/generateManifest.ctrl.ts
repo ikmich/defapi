@@ -3,7 +3,7 @@ import { SETTING_BASE_URI, SETTING_SRC_PATH } from "../../constants";
 import { httpFail, httpSuccess } from "../../util/_util";
 import { generateManifest } from "../../helpers/generateManifest";
 
-function generateManifestRequestHandler(req: Request, res: Response) {
+function generateManifestCtrl(req: Request, res: Response) {
   try {
     const baseUri = req.app.get(SETTING_BASE_URI);
     const srcPath = req.app.get(SETTING_SRC_PATH);
@@ -27,4 +27,4 @@ function generateManifestRequestHandler(req: Request, res: Response) {
   }
 }
 
-export default generateManifestRequestHandler;
+export default generateManifestCtrl;

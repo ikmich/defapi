@@ -13,7 +13,7 @@ export type TRequestResult = {
   raw: string;
 };
 
-export default function _request(opts: TRequestOpts): Promise<TRequestResult> {
+export default function _httpRequest(opts: TRequestOpts): Promise<TRequestResult> {
   return new Promise((resolve, reject) => {
     let http = require("http");
     const isHttps = opts.baseUri.startsWith("https://");
@@ -21,13 +21,11 @@ export default function _request(opts: TRequestOpts): Promise<TRequestResult> {
       http = require("https");
     }
 
-    const noProtocol = opts.baseUri.replace(/^(http:\/\/|https:\/\/)/, "");
-    const parts = noProtocol.split(":");
+    const uriNoProtocol = opts.baseUri.replace(/^(http:\/\/|https:\/\/)/, "");
+    const parts = uriNoProtocol.split(":");
     let port;
     if (parts.length > 1) {
       port = parts[1];
-    } else {
-      port = undefined;
     }
 
     const hostname = parts[0];

@@ -1,3 +1,4 @@
 node_modules
-.idea
+.idea/
 push-src.sh
+dist/
