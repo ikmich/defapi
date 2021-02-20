@@ -1,11 +1,11 @@
-import { CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIR_NAME } from "../constants";
-import configUtil from "./config-util";
-import { DefapiConfig } from "../index";
-import _util, { yes } from "./_util";
-import {DefapiError} from "../errors";
+import { CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIR_NAME } from '../constants';
+import configUtil from './config-util';
+import { DefapiConfig } from '../index';
+import ut, { yes } from './index';
+import { DefapiError } from '../errors';
 
-const Path = require("path");
-const FS = require("fs-extra");
+const Path = require('path');
+const FS = require('fs-extra');
 
 const fileUtil = {
   getBaseDir() {
@@ -18,19 +18,19 @@ const fileUtil = {
   },
 
   getSrcPath(conf?: DefapiConfig): string {
-    let srcPath = _util.fn(() => {
+    let srcPath = ut.fn(() => {
       if (conf && yes(conf.srcPath)) {
         return conf.srcPath;
       }
 
-      if (yes(configUtil.getPropSrcPath())) {
-        return configUtil.getPropSrcPath();
+      if (yes(configUtil.getSrcPath())) {
+        return configUtil.getSrcPath();
       }
 
       return DEFAULT_SRC_PATH;
     });
 
-    if (!FS.existsSync(srcPath)) throw new DefapiError("src path not found");
+    if (!FS.existsSync(srcPath)) throw new DefapiError('src path not found');
     return Path.resolve(this.getBaseDir(), srcPath);
   },
 
@@ -39,7 +39,7 @@ const fileUtil = {
     const defsDir = Path.resolve(srcPath, DEFS_DIR_NAME);
     FS.ensureDirSync(defsDir);
     return defsDir;
-  },
+  }
 };
 
 export default fileUtil;

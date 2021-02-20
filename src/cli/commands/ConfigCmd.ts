@@ -1,12 +1,12 @@
-import BaseCmd from "./BaseCmd";
-import { DEFAULT_SRC_PATH } from "../../constants";
-import conprint from "../cli-helpers/conprint";
-import fileUtil from "../../util/file-util";
-import { _baseUri, yes } from "../../util/_util";
-import { DefapiConfig } from "../../index";
-import { generateConfigFile } from "../../helpers/generateConfigFile";
+import BaseCmd from './BaseCmd';
+import conprint from '../../util/conprint';
+import fileUtil from '../../util/file-util';
+import { _baseUri, yes } from '../../util';
+import { DefapiConfig } from '../../index';
+import { generateConfigFile } from '../../util/generate-config-file';
+import configUtil from '../../util/config-util';
 
-const FS = require("fs-extra");
+const FS = require('fs-extra');
 
 /**
  * Command handler for the `defapi config` command. Creates a defapi-config.json file
@@ -19,24 +19,23 @@ export class ConfigCmd extends BaseCmd {
     const configExists = FS.existsSync(configPath);
 
     let opts = {
-      baseUri: _baseUri(this.options.baseUri ?? ""),
-      srcPath: yes(this.options.srcPath)
-        ? this.options.srcPath
-        : DEFAULT_SRC_PATH,
+      baseUri: _baseUri(this.options.baseUri ?? ''),
+      srcPath: this.options.srcPath
     };
 
     if (configExists) {
-      const config: DefapiConfig = require(configPath);
+      const config: DefapiConfig = configUtil.getConfig();
       let isUpdate = false;
-      if (yes(opts.baseUri)) {
-        conprint.notice("Setting config.baseUri...");
-        isUpdate = configExists;
+
+      if (yes(this.options.baseUri)) {
+        conprint.notice('Setting config.baseUri...');
+        isUpdate = true;
         config.baseUri = opts.baseUri;
       }
 
       if (yes(opts.srcPath)) {
-        conprint.notice("Setting config.srcPath...");
-        isUpdate = configExists;
+        conprint.notice('Setting config.srcPath...');
+        isUpdate = true;
         config.srcPath = opts.srcPath;
       }
 

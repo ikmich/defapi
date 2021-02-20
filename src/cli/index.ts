@@ -1,21 +1,28 @@
 #!/usr/bin/env node
 
-import yargs from "yargs";
-import { CMD_CONFIG, CMD_ENDPOINT } from "./commands/cli-cmds";
-import parseCliArgs from "./cli-helpers/parse-cli-args";
-import cmdDispatcher from "./cli-helpers/cmd-dispatcher";
-import { SendHandle, Serializable } from "child_process";
+import yargs from 'yargs';
+import { CMD_CONFIG, CMD_ENDPOINT, CMD_INIT_DEFS, CMD_UPDATE_DEFS } from './commands';
+import parseCliArgs from './parse-cli-args';
+import cmdDispatcher from './commands/cmd-dispatcher';
+import { SendHandle, Serializable } from 'child_process';
 
 const argv = yargs
-  .command(CMD_ENDPOINT, "Create endpoint definition file")
-  .command(CMD_CONFIG, "Create defapi configuration json file")
+  .command(CMD_ENDPOINT, 'Create endpoint definition file')
+  .command(CMD_CONFIG, 'Create defapi configuration json file')
+  .command(CMD_INIT_DEFS, 'Generate initial endpoint definition files')
+  .command(
+    CMD_UPDATE_DEFS,
+    'Update endpoint definition files to include endpoints added after the last time they were generated/updated'
+  )
   .help().argv;
 
 const commandInfo = parseCliArgs(argv);
 
-cmdDispatcher.dispatch(commandInfo).catch(err => {
+cmdDispatcher.dispatch(commandInfo).catch((err: any) => {
   console.error(err);
 });
+
+// ----
 
 export interface ICommandOptions {
   path?: string;
@@ -23,7 +30,7 @@ export interface ICommandOptions {
   method?: string;
   filename?: string;
   file?: string;
-  ext?: "js" | "ts";
+  ext?: 'js' | 'ts';
   baseUri?: string;
   srcPath?: string;
 }

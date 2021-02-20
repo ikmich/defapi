@@ -1,12 +1,13 @@
 {
   "name": "defapi",
-  "version": "0.0.1-alpha",
+  "version": "0.1.0-alpha",
   "description": "Generate api definition files and docs",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "rm -rf dist && tsc",
-    "cleanup": "rm -rf dist",
+    "build": "rm -rf lib && tsc",
+    "cleanup": "rm -rf lib",
     "buildcheck": "tsc --noEmit",
+    "watch": "yarn build --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && yarn build && npm install -g",
     "prepublishOnly": "yarn build",
@@ -35,7 +36,7 @@
     "ts-node": "^9.1.1"
   },
   "bin": {
-    "defapi": "dist/cli/index.js"
+    "defapi": "lib/cli/index.js"
   },
   "keywords": [
     "defapi",

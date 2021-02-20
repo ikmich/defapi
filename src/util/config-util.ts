@@ -1,9 +1,9 @@
-import { yes } from "./_util";
-import { CONFIG_FILENAME, DEFAULT_SRC_PATH } from "../constants";
-import FS from "fs";
-import {DefapiConfig} from "../index";
+import { yes } from './index';
+import { CONFIG_FILENAME, DEFAULT_SRC_PATH } from '../constants';
+import FS from 'fs';
+import { DefapiConfig, Objectx } from '../index';
 
-const Path = require("path");
+const Path = require('path');
 
 const defaultConfig: DefapiConfig = {
   baseUri: '',
@@ -11,23 +11,32 @@ const defaultConfig: DefapiConfig = {
 };
 
 const configUtil = {
-
   getConfig(): DefapiConfig {
     try {
       const baseDir = process.cwd();
+
       let configPath = Path.resolve(baseDir, CONFIG_FILENAME);
       if (!FS.existsSync(configPath)) {
         return defaultConfig;
       }
 
-      return require(configPath);
+      const config: DefapiConfig = require(configPath);
+      if (typeof config.baseUri === 'function') {
+        config.baseUri = config.baseUri();
+      }
+
+      if (!config.baseUri) {
+        config.baseUri = '';
+      }
+
+      return config;
     } catch (e) {
       console.error(e);
       return defaultConfig;
     }
   },
 
-  getPropSrcPath(): string {
+  getSrcPath(): string {
     const config = this.getConfig();
     if (yes(config.srcPath)) {
       return config.srcPath!.replace(/^\/+/, '');
@@ -35,10 +44,33 @@ const configUtil = {
     return DEFAULT_SRC_PATH;
   },
 
-  getPropBaseUri(): string {
+  getBaseUri(): string {
     const config = this.getConfig();
-    if (yes(config.baseUri)) return config.baseUri!;
+    if (config.baseUri) {
+      if (typeof config.baseUri === 'string') {
+        return config.baseUri;
+      }
+
+      if (typeof config.baseUri === 'function') {
+        return config.baseUri();
+      }
+    }
+
     return '';
+  },
+
+  getTitle(): string {
+    const config = this.getConfig();
+    return config.title ?? '';
+  },
+
+  getHeaders(): Objectx {
+    const config = this.getConfig();
+    if (typeof config.headers === 'function') {
+      return config.headers();
+    } else {
+      return config.headers;
+    }
   }
 };
 

@@ -1,42 +1,38 @@
-import { Express } from "express";
-import { CONFIG_FILENAME } from "./constants";
-import { defapiRouter } from "./api/defapi-router";
-import fileUtil from "./util/file-util";
-import * as FS from "fs-extra";
-import { DefapiError } from "./errors";
+import { Express } from 'express';
+import { CONFIG_FILENAME } from './constants';
+import { defapiRouter } from './api/defapi-router';
+import fileUtil from './util/file-util';
+import * as FS from 'fs-extra';
+import { DefapiError } from './errors';
 
-export type ObjectOrNull = object | null;
-export type StringOrNull = string | null;
-export type ArrayOrNull<T> = Array<T> | null;
+export type Objectx = object | null | undefined;
+export type Stringx = string | null | undefined;
+export type Arrayx<T> = Array<T> | null | undefined;
 
 export interface EndpointDef {
   path: string;
   method: string;
-  title?: StringOrNull;
-  description?: StringOrNull;
+  title?: Stringx;
+  description?: Stringx;
   request?: RequestDef;
   response?: ResponseDef;
-  group?: StringOrNull;
+  group?: Stringx;
 }
 
-export type TResponseDef =
-  | { [k: string]: TResponseBody }
-  | TResponseBody
-  | null;
+export type TResponseBodyDef = { [k: string]: TResponseBody } | TResponseBody | null;
 
-export type TResponseBody =
-  | {
-      [k: string]: DataDef;
-    }
-  | null;
+export type TResponseBody = {
+  [k: string]: TypeDef;
+} | null;
 
-export type DataDef =
+export type TypeDef =
   | {
       type: string;
-      description: string;
-      default: any;
+      description?: string;
+      defaultValue?: any;
+      options?: any[];
     }
-  | StringOrNull;
+  | Stringx;
 
 export type ApiManifest = {
   baseUri: string;
@@ -44,28 +40,30 @@ export type ApiManifest = {
 };
 
 export type RequestDef = {
-  type?: StringOrNull;
-  query?: ObjectOrNull;
-  body?: ObjectOrNull;
-  headers?: ObjectOrNull;
+  type?: Stringx;
+  query?: Objectx;
+  body?: Objectx;
+  headers?: Objectx;
   [k: string]: any;
 };
 
 export type ResponseDef = {
-  type?: StringOrNull;
-  body?: TResponseBody;
+  type?: Stringx;
+  body?: TResponseBodyDef;
+  headers?: Objectx;
   [k: string]: any;
 };
 
-/**
- * Interface definition for the defapi-config.json file
- */
+export type BaseUriDef = string | (() => string);
+
 export interface DefapiConfig {
-  baseUri?: string;
+  baseUri?: BaseUriDef;
   srcPath?: string;
+  title?: string;
+  headers?: Objectx | (() => Objectx);
 }
 
-// ----
+// ---- ---- ---- ---- ----
 
 /**
  * Register your express app instance to use defapi routes.
@@ -83,7 +81,7 @@ function register(app: Express) {
 }
 
 const defapi = {
-  register,
+  register
 };
 
 export default defapi;

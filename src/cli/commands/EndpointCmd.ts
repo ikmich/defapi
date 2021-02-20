@@ -1,15 +1,15 @@
-import { BaseCmd } from "./BaseCmd";
-import _util, { getDefFileStub, no, yes } from "../../util/_util";
-import { NoMethodError, NoPathError } from "../lib/errors";
+import { BaseCmd } from './BaseCmd';
+import ut, { getDefFileTitle, no, yes } from '../../util';
 
-import FS from "fs-extra";
-import Path from "path";
-import fileUtil from "../../util/file-util";
-import conprint from "../cli-helpers/conprint";
-import askInput from "../lib/ask/ask-input";
-import { askUtil } from "../cli-helpers/ask-util";
-import {generateDefFile} from "../../helpers/generateDefFile";
-import {EndpointDef, StringOrNull} from "../../index";
+import FS from 'fs-extra';
+import Path from 'path';
+import fileUtil from '../../util/file-util';
+import conprint from '../../util/conprint';
+import askInput from '../ask/ask-input';
+import { askUtil } from '../ask';
+import { generateEndpointDefFile } from '../../util/generate-endpoint-def-file';
+import { EndpointDef, Stringx } from '../../index';
+import { NoMethodError, NoPathError } from '../../errors';
 
 /**
  * Command handler class for the `defapi endpoint` command.
@@ -18,8 +18,8 @@ export class EndpointCmd extends BaseCmd {
   async run(): Promise<void> {
     await super.run();
 
-    let method: StringOrNull = null;
-    let path: StringOrNull = null;
+    let method: Stringx = null;
+    let path: Stringx = null;
 
     if (this.args.length >= 2) {
       method = this.getArg(1);
@@ -27,55 +27,47 @@ export class EndpointCmd extends BaseCmd {
     }
 
     if (yes(this.options.method)) {
-      method = this.options.method ?? null;
+      method = this.options.method!;
     }
 
     if (yes(this.options.path)) {
-      path = this.options.path ?? null;
+      path = this.options.path!;
     }
 
-    if (no(method)) {
+    if (no(method) || !method) {
       throw new NoMethodError();
     }
 
-    if (no(path)) {
+    if (no(path) || !path) {
       throw new NoPathError();
     }
 
-    let title = _util.fn(() => {
+    let title = ut.fn(() => {
       let opt = this.options.title;
       if (yes(opt)) return opt;
       return `${method!.toUpperCase()} ${path}`;
     });
 
-    if (!path) {
-      throw new NoPathError();
-    }
-
-    if (!method) {
-      throw new NoMethodError();
-    }
-
     const def: EndpointDef = {
       path,
       title,
-      method,
+      method
     };
 
     let defsDir = fileUtil.getDefsDir();
-    const filename = `${getDefFileStub(def)}.js`;
+    const filename = `${getDefFileTitle(def)}.js`;
     const filepath = Path.resolve(defsDir, filename);
 
     try {
       if (FS.existsSync(filepath)) {
         const msg = `File: "${filename}", already exists. Would you like to overwrite it? (y/n)`;
-        const input = await askInput("input", msg);
+        const input = await askInput('input', msg);
         if (!askUtil.isYesInput(input)) {
-          conprint.plain("Ignoring...");
+          conprint.plain('Ignoring...');
           return;
         }
       }
-      generateDefFile(def);
+      generateEndpointDefFile(def);
     } catch (e) {
       console.error(e);
     }

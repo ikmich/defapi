@@ -1,4 +1,4 @@
 node_modules
 .idea/
-push-src.sh
+dev/push-src.sh
 dist/
