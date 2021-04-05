@@ -1,22 +1,22 @@
-import BaseCmd from './BaseCmd';
+import BaseCommand from './BaseCommand';
 import configUtil from '../../util/config-util';
 import httpRequest from '../../util/http-request';
 import { no } from '../../util';
 import { DefapiError } from '../../errors';
-import { API_PATH_GENERATE_DEFS } from '../../constants';
+import {API_PATH_GENERATE_DEFS, CONFIG_FILENAME} from '../../constants';
 import { IncomingMessage } from 'http';
 import conprint from '../../util/conprint';
 
 /**
  * Command handler for the `defapi init` command.
  */
-export class GenerateDefsCmd extends BaseCmd {
+export class GenerateDefsCommand extends BaseCommand {
   async run() {
     await super.run();
 
     const baseUri = configUtil.getBaseUri();
     if (no(baseUri)) {
-      throw new DefapiError('No base uri');
+      throw new DefapiError(`No base uri defined in ${CONFIG_FILENAME}.`);
     }
 
     let res: IncomingMessage;

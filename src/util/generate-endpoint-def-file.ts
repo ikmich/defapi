@@ -29,27 +29,31 @@ export function generateEndpointDefFile(def: EndpointDef, meta?: TGenDefFileMeta
       // Read file and create merged def
       try {
         const prevDef = require(filepath);
-        if (yes(prevDef)) {
+        if (prevDef) {
           const mergedDef: Partial<EndpointDef> = {
             ...prevDef,
             method: def.method,
             path: def.path
           };
 
+          const openProps = ['path', 'method'];
+
           Object.entries(def).forEach(([prop, val]) => {
-            if (typeof val === typeof {}) {
-              if (yes(val)) {
-                // @ts-ignore
-                mergedDef[prop] = {
+            if (openProps.includes(prop)) {
+              if (typeof val === typeof {}) {
+                if (yes(val)) {
                   // @ts-ignore
-                  ...def[prop],
-                  ...prevDef[prop]
-                };
-              }
-            } else {
-              if (yes(val)) {
-                // @ts-ignore
-                mergedDef[prop] = val;
+                  mergedDef[prop] = {
+                    // @ts-ignore
+                    ...def[prop],
+                    ...prevDef[prop]
+                  };
+                }
+              } else {
+                if (yes(val)) {
+                  // @ts-ignore
+                  mergedDef[prop] = val;
+                }
               }
             }
           });
@@ -90,11 +94,11 @@ const def = {
       }
       return '';
     })} ${ut.fn(() => {
-      if (apiHeaders) {
-        return `headers: ${apiHeaders}`;
-      }
-      return '';
-    })}
+    if (apiHeaders) {
+      return `headers: ${apiHeaders}`;
+    }
+    return '';
+  })}
   },
   response: {
     /** Defaults to "application/json" if not set. */

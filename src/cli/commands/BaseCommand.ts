@@ -3,7 +3,7 @@ import parseError from '../parse-error';
 import { ICommandInfo, ICommandOptions } from '../index';
 import { Stringx } from '../../index';
 
-export class BaseCmd {
+export class BaseCommand {
   public commandInfo: ICommandInfo;
   protected name: string;
   protected args: string[] = [];
@@ -36,4 +36,4 @@ export class BaseCmd {
   }
 }
 
-export default BaseCmd;
+export default BaseCommand;

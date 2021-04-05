@@ -1,9 +1,8 @@
-import { CMD_CONFIG, CMD_ENDPOINT, CMD_INIT_DEFS, CMD_UPDATE_DEFS } from './index';
-import { EndpointCmd } from './EndpointCmd';
-import { ConfigCmd } from './ConfigCmd';
-import { GenerateDefsCmd } from './GenerateDefsCmd';
+import { CMD_CONFIG, CMD_GENERATE_DEFS } from './index';
+import { ConfigCommand } from './ConfigCommand';
+import { GenerateDefsCommand } from './GenerateDefsCommand';
 import { ICommandInfo } from '../index';
-import { UpdateDefsCmd } from './UpdateDefsCmd';
+import FooCommand from './FooCommand';
 
 const cmdDispatcher = {
   dispatch: async (commandInfo: ICommandInfo) => {
@@ -22,24 +21,19 @@ const cmdDispatcher = {
     }
 
     switch (mainCommand) {
-      case CMD_ENDPOINT:
-        await new EndpointCmd(commandInfo).run();
+      case 'foo': // Todo - Remove after testing
+        await new FooCommand(commandInfo).run();
         break;
 
       case CMD_CONFIG:
-        await new ConfigCmd(commandInfo).run();
+        await new ConfigCommand(commandInfo).run();
         break;
 
-      case CMD_INIT_DEFS:
-        await new GenerateDefsCmd(commandInfo).run();
-        break;
-
-      case CMD_UPDATE_DEFS:
-        await new UpdateDefsCmd(commandInfo).run();
+      case CMD_GENERATE_DEFS:
+        await new GenerateDefsCommand(commandInfo).run();
         break;
 
       default:
-        //const cliCommand = await getCmdArgsString();
         break;
     }
   }

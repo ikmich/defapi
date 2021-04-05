@@ -1,4 +1,4 @@
-import { BaseCmd } from './BaseCmd';
+import { BaseCommand } from './BaseCommand';
 import ut, { getDefFileTitle, no, yes } from '../../util';
 
 import FS from 'fs-extra';
@@ -14,7 +14,7 @@ import { NoMethodError, NoPathError } from '../../errors';
 /**
  * Command handler class for the `defapi endpoint` command.
  */
-export class EndpointCmd extends BaseCmd {
+export class EndpointCommand extends BaseCommand {
   async run(): Promise<void> {
     await super.run();
 
@@ -60,7 +60,7 @@ export class EndpointCmd extends BaseCmd {
 
     try {
       if (FS.existsSync(filepath)) {
-        const msg = `File: "${filename}", already exists. Would you like to overwrite it? (y/n)`;
+        const msg = `Endpoint def file: "${filename}", already exists. Would you like to overwrite it? (y/n)`;
         const input = await askInput('input', msg);
         if (!askUtil.isYesInput(input)) {
           conprint.plain('Ignoring...');

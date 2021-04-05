@@ -1,4 +1,4 @@
-import BaseCmd from './BaseCmd';
+import BaseCommand from './BaseCommand';
 import configUtil from '../../util/config-util';
 import httpRequest from '../../util/http-request';
 import { no } from '../../util';
@@ -8,12 +8,11 @@ import { API_PATH_UPDATE_DEFS } from '../../constants';
 /**
  * Command handler for the `defapi init` command.
  */
-export class UpdateDefsCmd extends BaseCmd {
+export class UpdateDefsCommand extends BaseCommand {
   async run() {
     await super.run();
 
     const baseUri = configUtil.getBaseUri();
-    console.log({ baseUri });
     if (no(baseUri)) {
       throw new DefapiError('No base uri');
     }

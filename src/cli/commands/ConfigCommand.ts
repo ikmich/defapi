@@ -1,4 +1,4 @@
-import BaseCmd from './BaseCmd';
+import BaseCommand from './BaseCommand';
 import conprint from '../../util/conprint';
 import fileUtil from '../../util/file-util';
 import { _baseUri, yes } from '../../util';
@@ -11,7 +11,7 @@ const FS = require('fs-extra');
 /**
  * Command handler for the `defapi config` command. Creates a defapi-config.json file
  */
-export class ConfigCmd extends BaseCmd {
+export class ConfigCommand extends BaseCommand {
   async run(): Promise<void> {
     await super.run();
 

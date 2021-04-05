@@ -1,4 +1,7 @@
-node_modules
 .idea/
+.vscode/
+node_modules
 dev/push-src.sh
+dev/scratch
 dist/
+lib/

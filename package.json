@@ -5,16 +5,15 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && tsc",
-    "cleanup": "rm -rf lib",
-    "buildcheck": "tsc --noEmit",
+    "clean": "rm -rf lib",
+    "tscheck": "tsc --noEmit",
     "watch": "yarn build --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && yarn build && npm install -g",
-    "prepublishOnly": "yarn build",
-    "prepare": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/express": "^4.17.9",
     "@types/express-list-endpoints": "^4.0.1",

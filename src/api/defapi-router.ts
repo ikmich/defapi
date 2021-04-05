@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, API_PATH_UPDATE_DEFS } from '../constants';
 import getEndpointsController from './controllers/get-endpoints-controller';
-import initDefsController from './controllers/init-defs-controller';
+import generateDefsController from './controllers/generate-defs-controller';
 
 const defapiRouter = Router();
 
@@ -23,15 +23,15 @@ defapiRouter.get(API_PATH_ENDPOINTS, (req: Request, res: Response) => {
  * Generate initial endpoint defs
  */
 defapiRouter.post(API_PATH_GENERATE_DEFS, (req: Request, res: Response) => {
-  return initDefsController(req, res, false);
+  return generateDefsController(req, res, true);
 });
 
-/**
- * Update endpoint defs
- */
-defapiRouter.post(API_PATH_UPDATE_DEFS, (req: Request, res: Response) => {
-  return initDefsController(req, res, true);
-});
+// /**
+//  * Update endpoint defs
+//  */
+// defapiRouter.post(API_PATH_UPDATE_DEFS, (req: Request, res: Response) => {
+//   return initDefsController(req, res, true);
+// });
 
 // defapiRouter.get(API_PATH_ENDPOINTS_DL, (req: Request, res: Response) => {
 //   //return dlEndpointsController(req, res);

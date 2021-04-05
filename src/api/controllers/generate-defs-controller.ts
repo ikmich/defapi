@@ -1,12 +1,11 @@
 import { Express, Request, Response } from 'express';
-import { API_PATH_UPDATE_DEFS, DEFAULT_SRC_PATH } from '../../constants';
+import { DEFAULT_SRC_PATH } from '../../constants';
 import ut, { _baseUri, _def, httpFail, httpSuccess, no, yes } from '../../util';
 import configUtil from '../../util/config-util';
 import fileUtil from '../../util/file-util';
 import FS from 'fs-extra';
 import { EndpointDef } from '../../index';
 import { generateEndpointDefFile } from '../../util/generate-endpoint-def-file';
-import { DEFAPI_COMMAND__UPDATE_DEFS } from '../../cli/commands';
 import { getEndpoints } from '../index';
 
 export type InitDefsResult = {
@@ -21,22 +20,22 @@ export type InitDefsResult = {
  * @param res
  * @param isUpdate
  */
-function initDefsController(req: Request, res: Response, isUpdate?: boolean) {
+function generateDefsController(req: Request, res: Response, isUpdate?: boolean) {
   try {
     let responseData: any = {
       logs: []
     };
 
     let config = {
-      baseUri: _baseUri(
-        ut.fn(() => {
-          const confVal = configUtil.getBaseUri();
-          if (yes(confVal)) {
-            return confVal;
-          }
-          return '';
-        })
-      ),
+      // baseUri: _baseUri(
+      //   ut.fn(() => {
+      //     const confVal = configUtil.getBaseUri();
+      //     if (yes(confVal)) {
+      //       return confVal;
+      //     }
+      //     return '';
+      //   })
+      // ),
       srcPath: ut.fn(() => {
         const confVal = configUtil.getSrcPath();
         if (yes(confVal)) {
@@ -47,9 +46,9 @@ function initDefsController(req: Request, res: Response, isUpdate?: boolean) {
       })
     };
 
-    if (no(config.baseUri)) {
-      return httpFail(res, `No baseUri set`, 400);
-    }
+    // if (no(config.baseUri)) {
+    //   return httpFail(res, `No baseUri set`, 400);
+    // }
 
     if (no(config.srcPath)) {
       return httpFail(res, `No srcPath set`, 400);
@@ -67,14 +66,14 @@ function initDefsController(req: Request, res: Response, isUpdate?: boolean) {
       isEmptyDefsDir
     };
 
-    if (!isUpdate && !isEmptyDefsDir) {
-      const msgBuilder = ['Endpoint defs dir is not empty. '];
-      msgBuilder.push('Consider updating defs instead, ');
-      msgBuilder.push(`by running "${DEFAPI_COMMAND__UPDATE_DEFS}" in your terminal; `);
-      msgBuilder.push(`or by making a POST request to "{baseUri}${API_PATH_UPDATE_DEFS}".`);
-      result.message = msgBuilder.join('');
-      return httpFail(res, result.message, 400);
-    }
+    // if (!isUpdate && !isEmptyDefsDir) {
+    //   const msgBuilder = ['Endpoint defs dir is not empty. '];
+    //   msgBuilder.push('Consider updating defs instead, ');
+    //   msgBuilder.push(`by running "${DEFAPI_COMMAND__UPDATE_DEFS}" in your terminal; `);
+    //   msgBuilder.push(`or by making a POST request to "{baseUri}${API_PATH_UPDATE_DEFS}".`);
+    //   result.message = msgBuilder.join('');
+    //   return httpFail(res, result.message, 400);
+    // }
 
     let defs: EndpointDef[] = getEndpoints(req.app as Express);
     for (let def of defs) {
@@ -89,4 +88,4 @@ function initDefsController(req: Request, res: Response, isUpdate?: boolean) {
   }
 }
 
-export default initDefsController;
+export default generateDefsController;

@@ -1,19 +1,15 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs';
-import { CMD_CONFIG, CMD_ENDPOINT, CMD_INIT_DEFS, CMD_UPDATE_DEFS } from './commands';
+import { CMD_CONFIG, CMD_GENERATE_DEFS } from './commands';
 import parseCliArgs from './parse-cli-args';
 import cmdDispatcher from './commands/cmd-dispatcher';
 import { SendHandle, Serializable } from 'child_process';
 
 const argv = yargs
-  .command(CMD_ENDPOINT, 'Create endpoint definition file')
   .command(CMD_CONFIG, 'Create defapi configuration json file')
-  .command(CMD_INIT_DEFS, 'Generate initial endpoint definition files')
-  .command(
-    CMD_UPDATE_DEFS,
-    'Update endpoint definition files to include endpoints added after the last time they were generated/updated'
-  )
+  .command(CMD_GENERATE_DEFS, 'Generate/update endpoint definition files')
+  .command('foo', 'Dummy command for test') // <<< todo - delete when done testing
   .help().argv;
 
 const commandInfo = parseCliArgs(argv);
