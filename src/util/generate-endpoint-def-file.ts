@@ -36,6 +36,9 @@ export function generateEndpointDefFile(def: EndpointDef, meta?: TGenDefFileMeta
             path: def.path
           };
 
+          /**
+           * These are props from the existing endpoint def that can be overwritten by this process.
+           */
           const openProps = ['path', 'method'];
 
           Object.entries(def).forEach(([prop, val]) => {
@@ -67,7 +70,7 @@ export function generateEndpointDefFile(def: EndpointDef, meta?: TGenDefFileMeta
         throw e;
       }
     }
-  } // todo - test update init
+  }
 
   let apiHeaders = configUtil.getHeaders();
 

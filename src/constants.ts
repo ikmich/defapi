@@ -4,12 +4,9 @@ export const API_DEF_FILENAME = 'api.defapi.js';
 export const DEFAULT_SRC_PATH = '.';
 export const DEFS_DIR_NAME = '__defapi/current';
 // ----
-export const API_PATH_MANIFEST = '/defapi/manifest';
 export const API_PATH_ENDPOINTS = '/defapi/endpoints';
-export const API_PATH_ENDPOINTS_DL = '/defapi/endpoints/dl';
-export const API_PATH_VIEW_DOCS = '/defapi/docs/view';
+export const API_PATH_DOCS = '/defapi/docs/view';
 export const API_PATH_GENERATE_DEFS = '/defapi/defs/generate';
-export const API_PATH_UPDATE_DEFS = '/defapi/defs/update';
 // ----
 export const excludedPaths = ['*', '/*', '*/'];
 // ----
