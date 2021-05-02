@@ -113,21 +113,32 @@ export type TDecorEndpointDefs = {
  */
 export type TDecorData = { [k: string]: EndpointDef };
 
-// To be saved in persitent store and used to compile defs.
+// To be saved in persistent store and used to compile defs.
 const decorData: TDecorData[] = [];
 
 type TDefQueryMetadata = {
   queryParamKey: string;
+  type?: string;
 };
 
 export function defQuery(queryParamKey: string) {
   return function (target: any, propertyKey: string | symbol, parameterIndex: number) {
+    let typeData = Reflect.getMetadata('design:paramtypes', target, propertyKey);
+    let ownMetadata = {queryParamKey};
+    if (typeData && typeData.length) {
+      for (let i = 0; i < typeData.length; i++) {
+        if (i === parameterIndex) {
+          ownMetadata['type'] = typeData[i];
+          break;
+        }
+      }
+    }
+
     let defQueryMetadata: TDefQueryMetadata[] = Reflect.getOwnMetadata(key_defQuery, target, propertyKey) ?? [];
-    defQueryMetadata.push({queryParamKey});
+    defQueryMetadata.push(ownMetadata);
     Reflect.defineMetadata(key_defQuery, defQueryMetadata, target, propertyKey);
   };
 }
-
 
 export function defEndpoint(opts?: Partial<EndpointDef>) {
   /* Todo - Continue
