@@ -20,11 +20,13 @@
     "@types/fs-extra": "^9.0.6",
     "@types/inquirer": "^7.3.1",
     "@types/node": "^14.14.28",
+    "@types/reflect-metadata": "^0.1.0",
     "@types/yargs": "^15.0.12",
     "express": "^4.17.1",
     "express-list-endpoints": "^5.0.0",
     "fs-extra": "^9.0.1",
     "inquirer": "^7.3.3",
+    "reflect-metadata": "^0.1.13",
     "slugify": "^1.4.6",
     "typescript": "^4.1.3",
     "yargs": "^16.2.0"
@@ -51,5 +53,12 @@
   "bugs": {
     "email": "michfx@gmail.com",
     "url": "https://github.com/ikmich/defapi/issues"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "trailingComma": "none",
+    "singleQuote": true,
+    "tabWidth": 2
   }
 }

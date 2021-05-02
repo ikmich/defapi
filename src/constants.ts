@@ -2,7 +2,10 @@ export const MANIFEST_FILENAME = 'defapi-manifest.js';
 export const CONFIG_FILENAME = 'defapi-config.js';
 export const API_DEF_FILENAME = 'api.defapi.js';
 export const DEFAULT_SRC_PATH = '.';
-export const DEFS_DIR_NAME = '__defapi/current';
+
+const __defapi = '__defapi';
+export const DEFS_DIR_NAME = `${__defapi}/defs/current`;
+export const DEFS_DIR_PUBLIC_HTML = `${__defapi}/docs/html`
 // ----
 export const API_PATH_ENDPOINTS = '/defapi/endpoints';
 export const API_PATH_DOCS = '/defapi/docs/view';
@@ -10,13 +13,13 @@ export const API_PATH_GENERATE_DEFS = '/defapi/defs/generate';
 // ----
 export const excludedPaths = ['*', '/*', '*/'];
 // ----
-export const t_string = ':string';
-export const t_number = ':number';
-export const t_boolean = ':boolean';
-export const t_object = ':object';
-export const t_array = ':array';
-export const t_json_string = ':json_string';
-export const t_file = ':file';
+export const t_string = '@string';
+export const t_number = '@number';
+export const t_boolean = '@boolean';
+export const t_object = '@object';
+export const t_array = '@array';
+export const t_json_string = '@json_string';
+export const t_file = '@file';
 
 // ----
 

@@ -3,7 +3,7 @@ import { HttpError } from '../errors';
 import slugify from 'slugify';
 import { EndpointDef } from '../index';
 
-const httpSuccess = (res: Response, data?: any, message?: string) => {
+export const httpSuccess = (res: Response, data?: any, message?: string) => {
   let body: any = {
     status: 'success'
   };
@@ -19,7 +19,7 @@ const httpSuccess = (res: Response, data?: any, message?: string) => {
   res.status(200).json(body);
 };
 
-const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: number | null, data?: any) => {
+export const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: number | null, data?: any) => {
   let body: any = {
     status: 'fail',
     message: typeof error === 'string' ? error : error.message
@@ -44,7 +44,7 @@ const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: n
  * Normalize path, remove trailing slash.
  * @param path
  */
-function _path(path: string | null): string {
+export function _path(path: string | null): string {
   if (!path) return '';
   // remove duplicated slashes
   path = path.replace(/\/{2,}/g, '/');
@@ -58,16 +58,16 @@ function _path(path: string | null): string {
   return path;
 }
 
-function _baseUri(baseUri: string) {
+export function _baseUri(baseUri: string) {
   // Remove any trailing slashes in base uri
   return baseUri.replace(/\/+$/, '');
 }
 
-function _method(method: string): string {
+export function _method(method: string): string {
   return method.toUpperCase();
 }
 
-function _def(def: EndpointDef): EndpointDef {
+export function _def(def: EndpointDef): EndpointDef {
   return {
     ...def,
     path: _path(def.path),
@@ -75,7 +75,11 @@ function _def(def: EndpointDef): EndpointDef {
   };
 }
 
-function getDefFileTitle(def: EndpointDef): string {
+export function _defIdentity(def: EndpointDef): string {
+  return `${def.method.toLowerCase()}>>${def.path}`;
+}
+
+export function getDefFileTitle(def: EndpointDef): string {
   let pathStub = def.path.replace(/\//g, '>');
   pathStub = pathStub.replace(/:/g, '@');
   return `${def.method}>${pathStub}`;
@@ -83,7 +87,7 @@ function getDefFileTitle(def: EndpointDef): string {
 
 // ----
 
-function yes(o: any) {
+export function yes(o: any) {
   if (typeof 0 === 'boolean') {
     return o;
   }
@@ -96,15 +100,15 @@ function yes(o: any) {
   return b;
 }
 
-function no(o: any) {
+export function no(o: any) {
   return !yes(o);
 }
 
-function arrayContains(haystack: any[], needle: any): boolean {
+export function arrayContains(haystack: any[], needle: any): boolean {
   return haystack.indexOf(needle) > -1;
 }
 
-function arrayContainsAnyOf(haystack: any[], needles: any[]): boolean {
+export function arrayContainsAnyOf(haystack: any[], needles: any[]): boolean {
   for (let item of haystack) {
     if (haystack.indexOf(item) > -1) {
       return true;
@@ -113,7 +117,7 @@ function arrayContainsAnyOf(haystack: any[], needles: any[]): boolean {
   return false;
 }
 
-function isEmpty(subject: any): boolean {
+export function isEmpty(subject: any): boolean {
   if (no(subject)) {
     return true;
   }
@@ -132,7 +136,7 @@ function isEmpty(subject: any): boolean {
   }
 }
 
-function _wait(ms: number) {
+export function _wait(ms: number) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(null);
@@ -140,59 +144,16 @@ function _wait(ms: number) {
   });
 }
 
-function _slug(s: string) {
+export function _slug(s: string) {
   return slugify(s, {
     lower: true,
     replacement: '-'
   });
 }
 
-function _noSpace(s: string) {
+export function _noSpace(s: string) {
   return s.replace(/\s+/g, '');
 }
-
-export type DevLogParam =
-  | {
-      msg: any;
-      title?: string | null;
-    }
-  | string;
-
-// function devLog(p1: DevLogParam, _console?: Console) {
-//   if (!_config.isDev()) {
-//     return;
-//   }
-//
-//   let msg = null;
-//   let title = null;
-//   if (typeof p1 === "string") {
-//     msg = p1;
-//   } else if (typeof p1 === "object") {
-//     msg = p1;
-//   }
-//
-//   console.log();
-//   let useConsole = _console ? _console : console;
-//
-//   useConsole.log(msg);
-// }
-
-export {
-  httpFail,
-  httpSuccess,
-  _path,
-  _method,
-  _def,
-  yes,
-  no,
-  isEmpty,
-  arrayContains,
-  _wait,
-  _slug,
-  _noSpace,
-  getDefFileTitle,
-  _baseUri
-};
 
 const ut = {
   fn(f?: () => any) {
