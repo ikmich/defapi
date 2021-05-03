@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import 'reflect-metadata';
-import {Express, Request} from 'express';
+import {Express} from 'express';
 import {CONFIG_FILENAME} from './constants';
 import {defapiRouter} from './api/defapi-router';
 import fileUtil from './util/file-util';
@@ -40,25 +39,13 @@ export interface EndpointDef {
   method: string;
   title?: Stringx;
   description?: Stringx;
-  request?: RequestDef;
-  response?: ResponseDef;
+  contentType?: Stringx;
   queryParams?: TQueryParamsDef;
   bodyParams?: TBodyParamsDef;
+  headers?: Objectx;
+  response?: ResponseDef;
   group?: Stringx;
 }
-
-export type ApiManifest = {
-  baseUri: string;
-  endpoints: Array<EndpointDef>;
-};
-
-export type RequestDef = {
-  type?: Stringx;
-  query?: Objectx;
-  body?: Objectx;
-  headers?: Objectx;
-  [k: string]: any;
-};
 
 export type ResponseDef = {
   type?: Stringx;
@@ -67,8 +54,12 @@ export type ResponseDef = {
   [k: string]: any;
 };
 
-export type BaseUriDef = string | (() => string);
+export type ApiManifest = {
+  baseUri: string;
+  endpoints: Array<EndpointDef>;
+};
 
+export type BaseUriDef = string | (() => string);
 
 export interface DefapiConfig {
   baseUri?: BaseUriDef;
@@ -76,7 +67,6 @@ export interface DefapiConfig {
   title?: string;
   headers?: Objectx | (() => Objectx);
 }
-
 
 // +++++++++++++++++++++++
 
@@ -98,88 +88,3 @@ function register(app: Express) {
 export const defapi = {
   register
 };
-
-// +++++++++++++++++++++++ Decorators
-
-const key_defQuery = Symbol('defQuery');
-
-export type TDecorEndpointDefs = {
-  queryParams?: TQueryParamsDef;
-  bodyParams?: any;
-}
-
-/**
- * Map of def id to EndpointDef
- */
-export type TDecorData = { [k: string]: EndpointDef };
-
-// To be saved in persistent store and used to compile defs.
-const decorData: TDecorData[] = [];
-
-type TDefQueryMetadata = {
-  queryParamKey: string;
-  type?: string;
-};
-
-export function defQuery(queryParamKey: string) {
-  return function (target: any, propertyKey: string | symbol, parameterIndex: number) {
-    let typeData = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-    let ownMetadata = {queryParamKey};
-    if (typeData && typeData.length) {
-      for (let i = 0; i < typeData.length; i++) {
-        if (i === parameterIndex) {
-          ownMetadata['type'] = typeData[i];
-          break;
-        }
-      }
-    }
-
-    let defQueryMetadata: TDefQueryMetadata[] = Reflect.getOwnMetadata(key_defQuery, target, propertyKey) ?? [];
-    defQueryMetadata.push(ownMetadata);
-    Reflect.defineMetadata(key_defQuery, defQueryMetadata, target, propertyKey);
-  };
-}
-
-export function defEndpoint(opts?: Partial<EndpointDef>) {
-  /* Todo - Continue
-   *   - Combine opts with the request object, to capture definitions.
-   *   - Create map of key (def id) to EndpointDef.
-   */
-  return function (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) {
-    // const metadataKeys: any[] = Reflect.getMetadataKeys(target, propertyKey);
-    const defQueryMETADATA: TDefQueryMetadata[] = Reflect.getOwnMetadata(key_defQuery, target, propertyKey) || [];
-
-    const originalFn: Function = propertyDescriptor.value;
-    try {
-      propertyDescriptor.value = function (...args) {
-        if (args && args.length) {
-          const req = args[0] as Request;
-          if (req) {
-            for (let paramName of Object.keys(req.query)) {
-              let found = false;
-              for (let md of defQueryMETADATA) {
-                if (md.queryParamKey === paramName) {
-                  found = true;
-                  if (!args.includes(paramName)) {
-                    args.push(req.query[paramName]);
-                  }
-                }
-              }
-              if (found) {
-                break;
-              }
-            }
-          }
-        }
-        originalFn.apply(this, args);
-      };
-    } catch (e) {
-      console.error('<ERR>', e);
-    }
-
-    console.log({
-      propertyKey,
-      defQueryMETADATA
-    });
-  };
-}

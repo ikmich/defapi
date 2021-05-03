@@ -4,7 +4,7 @@ import Path from 'path';
 import fileUtil from "../../util/file-util";
 import FS from "fs-extra";
 
-function viewDocsController(req: Request, res: Response) {
+function viewDocsRequestHandler(req: Request, res: Response) {
   let defsDir = fileUtil.getDefsDir();
   let entries = FS.readdirSync(defsDir);
   let isEmptyDefsDir: boolean = !(Array.isArray(entries) && entries.length);
@@ -13,5 +13,5 @@ function viewDocsController(req: Request, res: Response) {
 }
 
 export {
-  viewDocsController
+  viewDocsRequestHandler
 }

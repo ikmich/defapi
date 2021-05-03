@@ -20,11 +20,16 @@ export type InitDefsResult = {
  * @param res
  * @param isUpdate
  */
-function generateDefsController(req: Request, res: Response, isUpdate?: boolean) {
+function generateDefsRequestHandler(req: Request, res: Response, isUpdate?: boolean) {
   try {
     let responseData: any = {
       logs: []
     };
+
+    const shouldResetDefs = ['true', '1'].includes(<string>req.query.reset) || false;
+    if (shouldResetDefs) {
+      isUpdate = false;
+    }
 
     let config = {
       srcPath: ut.fn(() => {
@@ -65,4 +70,4 @@ function generateDefsController(req: Request, res: Response, isUpdate?: boolean)
   }
 }
 
-export default generateDefsController;
+export default generateDefsRequestHandler;

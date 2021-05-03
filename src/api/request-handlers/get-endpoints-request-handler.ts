@@ -2,7 +2,7 @@ import { Express, Request, Response } from 'express';
 import { httpSuccess } from '../../util';
 import { getEndpoints } from '../index';
 
-function getEndpointsController(req: Request, res: Response) {
+function getEndpointsRequestHandler(req: Request, res: Response) {
   let endpointDefs = getEndpoints(req.app as Express);
 
   let search = <string>req.query.search;
@@ -16,7 +16,7 @@ function getEndpointsController(req: Request, res: Response) {
     });
   }
 
-  // Get data from decorators at this point. How to do that?
+  // Todo - Get data from decorators at this point.
 
   return httpSuccess(res, {
     count: endpointDefs.length,
@@ -24,4 +24,4 @@ function getEndpointsController(req: Request, res: Response) {
   });
 }
 
-export default getEndpointsController;
+export default getEndpointsRequestHandler;
