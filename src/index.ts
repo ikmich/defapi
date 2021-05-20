@@ -1,11 +1,11 @@
 // noinspection JSUnusedGlobalSymbols
 
-import {Express} from 'express';
-import {CONFIG_FILENAME} from './constants';
-import {defapiRouter} from './api/defapi-router';
-import fileUtil from './util/file-util';
+import { Express } from 'express';
+import { defapiRouter } from './api/defapi-router';
 import * as FS from 'fs-extra';
-import {DefapiError} from './errors';
+import { CONFIG_FILENAME } from './common/constants';
+import { DefapiError } from './common/errors';
+import fileUtil from './common/util/file-util';
 
 export type Objectx = object | null | undefined;
 export type Stringx = string | null | undefined;
@@ -13,7 +13,7 @@ export type Arrayx<T> = Array<T> | null | undefined;
 
 export type TQueryParamsDef = {
   [k: string]: TypeDef;
-}
+};
 
 export type TBodyParamsDef = {
   [k: string]: TypeDef;
@@ -26,13 +26,13 @@ export type TResponseBody = {
 } | null;
 
 export type TypeDef =
-    | {
-  type: string;
-  description?: string;
-  defaultValue?: any;
-  options?: any[];
-}
-    | Stringx;
+  | {
+      type: string;
+      description?: string;
+      defaultValue?: any;
+      options?: any[];
+    }
+  | Stringx;
 
 export interface EndpointDef {
   path: string;
@@ -78,7 +78,7 @@ function register(app: Express) {
   const configPath = fileUtil.getConfigPath();
   if (!FS.existsSync(configPath)) {
     throw new DefapiError(
-        `${CONFIG_FILENAME} file not found. Run \`defapi config\` from your project root to create a config file.`
+      `${CONFIG_FILENAME} file not found. Run \`defapi config\` from your project root to create a config file.`
     );
   }
 
