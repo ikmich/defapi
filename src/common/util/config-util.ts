@@ -20,16 +20,25 @@ const configUtil = {
         return defaultConfig;
       }
 
-      const config: DefapiConfig = require(configPath);
-      if (typeof config.baseUri === 'function') {
-        config.baseUri = config.baseUri();
+      const name = Path.basename(configPath)
+      const dest = Path.join(__dirname, name);
+      FS.copyFileSync(configPath, dest);
+      if (FS.existsSync(dest)) {
+        const conf = require(dest);
+        console.log(conf);
       }
 
-      if (!config.baseUri) {
-        config.baseUri = '';
-      }
-
-      return config;
+      // const config: DefapiConfig = require(configPath);
+      // if (typeof config.baseUri === 'function') {
+      //   config.baseUri = config.baseUri();
+      // }
+      //
+      // if (!config.baseUri) {
+      //   config.baseUri = '';
+      // }
+      //
+      // return config;
+      return {};
     } catch (e) {
       console.error(e);
       return defaultConfig;

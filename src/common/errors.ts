@@ -30,8 +30,6 @@ class DefapiError extends Error {
   }
 }
 
-export { HttpError, DefapiError };
-
 class NoTitleError extends Error {
   constructor() {
     super('Endpoint title not found');
@@ -50,6 +48,4 @@ class NoMethodError extends Error {
   }
 }
 
-export { NoMethodError };
-export { NoPathError };
-export { NoTitleError };
+export { HttpError, DefapiError, NoMethodError, NoPathError, NoTitleError };

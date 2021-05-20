@@ -39,6 +39,14 @@ const fileUtil = {
     const defsDir = Path.resolve(srcPath, DEFS_DIR_NAME);
     FS.ensureDirSync(defsDir);
     return defsDir;
+  },
+
+  getJsob(filePath: string): object {
+    if (FS.existsSync(filePath)) {
+      const contents = FS.readFileSync(filePath, { encoding: 'utf-8' });
+      return JSON.parse(contents);
+    }
+    return {};
   }
 };
 

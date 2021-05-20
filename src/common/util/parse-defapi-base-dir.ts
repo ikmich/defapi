@@ -4,6 +4,7 @@ import Path from 'path';
 import FS from 'fs';
 import { EndpointDef } from '../index';
 
+// Deprecated, Unused
 function parseDefapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {
   if (!defs) defs = [];
   const entries = FS.readdirSync(dirPath);
