@@ -2,7 +2,7 @@ import { getDefFileTitle, yes } from './index';
 import Path from 'path';
 import fileUtil from './file-util';
 import FS from 'fs-extra';
-import { EndpointDef } from '../index';
+import { EndpointDef } from '../../index';
 import conprint from './conprint';
 import jsonStringify from './jsonStringify';
 

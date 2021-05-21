@@ -1,12 +1,11 @@
 import BaseCommand from './BaseCommand';
-import conprint from '../../util/conprint';
-import fileUtil from '../../util/file-util';
-import { _baseUri, yes } from '../../util';
+import conprint from '../../common/util/conprint';
+import fileUtil from '../../common/util/file-util';
+import { _baseUri, yes } from '../../common/util';
 import { DefapiConfig } from '../../index';
-import { generateConfigFile } from '../../util/generate-config-file';
-import configUtil from '../../util/config-util';
-
-const FS = require('fs-extra');
+import { generateConfigFile } from '../../common/util/generate-config-file';
+import configUtil from '../../common/util/config-util';
+import { FS } from '../../common/depds';
 
 /**
  * Command handler for the `defapi config` command. Creates a defapi-config.json file

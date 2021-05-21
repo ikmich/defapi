@@ -1,11 +1,9 @@
 import { CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIR_NAME } from '../constants';
 import configUtil from './config-util';
-import { DefapiConfig } from '../index';
+import { DefapiConfig } from '../../index';
 import ut, { yes } from './index';
 import { DefapiError } from '../errors';
-
-const Path = require('path');
-const FS = require('fs-extra');
+import { FS, Path } from '../depds';
 
 const fileUtil = {
   getBaseDir() {
@@ -39,14 +37,6 @@ const fileUtil = {
     const defsDir = Path.resolve(srcPath, DEFS_DIR_NAME);
     FS.ensureDirSync(defsDir);
     return defsDir;
-  },
-
-  getJsob(filePath: string): object {
-    if (FS.existsSync(filePath)) {
-      const contents = FS.readFileSync(filePath, { encoding: 'utf-8' });
-      return JSON.parse(contents);
-    }
-    return {};
   }
 };
 

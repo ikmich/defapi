@@ -2,7 +2,7 @@ import { _def } from './index';
 
 import Path from 'path';
 import FS from 'fs';
-import { EndpointDef } from '../index';
+import { EndpointDef } from '../../index';
 
 // Deprecated, Unused
 function parseDefapiBaseDir(dirPath: string, defs?: EndpointDef[]): EndpointDef[] {

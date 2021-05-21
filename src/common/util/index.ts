@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { HttpError } from '../errors';
 import slugify from 'slugify';
-import { EndpointDef } from '../index';
+import { EndpointDef } from '../../index';
 
 export const httpSuccess = (res: Response, data?: any, message?: string) => {
   let body: any = {

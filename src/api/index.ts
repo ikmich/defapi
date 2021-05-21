@@ -1,8 +1,8 @@
 import { Express } from 'express';
 import { EndpointDef } from '../index';
 import listEndpoints, { Endpoint } from 'express-list-endpoints';
-import { _def, _method, _path } from '../util';
-import { excludedPaths } from '../constants';
+import {excludedPaths} from "../common/constants";
+import {_def, _method, _path} from "../common/util";
 
 function getEndpoints(app: Express): EndpointDef[] {
   const endpoints: Endpoint[] = Array.from(listEndpoints(app));

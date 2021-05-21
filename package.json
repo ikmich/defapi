@@ -7,10 +7,11 @@
     "build": "rm -rf lib && tsc",
     "clean": "rm -rf lib",
     "tscheck": "tsc --noEmit",
-    "watch": "yarn build --watch",
+    "watch": "rm -rf lib && tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && yarn build && npm install -g",
-    "prepublishOnly": "yarn build"
+    "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
+    "prepublishOnly": "npm run build",
+    "postbuild": "./dev/push-lib.sh"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "MIT",

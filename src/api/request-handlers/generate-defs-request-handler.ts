@@ -1,12 +1,12 @@
 import { Express, Request, Response } from 'express';
-import { DEFAULT_SRC_PATH } from '../../constants';
-import ut, { _def, httpFail, httpSuccess, no, yes } from '../../util';
-import configUtil from '../../util/config-util';
-import fileUtil from '../../util/file-util';
 import FS from 'fs-extra';
 import { EndpointDef } from '../../index';
-import { generateEndpointDefFile } from '../../util/generate-endpoint-def-file';
 import { getEndpoints } from '../index';
+import configUtil from "../../common/util/config-util";
+import ut, {_def, httpFail, httpSuccess, no, yes} from "../../common/util";
+import {DEFAULT_SRC_PATH} from "../../common/constants";
+import fileUtil from "../../common/util/file-util";
+import {generateEndpointDefFile} from "../../common/util/generate-endpoint-def-file";
 
 export type InitDefsResult = {
   error?: string | Error;

@@ -1,15 +1,15 @@
 import { BaseCommand } from './BaseCommand';
-import ut, { getDefFileTitle, no, yes } from '../../util';
+import ut, { getDefFileTitle, no, yes } from '../../common/util';
 
 import FS from 'fs-extra';
 import Path from 'path';
-import fileUtil from '../../util/file-util';
-import conprint from '../../util/conprint';
+import fileUtil from '../../common/util/file-util';
+import conprint from '../../common/util/conprint';
 import askInput from '../ask/ask-input';
 import { askUtil } from '../ask';
-import { generateEndpointDefFile } from '../../util/generate-endpoint-def-file';
+import { generateEndpointDefFile } from '../../common/util/generate-endpoint-def-file';
 import { EndpointDef, Stringx } from '../../index';
-import { NoMethodError, NoPathError } from '../../errors';
+import { NoMethodError, NoPathError } from '../../common/errors';
 
 /**
  * Command handler class for the `defapi endpoint` command.

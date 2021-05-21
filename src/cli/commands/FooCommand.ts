@@ -1,5 +1,5 @@
 import BaseCommand from "./BaseCommand";
-import configUtil from "../../util/config-util";
+import configUtil from "../../common/util/config-util";
 
 class FooCommand extends BaseCommand {
   async run() {

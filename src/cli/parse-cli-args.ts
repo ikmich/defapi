@@ -1,4 +1,4 @@
-import _config from '../_config';
+import _config from '../common/_config';
 import { ICommandInfo } from './index';
 
 const parseCliArgs = (argv: any): ICommandInfo => {

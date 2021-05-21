@@ -1,9 +1,8 @@
 import { yes } from './index';
-import { CONFIG_FILENAME, DEFAULT_SRC_PATH } from '../constants';
+import { DEFAULT_SRC_PATH } from '../constants';
 import FS from 'fs';
-import { DefapiConfig, Objectx } from '../index';
-
-const Path = require('path');
+import { DefapiConfig, Objectx } from '../../index';
+import { PATH_TO_DEFAPI_CONFIG_FILE } from '../index';
 
 const defaultConfig: DefapiConfig = {
   baseUri: '',
@@ -13,32 +12,22 @@ const defaultConfig: DefapiConfig = {
 const configUtil = {
   getConfig(): DefapiConfig {
     try {
-      const baseDir = process.cwd();
-
-      let configPath = Path.resolve(baseDir, CONFIG_FILENAME);
+      let configPath = PATH_TO_DEFAPI_CONFIG_FILE;
       if (!FS.existsSync(configPath)) {
         return defaultConfig;
       }
 
-      const name = Path.basename(configPath)
-      const dest = Path.join(__dirname, name);
-      FS.copyFileSync(configPath, dest);
-      if (FS.existsSync(dest)) {
-        const conf = require(dest);
-        console.log(conf);
+      const config: DefapiConfig = require(configPath);
+      if (typeof config.baseUri === 'function') {
+        config.baseUri = config.baseUri();
       }
 
-      // const config: DefapiConfig = require(configPath);
-      // if (typeof config.baseUri === 'function') {
-      //   config.baseUri = config.baseUri();
-      // }
-      //
-      // if (!config.baseUri) {
-      //   config.baseUri = '';
-      // }
-      //
-      // return config;
-      return {};
+      if (!config.baseUri) {
+        config.baseUri = '';
+      }
+
+      return config;
+      // return {};
     } catch (e) {
       console.error(e);
       return defaultConfig;

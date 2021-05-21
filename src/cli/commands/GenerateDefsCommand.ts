@@ -1,11 +1,11 @@
 import BaseCommand from './BaseCommand';
-import configUtil from '../../util/config-util';
-import httpRequest from '../../util/http-request';
-import { no } from '../../util';
-import { DefapiError } from '../../errors';
-import {API_PATH_GENERATE_DEFS, CONFIG_FILENAME} from '../../constants';
+import configUtil from '../../common/util/config-util';
+import httpRequest from '../../common/util/http-request';
+import { no } from '../../common/util';
+import { DefapiError } from '../../common/errors';
+import {API_PATH_GENERATE_DEFS, CONFIG_FILENAME} from '../../common/constants';
 import { IncomingMessage } from 'http';
-import conprint from '../../util/conprint';
+import conprint from '../../common/util/conprint';
 
 /**
  * Command handler for the `defapi init` command.
