@@ -1,53 +1,15 @@
-import { Response } from 'express';
-import { HttpError } from '../errors';
 import slugify from 'slugify';
 import { EndpointDef } from '../../types';
-
-export const httpSuccess = (res: Response, data?: any, message?: string) => {
-  let body: any = {
-    status: 'success'
-  };
-
-  if (data) {
-    body.data = data;
-  }
-
-  if (message) {
-    body.message = message;
-  }
-
-  res.status(200).json(body);
-};
-
-export const httpFail = (res: Response, error: string | Error | HttpError, httpCode?: number | null, data?: any) => {
-  let body: any = {
-    status: 'fail',
-    message: typeof error === 'string' ? error : error.message
-  };
-
-  if (data) {
-    body.data = data;
-  }
-
-  if (error instanceof HttpError) {
-    httpCode = error.statusCode;
-  }
-
-  if (!httpCode) {
-    httpCode = 500;
-  }
-
-  res.status(httpCode).json(body);
-};
+import appConfig from "../appConfig";
 
 /**
- * Normalize path, remove trailing slash.
+ * Normalize endpoint path uri, remove trailing slash.
  * @param path
  */
 export function _path(path: string | null): string {
-  if (!path) return '';
+  if (no(path)) return '';
   // remove duplicated slashes
-  path = path.replace(/\/{2,}/g, '/');
+  path = path!.replace(/\/{2,}/g, '/');
 
   // remove trailing slash(es)
   path = path.replace(/\/+$/g, '');
@@ -79,7 +41,7 @@ export function _defIdentity(def: EndpointDef): string {
   return `${def.method.toLowerCase()}>>${def.path}`;
 }
 
-export function getDefFileTitle(def: EndpointDef): string {
+export function _defFileTitle(def: EndpointDef): string {
   let pathStub = def.path.replace(/\//g, '>');
   pathStub = pathStub.replace(/:/g, '@');
   return `${def.method}>${pathStub}`;
@@ -136,31 +98,34 @@ export function isEmpty(subject: any): boolean {
   }
 }
 
-export function _wait(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(null);
-    }, ms);
-  });
+export function ifdev(f: () => any) {
+  if (process.env['NODE_ENV'] === 'development') {
+    f();
+  }
 }
 
-export function _slug(s: string) {
-  return slugify(s, {
-    lower: true,
-    replacement: '-'
-  });
-}
-
-export function _noSpace(s: string) {
-  return s.replace(/\s+/g, '');
-}
-
-const ut = {
+const _util = {
   fn(f?: () => any) {
     if (f) {
       return f();
     }
+  },
+  slug(s: string) {
+    return slugify(s, {
+      lower: true,
+      replacement: '-'
+    });
+  },
+  wait(ms: number) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(null);
+      }, ms);
+    });
+  },
+  noSpace(s: string) {
+    return s.replace(/\s+/g, '');
   }
 };
 
-export default ut;
+export default _util;

@@ -1,13 +1,13 @@
-import { getDefFileTitle, yes } from './index';
+import { _defFileTitle, yes } from '../util';
 import Path from 'path';
-import fileUtil from './fileUtil';
+import fileUtil from '../util/fileUtil';
 import FS from 'fs-extra';
 import { EndpointDef } from '../../types';
-import conprint from './conprint';
-import jsonStringify from './jsonStringify';
+import conprint from '../util/conprint';
+import jsonToString from '../util/jsonToString';
 
 export type TGenDefFileMeta = {
-  isUpdate?: boolean;
+  shouldUpdate?: boolean;
 };
 
 /**
@@ -16,15 +16,13 @@ export type TGenDefFileMeta = {
  * @param meta
  */
 export function generateEndpointDefFile(def: EndpointDef, meta?: TGenDefFileMeta) {
-  const { isUpdate } = meta ?? {};
+  const { shouldUpdate } = meta ?? {};
   let defsDir = fileUtil.getDefsDir();
-  const filename = `${getDefFileTitle(def)}.js`;
+  const filename = `${_defFileTitle(def)}.js`;
   const filepath = Path.resolve(defsDir, filename);
   let defaultTitle = `${def.method} ${def.path}`;
 
-  // Todo - Get data from decorators at this point.
-
-  if (isUpdate) {
+  if (shouldUpdate) {
     if (FS.existsSync(filepath)) {
       // Def file exists for this endpoint. Read file and create merged def.
       try {
@@ -84,9 +82,9 @@ const def = {
   description: "${def.description ?? ''}",
   /** Defaults to "application/json" */
   contentType: "${def.contentType ?? ''}",
-  queryParams: ${jsonStringify(def.queryParams, 1)},
-  bodyParams: ${jsonStringify(def.bodyParams, 1)},
-  headers: ${jsonStringify(def.headers, 1)},
+  queryParams: ${jsonToString(def.queryParams, 1)},
+  bodyParams: ${jsonToString(def.bodyParams, 1)},
+  headers: ${jsonToString(def.headers, 1)},
   response: {
     /** Defaults to "application/json" if not set. */
     type: "",

@@ -1,6 +1,6 @@
 import { DEFAPI_CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIRNAME } from '../constants';
 import configUtil from './configUtil';
-import ut, { yes } from './index';
+import _util, { yes } from './index';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
 import { DefapiConfig } from '../../types';
@@ -16,7 +16,7 @@ const fileUtil = {
   },
 
   getSrcPath(conf?: DefapiConfig): string {
-    let srcPath = ut.fn(() => {
+    let srcPath = _util.fn(() => {
       if (conf && yes(conf.srcPath)) {
         return conf.srcPath;
       }
@@ -37,6 +37,18 @@ const fileUtil = {
     const defsDir = Path.resolve(srcPath, DEFS_DIRNAME);
     FS.ensureDirSync(defsDir);
     return defsDir;
+  },
+
+  /**
+   * Read a file's contents
+   * @param filepath
+   */
+  read(filepath: string): string | null {
+    try {
+      return FS.readFileSync(filepath, { encoding: 'utf-8' });
+    } catch (e) {
+      return null;
+    }
   }
 };
 

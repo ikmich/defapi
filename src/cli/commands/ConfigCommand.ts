@@ -2,7 +2,7 @@ import BaseCommand from './BaseCommand';
 import conprint from '../../common/util/conprint';
 import fileUtil from '../../common/util/fileUtil';
 import { _baseUri, yes } from '../../common/util';
-import { generateConfigFile } from '../../common/util/generateConfigFile';
+import { generateConfigFile } from '../../common/helpers/generateConfigFile';
 import configUtil from '../../common/util/configUtil';
 import { FS } from '../../common/depds';
 import { DefapiConfig } from '../../types';

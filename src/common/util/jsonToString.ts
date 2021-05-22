@@ -2,7 +2,7 @@ type Obj = {
   [k in number | string]: any;
 };
 
-function jsonStringify(ob: any, startDepth = 0) {
+function jsonToString(ob: any, startDepth = 0) {
   function buildString(ob: Obj | any[], output: string, depth = 0) {
     const _depth = depth;
 
@@ -72,4 +72,4 @@ function jsonStringify(ob: any, startDepth = 0) {
   return ob;
 }
 
-export default jsonStringify;
+export default jsonToString;

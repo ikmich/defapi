@@ -12,7 +12,7 @@
     "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
     "prepublishOnly": "npm run build",
     "postbuild": "./dev/push-lib.sh",
-    "test-store": "ts-node src/test-store.ts"
+    "test-store": "ts-node src/dev-test/test-store.ts"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 import BaseCommand from './BaseCommand';
 import configUtil from '../../common/util/configUtil';
-import httpRequest from '../../common/util/httpRequest';
+import httpRequest from '../../api/httpRequest';
 import { no } from '../../common/util';
 import { DefapiError } from '../../common/errors';
 import { API_PATH_GENERATE_DEFS, DEFAPI_CONFIG_FILENAME } from '../../common/constants';

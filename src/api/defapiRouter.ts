@@ -11,20 +11,20 @@ const defapiRouter = Router();
  * Check for defapi-config.js in the project root.
  */
 const projectRoot = process.cwd();
-let originalDefapiConfigFilePath = Path.resolve(projectRoot, DEFAPI_CONFIG_FILENAME);
-if (!FS.existsSync(originalDefapiConfigFilePath)) {
+let defapiConfigPathInProject = Path.resolve(projectRoot, DEFAPI_CONFIG_FILENAME);
+if (!FS.existsSync(defapiConfigPathInProject)) {
   console.warn(
     '`defapi-config.js` file not found in project root. Run `defapi config` to create the file, then restart your project server.'
   );
 }
 
 /*
- * Copy the file to the defapi project base, to prevent out-of-project import errors.
+ * Copy the file to the defapi project base, to prevent possible out-of-project import errors.
  */
-const name = Path.basename(originalDefapiConfigFilePath);
+const name = Path.basename(defapiConfigPathInProject);
 const dest = Path.join(PATH_TO_COMMON_DIR, name);
 try {
-  FS.copyFileSync(originalDefapiConfigFilePath, dest);
+  FS.copyFileSync(defapiConfigPathInProject, dest);
 } catch (e) {
   console.error('[defapi] Could not copy `defapi-config.js`', e);
 }

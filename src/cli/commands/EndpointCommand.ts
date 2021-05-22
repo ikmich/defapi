@@ -1,5 +1,5 @@
 import { BaseCommand } from './BaseCommand';
-import ut, { getDefFileTitle, no, yes } from '../../common/util';
+import _util, { _defFileTitle, no, yes } from '../../common/util';
 
 import FS from 'fs-extra';
 import Path from 'path';
@@ -7,7 +7,7 @@ import fileUtil from '../../common/util/fileUtil';
 import conprint from '../../common/util/conprint';
 import askInput from '../ask/ask-input';
 import { askUtil } from '../ask';
-import { generateEndpointDefFile } from '../../common/util/generateEndpointDefFile';
+import { generateEndpointDefFile } from '../../common/helpers/generateEndpointDefFile';
 import { EndpointDef, Stringx } from '../../types';
 import { NoMethodError, NoPathError } from '../../common/errors';
 
@@ -42,7 +42,7 @@ export class EndpointCommand extends BaseCommand {
       throw new NoPathError();
     }
 
-    let title = ut.fn(() => {
+    let title = _util.fn(() => {
       let opt = this.options.title;
       if (yes(opt)) return opt;
       return `${method!.toUpperCase()} ${path}`;
@@ -55,7 +55,7 @@ export class EndpointCommand extends BaseCommand {
     };
 
     let defsDir = fileUtil.getDefsDir();
-    const filename = `${getDefFileTitle(def)}.js`;
+    const filename = `${_defFileTitle(def)}.js`;
     const filepath = Path.resolve(defsDir, filename);
 
     try {

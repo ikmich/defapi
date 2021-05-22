@@ -1,24 +1,27 @@
+import fileUtil from './fileUtil';
+import * as os from 'os';
+
 const Path = require('path');
 const FS = require('fs-extra');
-const STORE_PATH = Path.join(__dirname, '../../__store');
+const STORE_PATH = Path.join(os.tmpdir(), 'defapi');
 
 FS.ensureDirSync(STORE_PATH);
 
 function getJson(path: string) {
-  let data = {};
-  if (FS.existsSync(path)) {
+  let contents = fileUtil.read(path);
+  if (contents && contents.length) {
     try {
-      data = require(path);
+      return JSON.parse(contents);
     } catch (e) {
       if (e instanceof SyntaxError) {
-        return {};
+        // Invalid json. Could be empty file or otherwise.
+        throw new Error('Invalid object store');
       }
     }
   }
-  return data;
 }
 
-function writeFile(path: string, contents: any) {
+function writeToFile(path: string, contents: any) {
   FS.writeFileSync(path, contents, { encoding: 'utf-8' });
 }
 
@@ -28,10 +31,6 @@ function fileExists(path: string) {
 
 function toJson(obj: any) {
   return JSON.stringify(obj, null, 2);
-}
-
-function isEmptyObj(ob: object) {
-  return Object.keys(ob).length === 0;
 }
 
 class UnexpectedKeysError extends Error {
@@ -46,18 +45,21 @@ class InvalidStoreFormatError extends Error {
   }
 }
 
-// ++++
+// ----s
 
 export const store = {
   get(key: string) {
     const filepath = Path.join(STORE_PATH, `${key}.json`);
     let data = getJson(filepath);
-    let keys = Object.keys(data);
-    if (!keys.includes(key)) {
-      throw new InvalidStoreFormatError();
-    } else if (keys.length > 1) {
-      throw new UnexpectedKeysError();
+    if (data) {
+      let keys = Object.keys(data);
+      if (!keys.includes(key)) {
+        throw new InvalidStoreFormatError();
+      } else if (keys.length > 1) {
+        throw new UnexpectedKeysError();
+      }
     }
+
     return data;
   },
 
@@ -69,8 +71,8 @@ export const store = {
         [key]: data
       };
       const targetContents = toJson(payload);
-      writeFile(filepath, targetContents);
-      return;
+      writeToFile(filepath, targetContents);
+      return payload;
     }
 
     let result: any = {
@@ -78,7 +80,7 @@ export const store = {
     };
     let currentData: any;
 
-    currentData = getJson(filepath);
+    currentData = getJson(filepath) ?? {};
 
     if (Array.isArray(data)) {
       result[key] = data;
@@ -121,7 +123,7 @@ export const store = {
       result[key] = parse(currentData[key], data);
     }
 
-    writeFile(filepath, toJson(result));
+    writeToFile(filepath, toJson(result));
     return result;
   }
 };

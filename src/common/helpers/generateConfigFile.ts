@@ -1,8 +1,8 @@
 import askInput from '../../cli/ask/ask-input';
 import { askUtil } from '../../cli/ask';
 import { DEFAPI_CONFIG_FILENAME, configKeys, DEFAULT_SRC_PATH } from '../constants';
-import conprint from './conprint';
-import fileUtil from './fileUtil';
+import conprint from '../util/conprint';
+import fileUtil from '../util/fileUtil';
 import * as FS from 'fs-extra';
 import { DefapiConfig } from '../../types';
 
