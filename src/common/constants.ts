@@ -9,6 +9,7 @@ export const API_PATH_PREFIX = 'defapi';
 export const API_PATH_ENDPOINTS = `/${API_PATH_PREFIX}/endpoints`;
 export const API_PATH_DOCS = `/${API_PATH_PREFIX}/docs/view`;
 export const API_PATH_GENERATE_DEFS = `/${API_PATH_PREFIX}/defs/generate`;
+export const API_PATH_GET_JSON = `/${API_PATH_PREFIX}/defs/json`;
 // ----
 export const excludedPaths = ['*', '/*', '*/'];
 // ----

@@ -2,7 +2,6 @@ import { CMD_CONFIG, CMD_GENERATE_DEFS } from './index';
 import { ConfigCommand } from './ConfigCommand';
 import { GenerateDefsCommand } from './GenerateDefsCommand';
 import { ICommandInfo } from '../index';
-import FooCommand from './FooCommand';
 
 const cmdDispatcher = {
   dispatch: async (commandInfo: ICommandInfo) => {
@@ -10,21 +9,17 @@ const cmdDispatcher = {
 
     // Protect from dangerous commands
     switch (true) {
-      case /rm\s+/.test(mainCommand):
-      case /rmdir\s+/.test(mainCommand):
-      case /del\s+/.test(mainCommand):
-      case /unlink\s+/.test(mainCommand):
-      case /move\s+/.test(mainCommand):
-      case /cp\s+/.test(mainCommand):
-      case /copy\s+/.test(mainCommand):
+      case /rm\s+/i.test(mainCommand):
+      case /rmdir\s+/i.test(mainCommand):
+      case /del\s+/i.test(mainCommand):
+      case /unlink\s+/i.test(mainCommand):
+      case /move\s+/i.test(mainCommand):
+      case /cp\s+/i.test(mainCommand):
+      case /copy\s+/i.test(mainCommand):
         return;
     }
 
     switch (mainCommand) {
-      case 'foo': // Todo - Remove after testing
-        await new FooCommand(commandInfo).run();
-        break;
-
       case CMD_CONFIG:
         await new ConfigCommand(commandInfo).run();
         break;

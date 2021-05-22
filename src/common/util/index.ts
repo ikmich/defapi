@@ -1,6 +1,4 @@
-import slugify from 'slugify';
 import { EndpointDef } from '../../types';
-import appConfig from "../appConfig";
 
 /**
  * Normalize endpoint path uri, remove trailing slash.
@@ -37,14 +35,14 @@ export function _def(def: EndpointDef): EndpointDef {
   };
 }
 
-export function _defIdentity(def: EndpointDef): string {
-  return `${def.method.toLowerCase()}>>${def.path}`;
-}
-
-export function _defFileTitle(def: EndpointDef): string {
+export function _defId(def: EndpointDef): string {
   let pathStub = def.path.replace(/\//g, '>');
   pathStub = pathStub.replace(/:/g, '@');
   return `${def.method}>${pathStub}`;
+}
+
+export function _defFilename(def: EndpointDef): string {
+  return `${_defId(def)}.json`;
 }
 
 // ----
@@ -66,55 +64,11 @@ export function no(o: any) {
   return !yes(o);
 }
 
-export function arrayContains(haystack: any[], needle: any): boolean {
-  return haystack.indexOf(needle) > -1;
-}
-
-export function arrayContainsAnyOf(haystack: any[], needles: any[]): boolean {
-  for (let item of haystack) {
-    if (haystack.indexOf(item) > -1) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export function isEmpty(subject: any): boolean {
-  if (no(subject)) {
-    return true;
-  }
-
-  switch (true) {
-    case typeof subject === 'string':
-      return no(subject);
-    case Array.isArray(subject):
-      return subject.length === 0;
-    case typeof subject === 'object':
-      return Object.keys(subject).length === 0;
-    case typeof subject === 'number':
-      return subject === 0;
-    default:
-      return no(subject);
-  }
-}
-
-export function ifdev(f: () => any) {
-  if (process.env['NODE_ENV'] === 'development') {
-    f();
-  }
-}
-
 const _util = {
   fn(f?: () => any) {
     if (f) {
       return f();
     }
-  },
-  slug(s: string) {
-    return slugify(s, {
-      lower: true,
-      replacement: '-'
-    });
   },
   wait(ms: number) {
     return new Promise((resolve) => {

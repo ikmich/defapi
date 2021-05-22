@@ -45,7 +45,7 @@ class InvalidStoreFormatError extends Error {
   }
 }
 
-// ----s
+// ----
 
 export const store = {
   get(key: string) {
@@ -58,9 +58,10 @@ export const store = {
       } else if (keys.length > 1) {
         throw new UnexpectedKeysError();
       }
+      return data[key];
     }
 
-    return data;
+    return null;
   },
 
   save(key: string, data: Array<any> | Object) {
@@ -124,6 +125,6 @@ export const store = {
     }
 
     writeToFile(filepath, toJson(result));
-    return result;
+    return result[key];
   }
 };

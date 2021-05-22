@@ -49,6 +49,10 @@ const fileUtil = {
     } catch (e) {
       return null;
     }
+  },
+
+  write(filepath: string, contents: string) {
+    FS.writeFileSync(filepath, contents, { encoding: 'utf-8' });
   }
 };
 

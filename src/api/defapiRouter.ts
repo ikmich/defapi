@@ -1,5 +1,11 @@
 import { Request, Response, Router } from 'express';
-import { API_PATH_DOCS, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, DEFAPI_CONFIG_FILENAME } from '../common/constants';
+import {
+  API_PATH_DOCS,
+  API_PATH_ENDPOINTS,
+  API_PATH_GENERATE_DEFS,
+  API_PATH_GET_JSON,
+  DEFAPI_CONFIG_FILENAME
+} from '../common/constants';
 import getEndpointsController from './controllers/getEndpointsController';
 import generateDefsController from './controllers/generateDefsController';
 import { FS, Path } from '../common/depds';
@@ -46,6 +52,10 @@ defapiRouter.get(API_PATH_ENDPOINTS, (req: Request, res: Response) => {
 defapiRouter.post(API_PATH_GENERATE_DEFS, (req: Request, res: Response) => {
   return generateDefsController(req, res, true);
 });
+
+defapiRouter.get(API_PATH_GET_JSON, (req:Request, res:Response) => {
+
+})
 
 defapiRouter.get(API_PATH_DOCS, (req: Request, res: Response) => {});
 

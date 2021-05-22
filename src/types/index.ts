@@ -8,7 +8,6 @@ export interface EndpointDef {
   bodyParams?: TBodyParamsDef;
   headers?: Objectx;
   response?: ResponseDef;
-  group?: Stringx;
 }
 
 export type Objectx = object | null | undefined;

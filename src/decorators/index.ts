@@ -2,7 +2,7 @@
 
 import 'reflect-metadata';
 import {EndpointDef} from '../types';
-import {_def, _defFileTitle, ifdev, yes} from '../common/util';
+import {_def, _defId, yes} from '../common/util';
 import {Request} from 'express';
 import {store} from '../common/util/store';
 
@@ -61,16 +61,16 @@ export function defQuery(queryParamKey: string) {
   };
 }
 
-export function defEndpoint(decorDef?: Partial<EndpointDef>) {
+export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
   /* Todo - Continue
    *   - Combine opts with the request object, to capture definitions.
    *   - Create map of key (def id) to EndpointDef.
    */
 
   return function (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) {
-    ifdev(() => {
-      console.log('\n+++[@defEndpoint]+++');
-    });
+    // ifdev(() => {
+    //   console.log('\n+++[@defEndpoint]+++');
+    // });
 
     const defQueryMetadata: TDecorDefQueryMetadata[] =
         Reflect.getOwnMetadata(KEY_DECOR_DEF_QUERY, target, propertyKey) || [];
@@ -78,44 +78,43 @@ export function defEndpoint(decorDef?: Partial<EndpointDef>) {
     const defBodyMetadata: TDecorDefBodyMetadata[] =
         Reflect.getOwnMetadata(KEY_DECOR_DEF_BODY, target, propertyKey) || [];
 
-    decorDef = decorDef ? _def(decorDef as EndpointDef) : {};
+    if (yes(method) && decorDef && yes(decorDef.path)) {
+      decorDef.method = method;
+      decorDef = decorDef ? _def(decorDef as EndpointDef) : {};
 
-    if (yes(decorDef.path) && yes(decorDef.method)) {
-      const storeKey = _defFileTitle(<EndpointDef>decorDef);
+      if (yes(decorDef.path)) {
+        decorDef.method = method.toUpperCase();
+        const storeKey = _defId(<EndpointDef>decorDef);
 
-      // capture queryParams
-      let _queryParams: any = {};
-      for (let md of defQueryMetadata) {
-        _queryParams[md.queryParamKey] = md.type.name;
+        // capture queryParams
+        let _queryParams: any = {};
+        for (let md of defQueryMetadata) {
+          _queryParams[md.queryParamKey] = md.type.name;
+        }
+
+        decorDef.queryParams = Object.assign({}, decorDef.queryParams, _queryParams);
+
+        // capture bodyParams
+        let _bodyParams: any = {};
+        for (let md of defBodyMetadata) {
+          _bodyParams[md.bodyParamKey] = md.type.name;
+        }
+        if (!decorDef.bodyParams) decorDef.bodyParams = {};
+        decorDef.bodyParams = Object.assign({}, decorDef.bodyParams, _bodyParams);
+
+        store.save(storeKey, decorDef);
       }
-
-      decorDef.queryParams = {
-        ...decorDef.queryParams,
-        ..._queryParams
-      };
-
-      // capture bodyParams
-      let _bodyParams: any = {};
-      for (let md of defBodyMetadata) {
-        _bodyParams[md.bodyParamKey] = md.type.name;
-      }
-      if (!decorDef.bodyParams) decorDef.bodyParams = {};
-      decorDef.bodyParams = {
-        ...decorDef.bodyParams,
-        ..._bodyParams
-      };
-
-      store.save(storeKey, decorDef);
     }
 
-    ifdev(() => {
-      console.log({def: decorDef});
-      console.log({
-        propertyKey,
-        defQueryMetadata,
-        defBodyMetadata
-      });
-    });
+
+    // ifdev(() => {
+    //   console.log({def: decorDef});
+    //   console.log({
+    //     propertyKey,
+    //     defQueryMetadata,
+    //     defBodyMetadata
+    //   });
+    // });
 
     // ----
 
@@ -130,7 +129,7 @@ export function defEndpoint(decorDef?: Partial<EndpointDef>) {
             req = args[0] as Request;
             if (req) {
               for (let md of defQueryMetadata) {
-                args[md.parameterIndex] = req.query[md.queryParamKey] ?? undefined;
+                args[md.parameterIndex] = req.query[md.queryParamKey];
               }
             }
           }
@@ -153,7 +152,7 @@ export function defEndpoint(decorDef?: Partial<EndpointDef>) {
             req = args[0] as Request;
             if (req) {
               for (let md of defBodyMetadata) {
-                args[md.parameterIndex] = req.body[md.bodyParamKey] ?? undefined;
+                args[md.parameterIndex] = req.body[md.bodyParamKey];
               }
             }
           }
