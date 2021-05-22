@@ -1,8 +1,8 @@
 import { Express, Request, Response } from 'express';
 import { getEndpoints } from '../index';
-import {httpSuccess} from "../../common/util";
+import { httpSuccess } from '../../common/util';
 
-function getEndpointsRequestHandler(req: Request, res: Response) {
+function getEndpointsController(req: Request, res: Response) {
   let endpointDefs = getEndpoints(req.app as Express);
 
   let search = <string>req.query.search;
@@ -16,12 +16,10 @@ function getEndpointsRequestHandler(req: Request, res: Response) {
     });
   }
 
-  // Todo - Get data from decorators at this point.
-
   return httpSuccess(res, {
     count: endpointDefs.length,
     endpoints: endpointDefs
   });
 }
 
-export default getEndpointsRequestHandler;
+export default getEndpointsController;

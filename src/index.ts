@@ -1,70 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import {Application, Express} from 'express';
-import {defapiRouter} from './api/defapi-router';
-
-export type Objectx = object | null | undefined;
-export type Stringx = string | null | undefined;
-export type Arrayx<T> = Array<T> | null | undefined;
-
-export type TQueryParamsDef = {
-  [k: string]: TypeDef;
-}
-
-export type TBodyParamsDef = {
-  [k: string]: TypeDef;
-};
-
-export type TResponseBodyDef = { [k: string]: TResponseBody } | TResponseBody | null;
-
-export type TResponseBody = {
-  [k: string]: TypeDef;
-} | null;
-
-export type TypeDef =
-    | {
-  type: string;
-  description?: string;
-  defaultValue?: any;
-  options?: any[];
-}
-    | Stringx;
-
-export interface EndpointDef {
-  path: string;
-  method: string;
-  title?: Stringx;
-  description?: Stringx;
-  contentType?: Stringx;
-  queryParams?: TQueryParamsDef;
-  bodyParams?: TBodyParamsDef;
-  headers?: Objectx;
-  response?: ResponseDef;
-  group?: Stringx;
-}
-
-export type ResponseDef = {
-  type?: Stringx;
-  body?: TResponseBodyDef;
-  headers?: Objectx;
-  [k: string]: any;
-};
-
-export type ApiManifest = {
-  baseUri: string;
-  endpoints: Array<EndpointDef>;
-};
-
-export type BaseUriDef = string | (() => string);
-
-export interface DefapiConfig {
-  baseUri?: BaseUriDef;
-  srcPath?: string;
-  title?: string;
-  headers?: Objectx | (() => Objectx);
-}
-
-// ++++
+import { Application, Express } from 'express';
+import { defapiRouter } from './api/defapiRouter';
 
 /**
  * Register your express app instance to use defapi routes.
@@ -74,6 +11,4 @@ function defapiRegister(app: Application | Express) {
   app.use(defapiRouter);
 }
 
-export {
-  defapiRegister, defapiRouter
-};
+export { defapiRegister, defapiRouter };

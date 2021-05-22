@@ -1,11 +1,11 @@
 import BaseCommand from './BaseCommand';
 import conprint from '../../common/util/conprint';
-import fileUtil from '../../common/util/file-util';
+import fileUtil from '../../common/util/fileUtil';
 import { _baseUri, yes } from '../../common/util';
-import { DefapiConfig } from '../../index';
-import { generateConfigFile } from '../../common/util/generate-config-file';
-import configUtil from '../../common/util/config-util';
+import { generateConfigFile } from '../../common/util/generateConfigFile';
+import configUtil from '../../common/util/configUtil';
 import { FS } from '../../common/depds';
+import { DefapiConfig } from '../../types';
 
 /**
  * Command handler for the `defapi config` command. Creates a defapi-config.json file

@@ -1,10 +1,10 @@
-import {Request, Response} from "express";
+import { Request, Response } from 'express';
 import Fs from 'fs-extra';
 import Path from 'path';
-import FS from "fs-extra";
-import fileUtil from "../../common/util/file-util";
+import FS from 'fs-extra';
+import fileUtil from '../../common/util/fileUtil';
 
-function viewDocsRequestHandler(req: Request, res: Response) {
+function viewDocsController(req: Request, res: Response) {
   let defsDir = fileUtil.getDefsDir();
   let entries = FS.readdirSync(defsDir);
   let isEmptyDefsDir: boolean = !(Array.isArray(entries) && entries.length);
@@ -12,6 +12,4 @@ function viewDocsRequestHandler(req: Request, res: Response) {
   // Todo - continue - read def files to render html docs
 }
 
-export {
-  viewDocsRequestHandler
-}
+export { viewDocsController };

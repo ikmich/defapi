@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
-import { API_PATH_DOCS, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, CONFIG_FILENAME } from '../common/constants';
-import getEndpointsRequestHandler from './request-handlers/get-endpoints-request-handler';
-import generateDefsRequestHandler from './request-handlers/generate-defs-request-handler';
+import { API_PATH_DOCS, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, DEFAPI_CONFIG_FILENAME } from '../common/constants';
+import getEndpointsController from './controllers/getEndpointsController';
+import generateDefsController from './controllers/generateDefsController';
 import { FS, Path } from '../common/depds';
 import { PATH_TO_COMMON_DIR } from '../common';
 
@@ -11,7 +11,7 @@ const defapiRouter = Router();
  * Check for defapi-config.js in the project root.
  */
 const projectRoot = process.cwd();
-let originalDefapiConfigFilePath = Path.resolve(projectRoot, CONFIG_FILENAME);
+let originalDefapiConfigFilePath = Path.resolve(projectRoot, DEFAPI_CONFIG_FILENAME);
 if (!FS.existsSync(originalDefapiConfigFilePath)) {
   console.warn(
     '`defapi-config.js` file not found in project root. Run `defapi config` to create the file, then restart your project server.'
@@ -32,20 +32,19 @@ try {
 if (!FS.existsSync(dest)) {
   console.warn('[defapi] Unable to process `defapi-config.js`');
 }
-// ++++
 
 /*
  * Route: Get list of registered express endpoints
  */
 defapiRouter.get(API_PATH_ENDPOINTS, (req: Request, res: Response) => {
-  return getEndpointsRequestHandler(req, res);
+  return getEndpointsController(req, res);
 });
 
 /*
  * Route: Generate/update endpoint defs
  */
 defapiRouter.post(API_PATH_GENERATE_DEFS, (req: Request, res: Response) => {
-  return generateDefsRequestHandler(req, res, true);
+  return generateDefsController(req, res, true);
 });
 
 defapiRouter.get(API_PATH_DOCS, (req: Request, res: Response) => {});

@@ -1,4 +1,4 @@
-import _config from '../common/_config';
+import appConfig from '../common/appConfig';
 import { ICommandInfo } from './index';
 
 const parseCliArgs = (argv: any): ICommandInfo => {
@@ -11,7 +11,7 @@ const parseCliArgs = (argv: any): ICommandInfo => {
   const commands = argv._;
   commandInfo.name = (commands && commands.length > 0 ? commands[0] : '').trim();
 
-  if (_config.isDev()) {
+  if (appConfig.isDev()) {
     console.log({ name: commandInfo.name });
   }
 
@@ -21,7 +21,7 @@ const parseCliArgs = (argv: any): ICommandInfo => {
     }
   });
 
-  if (_config.isDev()) {
+  if (appConfig.isDev()) {
     console.log({ args: commandInfo.args });
   }
 
@@ -35,7 +35,7 @@ const parseCliArgs = (argv: any): ICommandInfo => {
     }
   }
 
-  if (_config.isDev()) {
+  if (appConfig.isDev()) {
     console.log({ options: commandInfo.options });
   }
 

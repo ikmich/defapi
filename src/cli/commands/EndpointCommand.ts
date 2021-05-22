@@ -3,12 +3,12 @@ import ut, { getDefFileTitle, no, yes } from '../../common/util';
 
 import FS from 'fs-extra';
 import Path from 'path';
-import fileUtil from '../../common/util/file-util';
+import fileUtil from '../../common/util/fileUtil';
 import conprint from '../../common/util/conprint';
 import askInput from '../ask/ask-input';
 import { askUtil } from '../ask';
-import { generateEndpointDefFile } from '../../common/util/generate-endpoint-def-file';
-import { EndpointDef, Stringx } from '../../index';
+import { generateEndpointDefFile } from '../../common/util/generateEndpointDefFile';
+import { EndpointDef, Stringx } from '../../types';
 import { NoMethodError, NoPathError } from '../../common/errors';
 
 /**

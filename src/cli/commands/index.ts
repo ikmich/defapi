@@ -1,4 +1,3 @@
-
 export const CMD_CONFIG = 'config';
 export const CMD_FULL_CONFIG = 'defapi config';
 

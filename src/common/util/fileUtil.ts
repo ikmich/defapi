@@ -1,9 +1,9 @@
-import { CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIR_NAME } from '../constants';
-import configUtil from './config-util';
-import { DefapiConfig } from '../../index';
+import { DEFAPI_CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIRNAME } from '../constants';
+import configUtil from './configUtil';
 import ut, { yes } from './index';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
+import { DefapiConfig } from '../../types';
 
 const fileUtil = {
   getBaseDir() {
@@ -12,7 +12,7 @@ const fileUtil = {
 
   getConfigPath() {
     const baseDir = process.cwd();
-    return Path.resolve(baseDir, CONFIG_FILENAME);
+    return Path.resolve(baseDir, DEFAPI_CONFIG_FILENAME);
   },
 
   getSrcPath(conf?: DefapiConfig): string {
@@ -34,7 +34,7 @@ const fileUtil = {
 
   getDefsDir(conf?: DefapiConfig): string {
     const srcPath = this.getSrcPath(conf);
-    const defsDir = Path.resolve(srcPath, DEFS_DIR_NAME);
+    const defsDir = Path.resolve(srcPath, DEFS_DIRNAME);
     FS.ensureDirSync(defsDir);
     return defsDir;
   }

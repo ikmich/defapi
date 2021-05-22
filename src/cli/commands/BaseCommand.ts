@@ -1,7 +1,7 @@
 import execShellCmd from '../exec-shell-cmd';
 import parseError from '../parse-error';
 import { ICommandInfo, ICommandOptions } from '../index';
-import { Stringx } from '../../index';
+import { Stringx } from '../../types';
 
 export class BaseCommand {
   public commandInfo: ICommandInfo;

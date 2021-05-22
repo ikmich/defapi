@@ -3,7 +3,6 @@ type Obj = {
 };
 
 function jsonStringify(ob: any, startDepth = 0) {
-
   function buildString(ob: Obj | any[], output: string, depth = 0) {
     const _depth = depth;
 

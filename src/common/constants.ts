@@ -1,11 +1,9 @@
-export const MANIFEST_FILENAME = 'defapi-manifest.js';
-export const CONFIG_FILENAME = 'defapi-config.js';
-export const API_DEF_FILENAME = 'api.defapi.js';
+export const DEFAPI_CONFIG_FILENAME = 'defapi-config.js';
 export const DEFAULT_SRC_PATH = '.';
 
 const __defapi = '__defapi';
-export const DEFS_DIR_NAME = `${__defapi}/defs/current`;
-export const DEFS_DIR_PUBLIC_HTML = `${__defapi}/docs/html`
+export const DEFS_DIRNAME = `${__defapi}/defs/current`;
+export const DEFS_DIR_PUBLIC_HTML = `${__defapi}/docs/html`;
 // ----
 export const API_PATH_ENDPOINTS = '/defapi/endpoints';
 export const API_PATH_DOCS = '/defapi/docs/view';

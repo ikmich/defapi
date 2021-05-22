@@ -1,12 +1,12 @@
 import { Express, Request, Response } from 'express';
 import FS from 'fs-extra';
-import { EndpointDef } from '../../index';
+import { EndpointDef } from '../../types';
 import { getEndpoints } from '../index';
-import configUtil from "../../common/util/config-util";
-import ut, {_def, httpFail, httpSuccess, no, yes} from "../../common/util";
-import {DEFAULT_SRC_PATH} from "../../common/constants";
-import fileUtil from "../../common/util/file-util";
-import {generateEndpointDefFile} from "../../common/util/generate-endpoint-def-file";
+import configUtil from '../../common/util/configUtil';
+import ut, { _def, httpFail, httpSuccess, no, yes } from '../../common/util';
+import { DEFAULT_SRC_PATH } from '../../common/constants';
+import fileUtil from '../../common/util/fileUtil';
+import { generateEndpointDefFile } from '../../common/util/generateEndpointDefFile';
 
 export type InitDefsResult = {
   error?: string | Error;
@@ -20,13 +20,13 @@ export type InitDefsResult = {
  * @param res
  * @param isUpdate
  */
-function generateDefsRequestHandler(req: Request, res: Response, isUpdate?: boolean) {
+function generateDefsController(req: Request, res: Response, isUpdate?: boolean) {
   try {
     let responseData: any = {
       logs: []
     };
 
-    const shouldResetDefs = ['true', '1'].includes(<string>req.query.reset) || false;
+    const shouldResetDefs = ['true', '1', 'yes'].includes(<string>req.query.reset) || false;
     if (shouldResetDefs) {
       isUpdate = false;
     }
@@ -70,4 +70,4 @@ function generateDefsRequestHandler(req: Request, res: Response, isUpdate?: bool
   }
 }
 
-export default generateDefsRequestHandler;
+export default generateDefsController;

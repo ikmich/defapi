@@ -1,8 +1,8 @@
 import { getDefFileTitle, yes } from './index';
 import Path from 'path';
-import fileUtil from './file-util';
+import fileUtil from './fileUtil';
 import FS from 'fs-extra';
-import { EndpointDef } from '../../index';
+import { EndpointDef } from '../../types';
 import conprint from './conprint';
 import jsonStringify from './jsonStringify';
 
@@ -21,6 +21,8 @@ export function generateEndpointDefFile(def: EndpointDef, meta?: TGenDefFileMeta
   const filename = `${getDefFileTitle(def)}.js`;
   const filepath = Path.resolve(defsDir, filename);
   let defaultTitle = `${def.method} ${def.path}`;
+
+  // Todo - Get data from decorators at this point.
 
   if (isUpdate) {
     if (FS.existsSync(filepath)) {

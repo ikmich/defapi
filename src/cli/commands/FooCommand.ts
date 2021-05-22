@@ -1,13 +1,13 @@
-import BaseCommand from "./BaseCommand";
-import configUtil from "../../common/util/config-util";
+import BaseCommand from './BaseCommand';
+import configUtil from '../../common/util/configUtil';
 
 class FooCommand extends BaseCommand {
   async run() {
     await super.run();
 
     const config = configUtil.getConfig();
-    console.log({config});
+    console.log({ config });
   }
 }
 
-export default FooCommand
+export default FooCommand;

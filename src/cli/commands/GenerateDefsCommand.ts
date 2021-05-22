@@ -1,9 +1,9 @@
 import BaseCommand from './BaseCommand';
-import configUtil from '../../common/util/config-util';
-import httpRequest from '../../common/util/http-request';
+import configUtil from '../../common/util/configUtil';
+import httpRequest from '../../common/util/httpRequest';
 import { no } from '../../common/util';
 import { DefapiError } from '../../common/errors';
-import {API_PATH_GENERATE_DEFS, CONFIG_FILENAME} from '../../common/constants';
+import { API_PATH_GENERATE_DEFS, DEFAPI_CONFIG_FILENAME } from '../../common/constants';
 import { IncomingMessage } from 'http';
 import conprint from '../../common/util/conprint';
 
@@ -16,7 +16,7 @@ export class GenerateDefsCommand extends BaseCommand {
 
     const baseUri = configUtil.getBaseUri();
     if (no(baseUri)) {
-      throw new DefapiError(`No base uri defined in ${CONFIG_FILENAME}.`);
+      throw new DefapiError(`No base uri defined in ${DEFAPI_CONFIG_FILENAME}.`);
     }
 
     let res: IncomingMessage;

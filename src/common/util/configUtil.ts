@@ -1,8 +1,8 @@
 import { yes } from './index';
 import { DEFAULT_SRC_PATH } from '../constants';
 import FS from 'fs';
-import { DefapiConfig, Objectx } from '../../index';
 import { PATH_TO_DEFAPI_CONFIG_FILE } from '../index';
+import { DefapiConfig, Objectx } from '../../types';
 
 const defaultConfig: DefapiConfig = {
   baseUri: '',
