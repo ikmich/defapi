@@ -1,18 +1,18 @@
-import { DEFAPI_CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIRNAME } from '../constants';
 import configUtil from './configUtil';
 import _util, { yes } from './index';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
 import { DefapiConfig } from '../../types';
+import { CONFIG_FILENAME, DEFAULT_SRC_PATH, DEFS_DIR_PATH_REL } from '../index';
 
 const fileUtil = {
   getBaseDir() {
     return process.cwd();
   },
 
-  getConfigPath() {
+  getConfigFilePath() {
     const baseDir = process.cwd();
-    return Path.resolve(baseDir, DEFAPI_CONFIG_FILENAME);
+    return Path.resolve(baseDir, CONFIG_FILENAME);
   },
 
   getSrcPath(conf?: DefapiConfig): string {
@@ -28,15 +28,19 @@ const fileUtil = {
       return DEFAULT_SRC_PATH;
     });
 
-    if (!FS.existsSync(srcPath)) throw new DefapiError('src path not found');
+    if (!FS.existsSync(srcPath)) throw new DefapiError('srcPath not found');
     return Path.resolve(this.getBaseDir(), srcPath);
   },
 
   getDefsDir(conf?: DefapiConfig): string {
     const srcPath = this.getSrcPath(conf);
-    const defsDir = Path.resolve(srcPath, DEFS_DIRNAME);
+    const defsDir = Path.resolve(srcPath, DEFS_DIR_PATH_REL);
     FS.ensureDirSync(defsDir);
     return defsDir;
+  },
+
+  exists(filepath: string): boolean {
+    return FS.existsSync(filepath);
   },
 
   /**

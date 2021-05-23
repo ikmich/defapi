@@ -1,17 +1,21 @@
 import { Request, Response } from 'express';
-import fileUtil from '../../common/util/fileUtil';
-import FS from 'fs-extra';
+import { EndpointDef } from '../../types';
+import { getEndpoints } from '../index';
+import { composeDef } from '../../common/impl/composeDef';
 
 function getDefsJsonController(req: Request, res: Response) {
-  let defsDir = fileUtil.getDefsDir();
+  let defs: EndpointDef[] = getEndpoints(req.app);
+  const jsob: { [k: string]: object } = {};
 
-  let entries = FS.readdirSync(defsDir);
-  const isEmptyDir = !(Array.isArray(entries) && entries.length);
-
-  // TODO - CONTINUE -- Download defs as json content type response
-  if (isEmptyDir) {
-    // Need to generate defs.
+  for (let def of defs) {
+    let key = `${def.method} ${def.path}`;
+    jsob[key] = composeDef(def);
   }
+
+  const jsonOutput = JSON.stringify(jsob);
+
+  res.setHeader('content-type', 'text/json');
+  res.status(200).send(Buffer.from(jsonOutput));
 }
 
 export default getDefsJsonController;

@@ -1,10 +1,11 @@
 // noinspection JSUnusedGlobalSymbols
 
 import 'reflect-metadata';
-import {EndpointDef} from '../types';
-import {_def, _defId, yes} from '../common/util';
-import {Request} from 'express';
-import {store} from '../common/util/store';
+import { EndpointDef } from '../types';
+import { ifdev, yes } from '../common/util';
+import { Request } from 'express';
+import { store } from '../common/util/store';
+import {_def, _defId} from "../common/defs";
 
 const KEY_DECOR_DEF_QUERY = Symbol('defQuery');
 const KEY_DECOR_DEF_BODY = Symbol('defRequest');
@@ -46,7 +47,7 @@ export function defBody(bodyParamKey: string) {
 export function defQuery(queryParamKey: string) {
   return function (target: any, propertyKey: string | symbol, parameterIndex: number) {
     let typeData = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-    let metadata: TDecorDefQueryMetadata = {queryParamKey, type: Object, parameterIndex};
+    let metadata: TDecorDefQueryMetadata = { queryParamKey, type: Object, parameterIndex };
     if (typeData && typeData.length) {
       for (let i = 0; i < typeData.length; i++) {
         if (i === parameterIndex) {
@@ -68,15 +69,15 @@ export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
    */
 
   return function (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) {
-    // ifdev(() => {
-    //   console.log('\n+++[@defEndpoint]+++');
-    // });
+    ifdev(() => {
+      console.log('\n+++[@defEndpoint]+++');
+    });
 
     const defQueryMetadata: TDecorDefQueryMetadata[] =
-        Reflect.getOwnMetadata(KEY_DECOR_DEF_QUERY, target, propertyKey) || [];
+      Reflect.getOwnMetadata(KEY_DECOR_DEF_QUERY, target, propertyKey) || [];
 
     const defBodyMetadata: TDecorDefBodyMetadata[] =
-        Reflect.getOwnMetadata(KEY_DECOR_DEF_BODY, target, propertyKey) || [];
+      Reflect.getOwnMetadata(KEY_DECOR_DEF_BODY, target, propertyKey) || [];
 
     if (yes(method) && decorDef && yes(decorDef.path)) {
       decorDef.method = method;
@@ -106,19 +107,18 @@ export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
       }
     }
 
-
-    // ifdev(() => {
-    //   console.log({def: decorDef});
-    //   console.log({
-    //     propertyKey,
-    //     defQueryMetadata,
-    //     defBodyMetadata
-    //   });
-    // });
+    ifdev(() => {
+      console.log({ def: decorDef });
+      console.log({
+        propertyKey,
+        defQueryMetadata,
+        defBodyMetadata
+      });
+    });
 
     // ----
 
-    // Process @defQuery() 
+    // Process @defQuery()
     if (defQueryMetadata && defQueryMetadata.length) {
       const originalFn: Function = propertyDescriptor.value;
       try {

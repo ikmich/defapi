@@ -2,7 +2,7 @@ type Obj = {
   [k in number | string]: any;
 };
 
-function toStringForJson(ob: any, startDepth = 0) {
+function objToWritableString(ob: any, startDepth = 0) {
   function buildString(ob: Obj | any[], output: string, depth = 0) {
     const _depth = depth;
 
@@ -72,4 +72,4 @@ function toStringForJson(ob: any, startDepth = 0) {
   return ob;
 }
 
-export default toStringForJson;
+export default objToWritableString;

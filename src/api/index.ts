@@ -1,12 +1,14 @@
-import { Express, Response } from 'express';
+import { Application, Express, Response } from 'express';
 import { EndpointDef } from '../types';
 import listEndpoints, { Endpoint } from 'express-list-endpoints';
-import { excludedPaths } from '../common/constants';
-import { _def, _method, _path } from '../common/util';
+import { yes } from '../common/util';
 import { HttpError } from '../common/errors';
+import configUtil from '../common/util/configUtil';
+import { DEFAULT_ROUTE_PATH, excludedPaths } from '../common';
+import {_def, _method, _path} from "../common/defs";
 
-export function getEndpoints(app: Express): EndpointDef[] {
-  const endpoints: Endpoint[] = Array.from(listEndpoints(app));
+export function getEndpoints(app: Express | Application): EndpointDef[] {
+  const endpoints: Endpoint[] = Array.from(listEndpoints(<Express>app));
   const defs: EndpointDef[] = [];
 
   endpoints.forEach((endpoint) => {
@@ -68,3 +70,16 @@ export const httpFail = (res: Response, error: string | Error | HttpError, httpC
 
   res.status(httpCode).json(body);
 };
+
+export const API_PATH_ENDPOINTS = `/${getApiRouteName()}/endpoints`;
+export const API_PATH_DOCS = `/${getApiRouteName()}/docs/view`;
+export const API_PATH_GENERATE_DEFS = `/${getApiRouteName()}/defs/generate`;
+export const API_PATH_GET_JSON = `/${getApiRouteName()}/defs/json`;
+
+function getApiRouteName() {
+  let configRouteName = configUtil.getRouteName();
+  if (yes(configRouteName)) {
+    return configRouteName.replace(/^\/+/, '');
+  }
+  return DEFAULT_ROUTE_PATH.replace(/^\/+/, '');
+}

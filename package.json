@@ -11,8 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
     "prepublishOnly": "npm run build",
-    "postbuild": "./dev/push-lib.sh",
-    "test-store": "ts-node src/dev-test/test-store.ts"
+    "postbuild": "dev/dev-deploy.sh"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "MIT",
@@ -33,6 +32,7 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "cross-env": "^7.0.3",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1"

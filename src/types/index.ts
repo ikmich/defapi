@@ -47,5 +47,6 @@ export interface DefapiConfig {
   baseUri?: BaseUriDef;
   srcPath?: string;
   title?: string;
-  headers?: Objectx | (() => Objectx);
+  defaultHeaders?: Objectx | (() => Objectx);
+  routeName?: string;
 }

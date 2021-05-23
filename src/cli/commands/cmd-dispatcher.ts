@@ -1,7 +1,6 @@
-import { CMD_CONFIG, CMD_GENERATE_DEFS } from './index';
-import { ConfigCommand } from './ConfigCommand';
+import { InitCommand } from './InitCommand';
 import { GenerateDefsCommand } from './GenerateDefsCommand';
-import { ICommandInfo } from '../index';
+import {CMD_GENERATE_DEFS, CMD_INIT, ICommandInfo} from '../index';
 
 const cmdDispatcher = {
   dispatch: async (commandInfo: ICommandInfo) => {
@@ -20,8 +19,8 @@ const cmdDispatcher = {
     }
 
     switch (mainCommand) {
-      case CMD_CONFIG:
-        await new ConfigCommand(commandInfo).run();
+      case CMD_INIT:
+        await new InitCommand(commandInfo).run();
         break;
 
       case CMD_GENERATE_DEFS:
