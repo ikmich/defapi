@@ -6,19 +6,19 @@ import {
   DEFAULT_SRC_PATH,
   defaultConfig,
   PATH_TO_COMMON_DIR,
-  PATH_TO_DEFAPI_CONFIG_FILE
+  PATH_TO_IMPORTED_CONFIG_FILE
 } from '../index';
 import { FS, Path } from '../depds';
 
 const configUtil = {
   getConfig(): DefapiConfig {
     try {
-      let configPath = PATH_TO_DEFAPI_CONFIG_FILE;
+      let configPath = PATH_TO_IMPORTED_CONFIG_FILE;
       if (!fileUtil.exists(configPath)) {
         return defaultConfig;
       }
 
-      const config: DefapiConfig = require(configPath);
+      const config: DefapiConfig = require(configPath) ?? {};
       if (typeof config.baseUri === 'function') {
         config.baseUri = config.baseUri();
       }
@@ -62,9 +62,9 @@ const configUtil = {
     return config.title ?? '';
   },
 
-  getRouteName(): string {
+  getDefapiRoutePrefix(): string {
     const config = this.getConfig();
-    return config.routeName ?? '';
+    return config.defapi?.routePrefix ?? '';
   },
 
   getHeaders(): Objectx {

@@ -1,15 +1,12 @@
 import { Request, Response } from 'express';
-import Fs from 'fs-extra';
-import Path from 'path';
-import FS from 'fs-extra';
-import fileUtil from '../../common/util/fileUtil';
+import { HTML_INDEX_PATH } from '../index';
 
 function viewDocsController(req: Request, res: Response) {
-  let defsDir = fileUtil.getDefsDir();
-  let entries = FS.readdirSync(defsDir);
-  let isEmptyDefsDir: boolean = !(Array.isArray(entries) && entries.length);
-
-  // Todo - continue - read def files to render html docs
+  // Todo - continue
+  // const html = fileUtil.read(HTML_INDEX_PATH) ?? '';
+  res.setHeader('content-type', 'text/html');
+  // res.status(200).send(Buffer.from(html));
+  res.status(200).sendFile(HTML_INDEX_PATH);
 }
 
 export { viewDocsController };

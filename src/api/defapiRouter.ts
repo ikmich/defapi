@@ -4,6 +4,7 @@ import generateDefsController from './controllers/generateDefsController';
 import getDefsJsonController from './controllers/getDefsJsonController';
 import { API_PATH_DOCS, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, API_PATH_GET_JSON } from '.';
 import configUtil from '../common/util/configUtil';
+import { viewDocsController } from './controllers/viewDocsController';
 
 const defapiRouter = Router();
 
@@ -33,7 +34,7 @@ defapiRouter.get(API_PATH_GET_JSON, (req: Request, res: Response) => {
 });
 
 defapiRouter.get(API_PATH_DOCS, (req: Request, res: Response) => {
-  // todo - docs path
+  viewDocsController(req, res);
 });
 
 export { defapiRouter };

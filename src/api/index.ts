@@ -4,8 +4,9 @@ import listEndpoints, { Endpoint } from 'express-list-endpoints';
 import { yes } from '../common/util';
 import { HttpError } from '../common/errors';
 import configUtil from '../common/util/configUtil';
-import { DEFAULT_ROUTE_PATH, excludedPaths } from '../common';
-import {_def, _method, _path} from "../common/defs";
+import { DEFAULT_ROUTE_PREFIX, excludedPaths } from '../common';
+import { _def, _method, _path } from '../common/defs';
+import {Path} from "../common/depds";
 
 export function getEndpoints(app: Express | Application): EndpointDef[] {
   const endpoints: Endpoint[] = Array.from(listEndpoints(<Express>app));
@@ -26,11 +27,7 @@ export function getEndpoints(app: Express | Application): EndpointDef[] {
   });
 
   return defs.map((def) => {
-    def = _def(def);
-    return {
-      ...def,
-      title: def.path
-    };
+    return _def(def);
   });
 }
 
@@ -71,15 +68,17 @@ export const httpFail = (res: Response, error: string | Error | HttpError, httpC
   res.status(httpCode).json(body);
 };
 
-export const API_PATH_ENDPOINTS = `/${getApiRouteName()}/endpoints`;
-export const API_PATH_DOCS = `/${getApiRouteName()}/docs/view`;
-export const API_PATH_GENERATE_DEFS = `/${getApiRouteName()}/defs/generate`;
-export const API_PATH_GET_JSON = `/${getApiRouteName()}/defs/json`;
+export const API_PATH_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
+export const API_PATH_DOCS = `/${getDefapiRoutePrefix()}/docs/html`;
+export const API_PATH_GENERATE_DEFS = `/${getDefapiRoutePrefix()}/defs/generate`;
+export const API_PATH_GET_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
 
-function getApiRouteName() {
-  let configRouteName = configUtil.getRouteName();
-  if (yes(configRouteName)) {
-    return configRouteName.replace(/^\/+/, '');
+export const HTML_INDEX_PATH = Path.join(__dirname, '../../public/html/index.html');
+
+function getDefapiRoutePrefix() {
+  let routePrefix = configUtil.getDefapiRoutePrefix();
+  if (yes(routePrefix)) {
+    return routePrefix.replace(/^\/+/, '');
   }
-  return DEFAULT_ROUTE_PATH.replace(/^\/+/, '');
+  return DEFAULT_ROUTE_PREFIX.replace(/^\/+/, '');
 }

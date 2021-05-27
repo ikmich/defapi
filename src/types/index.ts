@@ -37,10 +37,7 @@ export type ResponseDef = {
   headers?: Objectx;
   [k: string]: any;
 };
-export type ApiManifest = {
-  baseUri: string;
-  endpoints: Array<EndpointDef>;
-};
+
 export type BaseUriDef = string | (() => string);
 
 export interface DefapiConfig {
@@ -48,5 +45,7 @@ export interface DefapiConfig {
   srcPath?: string;
   title?: string;
   defaultHeaders?: Objectx | (() => Objectx);
-  routeName?: string;
+  defapi?: {
+    routePrefix?: string;
+  };
 }

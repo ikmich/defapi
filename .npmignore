@@ -4,3 +4,4 @@ dev/
 src/
 yarn-error.log
 dev-test
+coverage

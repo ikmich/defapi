@@ -1,5 +1,5 @@
 import { Express, Request, Response } from 'express';
-import { getEndpoints, httpSuccess } from '../index';
+import { getEndpoints, httpSuccess } from '../';
 
 function getEndpointsController(req: Request, res: Response) {
   let endpointDefs = getEndpoints(req.app as Express);

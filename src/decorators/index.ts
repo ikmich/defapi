@@ -63,11 +63,6 @@ export function defQuery(queryParamKey: string) {
 }
 
 export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
-  /* Todo - Continue
-   *   - Combine opts with the request object, to capture definitions.
-   *   - Create map of key (def id) to EndpointDef.
-   */
-
   return function (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) {
     ifdev(() => {
       console.log('\n+++[@defEndpoint]+++');
