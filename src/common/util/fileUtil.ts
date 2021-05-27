@@ -17,8 +17,8 @@ const fileUtil = {
 
   getSrcPath(conf?: DefapiConfig): string {
     let srcPath = _util.fn(() => {
-      if (conf && yes(conf.srcPath)) {
-        return conf.srcPath;
+      if (conf && yes(conf.project.srcPath)) {
+        return conf.project.srcPath;
       }
 
       if (yes(configUtil.getSrcPath())) {

@@ -6,7 +6,7 @@ import { HttpError } from '../common/errors';
 import configUtil from '../common/util/configUtil';
 import { DEFAULT_ROUTE_PREFIX, excludedPaths } from '../common';
 import { _def, _method, _path } from '../common/defs';
-import {Path} from "../common/depds";
+import { Path } from '../common/depds';
 
 export function getEndpoints(app: Express | Application): EndpointDef[] {
   const endpoints: Endpoint[] = Array.from(listEndpoints(<Express>app));

@@ -6,7 +6,6 @@ import askInput from '../ask/ask-input';
 import { askUtil } from '../ask';
 import conprint from '../../common/util/conprint';
 import { CONFIG_FILENAME, defaultConfig } from '../../common';
-import { _baseUri } from '../../common/defs';
 import askSelect from '../ask/ask-select';
 
 /**
@@ -21,8 +20,9 @@ export class InitCommand extends BaseCommand {
 
     let initConfig: DefapiConfig = {
       ...defaultConfig,
-      baseUri: _baseUri(this.options.baseUri ?? ''),
-      srcPath: this.options.srcPath ?? '.'
+      project: {
+        srcPath: this.options.srcPath ?? '.'
+      }
     };
 
     if (hasConfigFile) {
@@ -49,7 +49,7 @@ export class InitCommand extends BaseCommand {
     );
 
     if (Array.isArray(choice) && Object.keys(ASK_SELECT_OPTS_MAP).includes(choice[0])) {
-      initConfig.srcPath = ASK_SELECT_OPTS_MAP[choice[0]];
+      initConfig.project.srcPath = ASK_SELECT_OPTS_MAP[choice[0]];
     }
 
     // create default config

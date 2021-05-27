@@ -19,12 +19,12 @@ const configUtil = {
       }
 
       const config: DefapiConfig = require(configPath) ?? {};
-      if (typeof config.baseUri === 'function') {
-        config.baseUri = config.baseUri();
+      if (typeof config.api.baseUri === 'function') {
+        config.api.baseUri = config.api.baseUri();
       }
 
-      if (!config.baseUri) {
-        config.baseUri = '';
+      if (!config.api.baseUri) {
+        config.api.baseUri = '';
       }
 
       return config;
@@ -36,21 +36,21 @@ const configUtil = {
 
   getSrcPath(): string {
     const config = this.getConfig();
-    if (yes(config.srcPath)) {
-      return config.srcPath!.replace(/^\/+/, '');
+    if (yes(config.project.srcPath)) {
+      return config.project.srcPath!.replace(/^\/+/, '');
     }
     return DEFAULT_SRC_PATH;
   },
 
   getBaseUri(): string {
     const config = this.getConfig();
-    if (config.baseUri) {
-      if (typeof config.baseUri === 'string') {
-        return config.baseUri;
+    if (config.api.baseUri) {
+      if (typeof config.api.baseUri === 'string') {
+        return config.api.baseUri;
       }
 
-      if (typeof config.baseUri === 'function') {
-        return config.baseUri();
+      if (typeof config.api.baseUri === 'function') {
+        return config.api.baseUri();
       }
     }
 
@@ -59,20 +59,20 @@ const configUtil = {
 
   getTitle(): string {
     const config = this.getConfig();
-    return config.title ?? '';
+    return config.api.title ?? '';
   },
 
   getDefapiRoutePrefix(): string {
     const config = this.getConfig();
-    return config.defapi?.routePrefix ?? '';
+    return config.defapi.routePrefix ?? '';
   },
 
   getHeaders(): Objectx {
     const config = this.getConfig();
-    if (typeof config.defaultHeaders === 'function') {
-      return config.defaultHeaders();
+    if (typeof config.api.defaultHeaders === 'function') {
+      return config.api.defaultHeaders();
     } else {
-      return config.defaultHeaders;
+      return config.api.defaultHeaders;
     }
   },
 

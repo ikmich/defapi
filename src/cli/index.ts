@@ -8,7 +8,6 @@ export const CMD_INIT = 'init';
 export const CMD_GENERATE_DEFS = 'generate';
 
 export interface ICommandOptions {
-  baseUri?: string;
   srcPath?: string;
 }
 

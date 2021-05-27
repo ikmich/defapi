@@ -41,11 +41,15 @@ export type ResponseDef = {
 export type BaseUriDef = string | (() => string);
 
 export interface DefapiConfig {
-  baseUri?: BaseUriDef;
-  srcPath?: string;
-  title?: string;
-  defaultHeaders?: Objectx | (() => Objectx);
-  defapi?: {
+  api: {
+    baseUri?: BaseUriDef;
+    title?: string;
+    defaultHeaders?: Objectx | (() => Objectx);
+  };
+  project: {
+    srcPath?: string;
+  };
+  defapi: {
     routePrefix?: string;
   };
 }
