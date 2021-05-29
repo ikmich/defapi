@@ -5,7 +5,7 @@ import { EndpointDef } from '../types';
 import { ifdev, yes } from '../common/util';
 import { Request } from 'express';
 import { store } from '../common/util/store';
-import {_def, _defId} from "../common/defs";
+import { _def, _defId } from '../common/defs';
 
 const KEY_DECOR_DEF_QUERY = Symbol('defQuery');
 const KEY_DECOR_DEF_BODY = Symbol('defRequest');
@@ -78,28 +78,64 @@ export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
       decorDef.method = method;
       decorDef = decorDef ? _def(decorDef as EndpointDef) : {};
 
-      if (yes(decorDef.path)) {
-        decorDef.method = method.toUpperCase();
-        const storeKey = _defId(<EndpointDef>decorDef);
+      decorDef.method = method.toUpperCase();
+      const storeKey = _defId(<EndpointDef>decorDef);
 
-        // capture queryParams
-        let _queryParams: any = {};
-        for (let md of defQueryMetadata) {
-          _queryParams[md.queryParamKey] = md.type.name;
-        }
-
-        decorDef.queryParams = Object.assign({}, decorDef.queryParams, _queryParams);
-
-        // capture bodyParams
-        let _bodyParams: any = {};
-        for (let md of defBodyMetadata) {
-          _bodyParams[md.bodyParamKey] = md.type.name;
-        }
-        if (!decorDef.bodyParams) decorDef.bodyParams = {};
-        decorDef.bodyParams = Object.assign({}, decorDef.bodyParams, _bodyParams);
-
-        store.save(storeKey, decorDef);
+      // capture queryParams
+      let defQueryParams: any = {};
+      for (let md of defQueryMetadata) {
+        defQueryParams[md.queryParamKey] = md.type.name.toLowerCase();
       }
+
+      let keys_defQueryParams = Object.keys(defQueryParams);
+      if (keys_defQueryParams.length) {
+        if (!decorDef.queryParams) {
+          decorDef.queryParams = Object.assign({}, defQueryParams);
+        } else {
+          for (let key of keys_defQueryParams) {
+            const value_defQueryParam = defQueryParams[key];
+            const value_decorDef_queryParam = decorDef.queryParams[key];
+            if (typeof value_decorDef_queryParam === 'string') {
+              decorDef.queryParams[key] = value_defQueryParam;
+            } else if (typeof value_decorDef_queryParam === typeof {}) {
+              decorDef.queryParams[key] = Object.assign({}, decorDef.queryParams[key], {
+                type: value_defQueryParam
+              });
+            } else {
+              decorDef.queryParams[key] = defQueryParams[key];
+            }
+          }
+        }
+      }
+
+      // capture bodyParams
+      let defBodyParams: any = {};
+      for (let md of defBodyMetadata) {
+        defBodyParams[md.bodyParamKey] = md.type.name.toLowerCase();
+      }
+
+      let keys_defBodyParams = Object.keys(defBodyParams);
+      if (keys_defBodyParams.length) {
+        if (!decorDef.bodyParams) {
+          decorDef.bodyParams = Object.assign({}, defBodyParams);
+        } else {
+          for (let key of keys_defBodyParams) {
+            const value_defBodyParam = defBodyParams[key];
+            const value_decorDef_bodyParam = decorDef.bodyParams[key];
+            if (typeof value_decorDef_bodyParam === 'string') {
+              decorDef.bodyParams[key] = value_defBodyParam;
+            } else if (typeof value_decorDef_bodyParam === typeof {}) {
+              decorDef.bodyParams[key] = Object.assign({}, decorDef.bodyParams[key], {
+                type: value_defBodyParam
+              });
+            } else {
+              decorDef.bodyParams[key] = defBodyParams[key];
+            }
+          }
+        }
+      }
+
+      store.save(storeKey, decorDef);
     }
 
     ifdev(() => {

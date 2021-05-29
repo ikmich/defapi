@@ -13,6 +13,15 @@ export interface EndpointDef {
 export type Objectx = object | null | undefined;
 export type Stringx = string | null | undefined;
 export type Arrayx<T> = Array<T> | null | undefined;
+
+export type CompositeTypeDef = {
+  type?: string;
+  description?: string;
+  defaultValue?: any;
+  options?: any[];
+};
+
+export type TypeDef = CompositeTypeDef | Stringx;
 export type TQueryParamsDef = {
   [k: string]: TypeDef;
 };
@@ -23,14 +32,6 @@ export type TResponseBodyDef = { [k: string]: TResponseBody } | TResponseBody | 
 export type TResponseBody = {
   [k: string]: TypeDef;
 } | null;
-export type TypeDef =
-  | {
-      type: string;
-      description?: string;
-      defaultValue?: any;
-      options?: any[];
-    }
-  | Stringx;
 export type ResponseDef = {
   type?: Stringx;
   body?: TResponseBodyDef;

@@ -21,10 +21,6 @@ const argv = yargs
   .command(CMD_INIT, 'Create defapi configuration file, and perform other initialization setups')
   .command(CMD_GENERATE_DEFS, 'Generate/update endpoint definition files')
   .options({
-    baseUri: {
-      type: 'string',
-      desc: 'The base uri of the api'
-    },
     srcPath: {
       type: 'string',
       desc: 'The path to the folder that contains project source files'
