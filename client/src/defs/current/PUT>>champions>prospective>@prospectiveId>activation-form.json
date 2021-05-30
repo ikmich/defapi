@@ -1,0 +1,9 @@
+{
+  "path": "/champions/prospective/:prospectiveId/activation-form",
+  "method": "PUT",
+  "title": "/champions/prospective/:prospectiveId/activation-form",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

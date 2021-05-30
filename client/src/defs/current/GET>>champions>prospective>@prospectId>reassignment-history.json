@@ -1,0 +1,7 @@
+{
+  "path": "/champions/prospective/:prospectId/reassignment-history",
+  "method": "GET",
+  "title": "/champions/prospective/:prospectId/reassignment-history",
+  "queryParams": {},
+  "headers": {}
+}

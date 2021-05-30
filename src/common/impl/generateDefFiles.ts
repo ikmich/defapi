@@ -7,7 +7,7 @@ import {_defFilename, _defId} from "../defs";
 
 export function generateDefFiles(defs: EndpointDef[], opts: GenerateDefOptions) {
   const map = getDefsDataStringMap(defs, opts);
-  let defsDir = fileUtil.getDefsDir();
+  let defsDir = fileUtil.getDefsJsonDir();
   defs.forEach((def) => {
     const filepath = Path.join(defsDir, _defFilename(def));
     let content = map[_defId(def)];

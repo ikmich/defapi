@@ -1,0 +1,9 @@
+{
+  "path": "/champions/telesales/reassign-prospects",
+  "method": "PUT",
+  "title": "/champions/telesales/reassign-prospects",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

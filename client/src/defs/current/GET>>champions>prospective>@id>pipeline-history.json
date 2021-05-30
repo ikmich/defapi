@@ -1,0 +1,7 @@
+{
+  "path": "/champions/prospective/:id/pipeline-history",
+  "method": "GET",
+  "title": "/champions/prospective/:id/pipeline-history",
+  "queryParams": {},
+  "headers": {}
+}

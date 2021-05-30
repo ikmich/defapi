@@ -7,7 +7,7 @@ import { _defFilename, _defId } from '../defs';
 
 export function composeDef(pureDef: EndpointDef, shouldUpdate = true): EndpointDef {
   let _def = Object.assign({}, pureDef);
-  let defsDir = fileUtil.getDefsDir();
+  let defsDir = fileUtil.getDefsJsonDir();
   const filepath = Path.join(defsDir, _defFilename(_def));
 
   if (shouldUpdate) {

@@ -1,0 +1,9 @@
+{
+  "path": "/champions/champion",
+  "method": "POST",
+  "title": "/champions/champion",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

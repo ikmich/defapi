@@ -1,0 +1,7 @@
+{
+  "path": "/champions/prospective/locations",
+  "method": "GET",
+  "title": "/champions/prospective/locations",
+  "queryParams": {},
+  "headers": {}
+}

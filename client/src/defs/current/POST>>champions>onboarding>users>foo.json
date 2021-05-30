@@ -1,0 +1,15 @@
+{
+  "path": "/champions/onboarding/users/foo",
+  "method": "POST",
+  "title": "Foo tests for defapi",
+  "queryParams": {
+    "name": "string",
+    "stats": "string"
+  },
+  "headers": {},
+  "bodyParams": {
+    "password": "string",
+    "username": "string"
+  },
+  "contentType": "?"
+}

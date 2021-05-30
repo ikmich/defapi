@@ -1,0 +1,9 @@
+{
+  "path": "/champions/prospective/activation",
+  "method": "POST",
+  "title": "/champions/prospective/activation",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

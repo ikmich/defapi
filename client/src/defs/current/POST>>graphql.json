@@ -1,0 +1,9 @@
+{
+  "path": "/graphql",
+  "method": "POST",
+  "title": "/graphql",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

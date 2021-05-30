@@ -1,0 +1,9 @@
+{
+  "path": "/champions/prospective/:id/update-status",
+  "method": "POST",
+  "title": "/champions/prospective/:id/update-status",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

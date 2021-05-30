@@ -1,0 +1,7 @@
+{
+  "path": "/champions/onboarding/pipeline/test-scheduled",
+  "method": "GET",
+  "title": "/champions/onboarding/pipeline/test-scheduled",
+  "queryParams": {},
+  "headers": {}
+}

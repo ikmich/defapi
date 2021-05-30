@@ -1,0 +1,13 @@
+{
+  "path": "/champions/telesales",
+  "method": "POST",
+  "title": "/champions/telesales",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {
+    "email": "string",
+    "role": "string",
+    "city_id": "string"
+  },
+  "contentType": "?"
+}

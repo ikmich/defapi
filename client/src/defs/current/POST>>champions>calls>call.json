@@ -1,0 +1,9 @@
+{
+  "path": "/champions/calls/call",
+  "method": "POST",
+  "title": "/champions/calls/call",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

@@ -1,0 +1,9 @@
+{
+  "path": "/champions/champion/disengage/:id",
+  "method": "PUT",
+  "title": "/champions/champion/disengage/:id",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

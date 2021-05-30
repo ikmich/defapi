@@ -1,0 +1,9 @@
+{
+  "path": "/champions/prospective/verify-vehicle",
+  "method": "POST",
+  "title": "/champions/prospective/verify-vehicle",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

@@ -5,15 +5,15 @@ import {
   CONFIG_FILENAME,
   DEFAULT_SRC_PATH,
   defaultConfig,
-  PATH_TO_COMMON_DIR,
-  PATH_TO_IMPORTED_CONFIG_FILE
+  PATH__COMMON_DIR,
+  PATH__IMPORTED_CONFIG_FILE
 } from '../index';
 import { FS, Path } from '../depds';
 
 const configUtil = {
   getConfig(): DefapiConfig {
     try {
-      let configPath = PATH_TO_IMPORTED_CONFIG_FILE;
+      let configPath = PATH__IMPORTED_CONFIG_FILE;
       if (!fileUtil.exists(configPath)) {
         return defaultConfig;
       }
@@ -37,6 +37,7 @@ const configUtil = {
   getSrcPath(): string {
     const config = this.getConfig();
     if (yes(config.project.srcPath)) {
+      // Remove leading slash - value in config should be a relative path.
       return config.project.srcPath!.replace(/^\/+/, '');
     }
     return DEFAULT_SRC_PATH;
@@ -86,14 +87,15 @@ const configUtil = {
     }
   },
 
+  /**
+   * Copy the file to the defapi project base, to prevent possible out-of-project import errors.
+   */
   importConfig() {
     const projectRoot = process.cwd();
     let defapiConfigPathInProject = Path.resolve(projectRoot, CONFIG_FILENAME);
-    /*
-     * Copy the file to the defapi project base, to prevent possible out-of-project import errors.
-     */
+
     const name = Path.basename(defapiConfigPathInProject);
-    const dest = Path.join(PATH_TO_COMMON_DIR, name);
+    const dest = Path.join(PATH__COMMON_DIR, name);
     try {
       FS.copyFileSync(defapiConfigPathInProject, dest);
     } catch (e) {

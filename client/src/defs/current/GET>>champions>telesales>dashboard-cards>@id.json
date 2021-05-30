@@ -1,0 +1,7 @@
+{
+  "path": "/champions/telesales/dashboard-cards/:id",
+  "method": "GET",
+  "title": "/champions/telesales/dashboard-cards/:id",
+  "queryParams": {},
+  "headers": {}
+}

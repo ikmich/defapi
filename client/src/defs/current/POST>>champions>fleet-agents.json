@@ -1,0 +1,9 @@
+{
+  "path": "/champions/fleet-agents",
+  "method": "POST",
+  "title": "/champions/fleet-agents",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

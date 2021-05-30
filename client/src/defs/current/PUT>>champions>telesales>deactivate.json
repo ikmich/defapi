@@ -1,0 +1,9 @@
+{
+  "path": "/champions/telesales/deactivate",
+  "method": "PUT",
+  "title": "/champions/telesales/deactivate",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

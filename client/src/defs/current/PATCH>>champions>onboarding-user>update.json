@@ -1,0 +1,9 @@
+{
+  "path": "/champions/onboarding-user/update",
+  "method": "PATCH",
+  "title": "/champions/onboarding-user/update",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

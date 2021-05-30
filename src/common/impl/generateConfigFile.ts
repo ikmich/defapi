@@ -10,6 +10,7 @@ export async function generateConfigFile(config: DefapiConfig) {
 
   try {
     fileUtil.write(configPath, contents);
+    return contents;
   } catch (e) {
     conprint.error(`[defapi.ERR] Error creating config file:`);
     console.error(e);

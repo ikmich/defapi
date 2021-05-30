@@ -1,0 +1,7 @@
+{
+  "path": "/champions/champion/:id",
+  "method": "GET",
+  "title": "Get champion by id",
+  "queryParams": {},
+  "headers": {}
+}

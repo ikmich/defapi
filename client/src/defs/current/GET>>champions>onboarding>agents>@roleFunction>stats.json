@@ -1,0 +1,7 @@
+{
+  "path": "/champions/onboarding/agents/:roleFunction/stats",
+  "method": "GET",
+  "title": "/champions/onboarding/agents/:roleFunction/stats",
+  "queryParams": {},
+  "headers": {}
+}

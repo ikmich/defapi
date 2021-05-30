@@ -1,0 +1,9 @@
+{
+  "path": "/champions/champion/:id",
+  "method": "PUT",
+  "title": "/champions/champion/:id",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

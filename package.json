@@ -1,16 +1,16 @@
 {
   "name": "defapi",
-  "version": "0.1.0-alpha",
+  "version": "1.0.0-alpha",
   "description": "Generate api definition files and docs",
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && tsc",
     "clean": "rm -rf lib",
-    "tscheck": "tsc --noEmit",
-    "watch": "rm -rf lib && tsc --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
+    "test": "echo \"No test specified\" && exit 1",
     "prepublishOnly": "npm run build",
+    "watch": "rm -rf lib && tsc --watch",
+    "tscheck": "tsc --noEmit",
+    "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
     "postbuild": "dev/dev-deploy.sh"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",

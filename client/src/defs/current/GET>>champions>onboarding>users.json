@@ -1,0 +1,7 @@
+{
+  "path": "/champions/onboarding/users",
+  "method": "GET",
+  "title": "/champions/onboarding/users",
+  "queryParams": {},
+  "headers": {}
+}

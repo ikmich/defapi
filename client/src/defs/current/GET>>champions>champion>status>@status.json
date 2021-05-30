@@ -1,0 +1,7 @@
+{
+  "path": "/champions/champion/status/:status",
+  "method": "GET",
+  "title": "/champions/champion/status/:status",
+  "queryParams": {},
+  "headers": {}
+}

@@ -1,0 +1,7 @@
+{
+  "path": "/champions/champion/search/:querystring",
+  "method": "GET",
+  "title": "/champions/champion/search/:querystring",
+  "queryParams": {},
+  "headers": {}
+}

@@ -1,0 +1,7 @@
+{
+  "path": "/champions/onboarding-stages/stage-statuses/:stageId",
+  "method": "GET",
+  "title": "/champions/onboarding-stages/stage-statuses/:stageId",
+  "queryParams": {},
+  "headers": {}
+}

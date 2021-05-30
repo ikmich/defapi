@@ -1,0 +1,7 @@
+{
+  "path": "/champions/telesales/calls/history",
+  "method": "GET",
+  "title": "/champions/telesales/calls/history",
+  "queryParams": {},
+  "headers": {}
+}

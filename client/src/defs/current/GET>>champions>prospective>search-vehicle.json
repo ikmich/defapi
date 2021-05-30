@@ -1,0 +1,7 @@
+{
+  "path": "/champions/prospective/search-vehicle",
+  "method": "GET",
+  "title": "/champions/prospective/search-vehicle",
+  "queryParams": {},
+  "headers": {}
+}

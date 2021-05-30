@@ -15,24 +15,22 @@ configUtil.checkConfig();
 
 configUtil.importConfig();
 
-/*
- * Route: Get list of registered express endpoints
- */
+// Route: Get list of registered express endpoints.
 defapiRouter.get(API_PATH_ENDPOINTS, (req: Request, res: Response) => {
   getEndpointsController(req, res);
 });
 
-/*
- * Route: Generate/update endpoint defs
- */
+// Route: Generate/update endpoint defs.
 defapiRouter.post(API_PATH_GENERATE_DEFS, (req: Request, res: Response) => {
   generateDefsController(req, res, true);
 });
 
+// Route: Get/render endpoint defs json.
 defapiRouter.get(API_PATH_GET_JSON, (req: Request, res: Response) => {
   getDefsJsonController(req, res);
 });
 
+// Route: Get/render endpoint defs html docs.
 defapiRouter.get(API_PATH_DOCS, (req: Request, res: Response) => {
   viewDocsController(req, res);
 });

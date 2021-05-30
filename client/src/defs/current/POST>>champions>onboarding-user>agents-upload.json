@@ -1,0 +1,9 @@
+{
+  "path": "/champions/onboarding-user/agents-upload",
+  "method": "POST",
+  "title": "/champions/onboarding-user/agents-upload",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

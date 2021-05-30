@@ -1,0 +1,10 @@
+{
+  "path": "/champions/onboarding/users/:userId",
+  "method": "GET",
+  "title": "Get Single user (get user by id)",
+  "queryParams": {
+    "stats": "string"
+  },
+  "headers": {},
+  "bodyParams": {}
+}

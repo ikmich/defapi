@@ -1,0 +1,7 @@
+{
+  "path": "/champions/champion/max-champion-id",
+  "method": "GET",
+  "title": "/champions/champion/max-champion-id",
+  "queryParams": {},
+  "headers": {}
+}

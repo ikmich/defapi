@@ -1,0 +1,9 @@
+{
+  "path": "/champions/prospective/:id",
+  "method": "PATCH",
+  "title": "/champions/prospective/:id",
+  "queryParams": {},
+  "headers": {},
+  "bodyParams": {},
+  "contentType": "?"
+}

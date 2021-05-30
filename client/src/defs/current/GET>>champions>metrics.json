@@ -1,0 +1,7 @@
+{
+  "path": "/champions/metrics",
+  "method": "GET",
+  "title": "/champions/metrics",
+  "queryParams": {},
+  "headers": {}
+}

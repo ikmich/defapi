@@ -12,4 +12,4 @@ function dlEndpointsController(req: Request, res: Response) {
   res.send(Buffer.from(json));
 }
 
-export default dlEndpointsController;
+//export default dlEndpointsController;

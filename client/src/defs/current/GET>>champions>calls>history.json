@@ -1,0 +1,7 @@
+{
+  "path": "/champions/calls/history",
+  "method": "GET",
+  "title": "/champions/calls/history",
+  "queryParams": {},
+  "headers": {}
+}

@@ -1,0 +1,7 @@
+{
+  "path": "/champions/onboarding-user/search/:querystring",
+  "method": "GET",
+  "title": "/champions/onboarding-user/search/:querystring",
+  "queryParams": {},
+  "headers": {}
+}
