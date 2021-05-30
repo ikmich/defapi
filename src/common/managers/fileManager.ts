@@ -1,5 +1,5 @@
-import configUtil from './configUtil';
-import _util, { yes } from './index';
+import configManager from './configManager';
+import _util, { yes } from '../util';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
 import { DefapiConfig } from '../../types';
@@ -11,12 +11,12 @@ import {
   PATH_REL__DOCS_DIR
 } from '../index';
 
-const fileUtil = {
+const fileManager = {
   /**
    * Ensure the relevant defapi directories exist.
    */
   initDirs(conf?:DefapiConfig) {
-    configUtil.importConfig();
+    configManager.importConfig();
     const srcPath = this.getSrcPath(conf);
     const defapiHome = Path.join(srcPath, BASENAME_DEFAPI_HOME);
     const defsDir = Path.join(srcPath, PATH_REL__DEFS_JSON_DIR);
@@ -40,8 +40,8 @@ const fileUtil = {
         return conf.project.srcPath;
       }
 
-      if (yes(configUtil.getSrcPath())) {
-        return configUtil.getSrcPath();
+      if (yes(configManager.getSrcPath())) {
+        return configManager.getSrcPath();
       }
 
       return DEFAULT_SRC_PATH;
@@ -92,4 +92,4 @@ const fileUtil = {
   }
 };
 
-export default fileUtil;
+export default fileManager;

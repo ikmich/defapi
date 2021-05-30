@@ -1,4 +1,4 @@
-import fileUtil from '../util/fileUtil';
+import fileManager from '../managers/fileManager';
 import { FS, Path } from '../depds';
 import { PATH__HTML_CLIENT } from '../index';
 import conprint from '../util/conprint';
@@ -6,14 +6,16 @@ import conprint from '../util/conprint';
 /**
  * Copy static html files to the project to be rendered.
  */
-export function deployDocsHtmlClient() {
-  const docsDir = fileUtil.getDocsDir();
+export function deployHtmlClient() {
+  const docsDir = fileManager.getDocsDir();
   const src = Path.join(PATH__HTML_CLIENT, '/');
   if (!FS.existsSync(src)) {
     // => Client has not been built. This should not be so, though. Defapi should be deployed with the docs client
     // pre-built.
     return;
   }
+
+  // Dynamically set html client .env variables.
 
   const dest = Path.join(docsDir, '/');
   FS.ensureDirSync(dest);

@@ -1,5 +1,5 @@
 import BaseCommand from './BaseCommand';
-import configUtil from '../../common/util/configUtil';
+import configManager from '../../common/managers/configManager';
 import httpRequest from '../../api/httpRequest';
 import { no } from '../../common/util';
 import { DefapiError } from '../../common/errors';
@@ -15,7 +15,7 @@ export class GenerateDefsCommand extends BaseCommand {
   async run() {
     await super.run();
 
-    const baseUri = configUtil.getBaseUri();
+    const baseUri = configManager.getBaseUri();
     if (no(baseUri)) {
       throw new DefapiError(`No base uri defined in ${CONFIG_FILENAME}.`);
     }

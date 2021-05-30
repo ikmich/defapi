@@ -1,4 +1,4 @@
-import fileUtil from './fileUtil';
+import fileManager from '../managers/fileManager';
 import * as os from 'os';
 
 const Path = require('path');
@@ -8,7 +8,7 @@ const STORE_PATH = Path.join(os.tmpdir(), 'defapi');
 FS.ensureDirSync(STORE_PATH);
 
 function getJson(path: string) {
-  let contents = fileUtil.read(path);
+  let contents = fileManager.read(path);
   if (contents && contents.length) {
     try {
       return JSON.parse(contents);

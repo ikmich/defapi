@@ -1,6 +1,6 @@
-import { yes } from './index';
+import { yes } from '../util';
 import { DefapiConfig, Objectx } from '../../types';
-import fileUtil from './fileUtil';
+import fileManager from './fileManager';
 import {
   CONFIG_FILENAME,
   DEFAULT_SRC_PATH,
@@ -10,11 +10,11 @@ import {
 } from '../index';
 import { FS, Path } from '../depds';
 
-const configUtil = {
+const configManager = {
   getConfig(): DefapiConfig {
     try {
       let configPath = PATH__IMPORTED_CONFIG_FILE;
-      if (!fileUtil.exists(configPath)) {
+      if (!fileManager.exists(configPath)) {
         return defaultConfig;
       }
 
@@ -102,10 +102,12 @@ const configUtil = {
       console.error(`[defapi.ERR] Could not copy \`${CONFIG_FILENAME}\``, e);
     }
 
-    if (!fileUtil.exists(dest)) {
+    if (!fileManager.exists(dest)) {
       console.warn(`[defapi.WARN] Unable to process \`${CONFIG_FILENAME}\``);
     }
-  }
+  },
+
+
 };
 
-export default configUtil;
+export default configManager;

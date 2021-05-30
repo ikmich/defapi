@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { EndpointDef } from '../../types';
 import { getEndpoints, httpFail, httpSuccess } from '../index';
-import configUtil from '../../common/util/configUtil';
+import configManager from '../../common/managers/configManager';
 import { no, yes } from '../../common/util';
 import { generateDefFiles } from '../../common/impl/generateDefFiles';
 
@@ -19,7 +19,7 @@ function generateDefsController(req: Request, res: Response, shouldUpdate?: bool
     const shouldResetDefs = ['true', '1', 'yes'].includes(<string>req.query.reset) || false;
     shouldUpdate = !shouldResetDefs;
 
-    const srcPath = configUtil.getSrcPath();
+    const srcPath = configManager.getSrcPath();
     if (no(srcPath)) {
       return httpFail(res, `No srcPath set`, 400);
     }

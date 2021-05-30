@@ -45,7 +45,7 @@ export interface DefapiConfig {
   api: {
     baseUri?: BaseUriDef;
     title?: string;
-    defaultHeaders?: Objectx | (() => Objectx);
+    defaultHeaders?: Objectx | (() => object);
   };
   project: {
     srcPath?: string;
@@ -53,4 +53,10 @@ export interface DefapiConfig {
   defapi: {
     routePrefix?: string;
   };
+}
+
+export interface HtmlClientEnv {
+  REACT_APP_API_BASE_URI: string;
+  REACT_APP_API_TITLE: string;
+  REACT_APP_API_DEFAULT_HEADERS: string;
 }

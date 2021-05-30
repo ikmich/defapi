@@ -3,7 +3,7 @@ import { EndpointDef } from '../types';
 import listEndpoints, { Endpoint } from 'express-list-endpoints';
 import { yes } from '../common/util';
 import { HttpError } from '../common/errors';
-import configUtil from '../common/util/configUtil';
+import configManager from '../common/managers/configManager';
 import { DEFAULT_ROUTE_PREFIX, excludedPaths } from '../common';
 import { _def, _method, _path } from '../common/defs';
 
@@ -71,11 +71,9 @@ export const API_PATH_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
 export const API_PATH_DOCS = `/${getDefapiRoutePrefix()}/docs/html`;
 export const API_PATH_GENERATE_DEFS = `/${getDefapiRoutePrefix()}/defs/generate`;
 export const API_PATH_GET_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
-// export const HTML_INDEX_PATH = Path.join(__dirname, '../../public/html/index.html');
-// export const HTML_INDEX_PATH = Path.join(__dirname, '../../client/build/index.html');
 
 function getDefapiRoutePrefix() {
-  let routePrefix = configUtil.getDefapiRoutePrefix();
+  let routePrefix = configManager.getDefapiRoutePrefix();
   if (yes(routePrefix)) {
     return routePrefix.replace(/^\/+/, '');
   }

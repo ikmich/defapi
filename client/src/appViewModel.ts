@@ -1,9 +1,9 @@
 export const appViewModel = {
-  async getDefs() {
+  async fetchDefs() {
     return [];
   },
 
-  async getConfig() {
+  async readConfig() {
     return {};
   }
 };

@@ -1,5 +1,5 @@
 import { EndpointDef } from '../../types';
-import fileUtil from '../util/fileUtil';
+import fileManager from '../managers/fileManager';
 import Path from 'path';
 import { no } from '../util';
 import { store } from '../util/store';
@@ -7,13 +7,13 @@ import { _defFilename, _defId } from '../defs';
 
 export function composeDef(pureDef: EndpointDef, shouldUpdate = true): EndpointDef {
   let _def = Object.assign({}, pureDef);
-  let defsDir = fileUtil.getDefsJsonDir();
+  let defsDir = fileManager.getDefsJsonDir();
   const filepath = Path.join(defsDir, _defFilename(_def));
 
   if (shouldUpdate) {
-    if (fileUtil.exists(filepath)) {
+    if (fileManager.exists(filepath)) {
       // => Def file exists for this endpoint. Read file and create merged def.
-      const fileContents = fileUtil.read(filepath);
+      const fileContents = fileManager.read(filepath);
       if (fileContents) {
         const existingDef = JSON.parse(fileContents, (key: string, value: any) => {
           if (value === null || value === undefined) {
