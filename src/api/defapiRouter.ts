@@ -5,7 +5,7 @@ import getDefsJsonController from './controllers/getDefsJsonController';
 import { API_PATH_DOCS, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, API_PATH_GET_JSON } from '.';
 import configManager from '../common/managers/configManager';
 import { viewDocsController } from './controllers/viewDocsController';
-import { endpointHook } from '../common/endpointHook';
+import { endpointHook } from './endpointHook';
 
 const defapiRouter = Router();
 

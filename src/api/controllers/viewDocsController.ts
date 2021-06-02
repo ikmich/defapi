@@ -4,6 +4,8 @@ import { composeManifest } from '../../common/impl/composeManifest';
 function viewDocsController(req: Request, res: Response) {
   // Todo - continue
 
+  /* Dynamically compile and render (vue? react? html?) template */
+
   //res.setHeader('content-type', 'text/html');
   //res.status(200).sendFile('');
   //// const html = fileUtil.read(HTML_INDEX_PATH) ?? '';

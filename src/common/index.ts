@@ -34,4 +34,4 @@ export const defaultConfig: DefapiConfig = {
   }
 };
 
-export const STORE_API_CONFIG = 'config.api';
+export const STOREKEY_API_CONFIG = 'config.api';
