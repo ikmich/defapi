@@ -1,9 +1,0 @@
-{
-  "path": "/champions/onboarding/users/prospects/:prospectId",
-  "method": "POST",
-  "title": "/champions/onboarding/users/prospects/:prospectId",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

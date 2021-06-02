@@ -1,30 +1,15 @@
 import { Request, Response } from 'express';
 import { EndpointDef } from '../../types';
 import { getEndpoints } from '../index';
-import { composeDef } from '../../common/impl/composeDef';
+import { filterDefs } from '../../common/defs';
+import { composeDefsDict } from '../../common/impl/composeDefsDict';
 
 function getDefsJsonController(req: Request, res: Response) {
   let defs: EndpointDef[] = getEndpoints(req.app);
-
   let search = <string>req.query.search;
-  if (search && search.length) {
-    defs = defs.filter((def) => {
-      return (
-        def.title?.toLowerCase().includes(search) ||
-        def.path.toLowerCase().includes(search) ||
-        def.description?.toLowerCase().includes(search)
-      );
-    });
-  }
+  defs = filterDefs(search, defs);
 
-  const jsob: { [k: string]: object } = {};
-
-  for (let def of defs) {
-    let key = `${def.method} ${def.path}`;
-    jsob[key] = composeDef(def);
-  }
-
-  const jsonOutput = JSON.stringify(jsob);
+  const jsonOutput = JSON.stringify(composeDefsDict(defs));
 
   res.setHeader('content-type', 'text/json');
   res.status(200).send(Buffer.from(jsonOutput));

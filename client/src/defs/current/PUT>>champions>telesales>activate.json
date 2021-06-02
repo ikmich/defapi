@@ -1,9 +1,0 @@
-{
-  "path": "/champions/telesales/activate",
-  "method": "PUT",
-  "title": "/champions/telesales/activate",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

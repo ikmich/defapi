@@ -33,3 +33,5 @@ export const defaultConfig: DefapiConfig = {
     routePrefix: DEFAULT_ROUTE_PREFIX
   }
 };
+
+export const STORE_API_CONFIG = 'config.api';

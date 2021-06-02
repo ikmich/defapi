@@ -1,7 +1,0 @@
-{
-  "path": "/champions/prospective/report/daily",
-  "method": "GET",
-  "title": "/champions/prospective/report/daily",
-  "queryParams": {},
-  "headers": {}
-}

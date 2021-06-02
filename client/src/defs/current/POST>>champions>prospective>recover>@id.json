@@ -1,9 +1,0 @@
-{
-  "path": "/champions/prospective/recover/:id",
-  "method": "POST",
-  "title": "/champions/prospective/recover/:id",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

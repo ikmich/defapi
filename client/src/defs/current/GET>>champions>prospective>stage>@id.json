@@ -1,7 +1,0 @@
-{
-  "path": "/champions/prospective/stage/:id",
-  "method": "GET",
-  "title": "/champions/prospective/stage/:id",
-  "queryParams": {},
-  "headers": {}
-}

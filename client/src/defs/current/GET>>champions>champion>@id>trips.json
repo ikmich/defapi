@@ -1,7 +1,0 @@
-{
-  "path": "/champions/champion/:id/trips",
-  "method": "GET",
-  "title": "/champions/champion/:id/trips",
-  "queryParams": {},
-  "headers": {}
-}

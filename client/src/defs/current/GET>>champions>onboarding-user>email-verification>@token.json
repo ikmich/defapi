@@ -1,7 +1,0 @@
-{
-  "path": "/champions/onboarding-user/email-verification/:token",
-  "method": "GET",
-  "title": "/champions/onboarding-user/email-verification/:token",
-  "queryParams": {},
-  "headers": {}
-}

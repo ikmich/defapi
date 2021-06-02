@@ -1,9 +1,0 @@
-{
-  "path": "/champions/onboarding-user/signin",
-  "method": "POST",
-  "title": "/champions/onboarding-user/signin",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

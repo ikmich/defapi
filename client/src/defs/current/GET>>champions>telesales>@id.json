@@ -1,7 +1,0 @@
-{
-  "path": "/champions/telesales/:id",
-  "method": "GET",
-  "title": "/champions/telesales/:id",
-  "queryParams": {},
-  "headers": {}
-}

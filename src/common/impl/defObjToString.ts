@@ -7,10 +7,10 @@ export type GenerateDefOptions = {
 
 /**
  * Generates string contents for an endpoint def.
- * @param {EndpointDef} def
+ * @param {EndpointDef} inputDef
  * @param meta
  */
-export function getDefObjString(def: EndpointDef, meta?: GenerateDefOptions) {
-  const _def = composeDef(def, meta?.shouldUpdate);
-  return JSON.stringify(_def, null, 2);
+export function defObjToString(inputDef: EndpointDef, meta?: GenerateDefOptions) {
+  const output = composeDef(inputDef, meta?.shouldUpdate);
+  return JSON.stringify(output, null, 2);
 }

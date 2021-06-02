@@ -1,9 +1,0 @@
-{
-  "path": "/champions/onboarding/users/prospects/auto-assignment",
-  "method": "POST",
-  "title": "/champions/onboarding/users/prospects/auto-assignment",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

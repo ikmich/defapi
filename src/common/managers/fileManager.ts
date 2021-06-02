@@ -15,7 +15,7 @@ const fileManager = {
   /**
    * Ensure the relevant defapi directories exist.
    */
-  initDirs(conf?:DefapiConfig) {
+  initDirs(conf?: DefapiConfig) {
     configManager.importConfig();
     const srcPath = this.getSrcPath(conf);
     const defapiHome = Path.join(srcPath, BASENAME_DEFAPI_HOME);
@@ -89,6 +89,10 @@ const fileManager = {
 
   write(filepath: string, contents: string) {
     FS.writeFileSync(filepath, contents, { encoding: 'utf-8' });
+  },
+
+  create(filepath: string) {
+    FS.createFileSync(filepath);
   }
 };
 

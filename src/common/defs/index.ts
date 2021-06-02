@@ -1,5 +1,5 @@
-import {EndpointDef} from "../../types";
-import {no} from "../util";
+import { EndpointDef } from '../../types';
+import { no } from '../util';
 
 /**
  * Normalize endpoint path uri, remove trailing slash.
@@ -29,11 +29,18 @@ export function _method(method: string): string {
 }
 
 export function _def(def: EndpointDef): EndpointDef {
-  return {
+  let output = {
     ...def,
     path: _path(def.path),
     method: _method(def.method)
   };
+
+  if (!def.title || def.title === '') {
+    output['title'] = _defaultTitle(output);
+  } else {
+    output['title'] = def.title;
+  }
+  return output;
 }
 
 export function _defId(def: EndpointDef): string {
@@ -44,4 +51,21 @@ export function _defId(def: EndpointDef): string {
 
 export function _defFilename(def: EndpointDef): string {
   return `${_defId(def)}.json`;
+}
+
+export function _defaultTitle(def: EndpointDef) {
+  return `${def.method.toUpperCase()} ${def.path}`;
+}
+
+export function filterDefs(search: string, defs: EndpointDef[]): EndpointDef[] {
+  if (search && search.length) {
+    defs = defs.filter((def) => {
+      return (
+        def.title?.toLowerCase().includes(search) ||
+        def.path.toLowerCase().includes(search) ||
+        def.description?.toLowerCase().includes(search)
+      );
+    });
+  }
+  return defs;
 }

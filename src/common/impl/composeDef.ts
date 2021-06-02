@@ -3,12 +3,12 @@ import fileManager from '../managers/fileManager';
 import Path from 'path';
 import { no } from '../util';
 import { store } from '../util/store';
-import { _defFilename, _defId } from '../defs';
+import { _defaultTitle, _defFilename, _defId } from '../defs';
 
-export function composeDef(pureDef: EndpointDef, shouldUpdate = true): EndpointDef {
-  let _def = Object.assign({}, pureDef);
+export function composeDef(inputDef: EndpointDef, shouldUpdate = true): EndpointDef {
+  let outputDef = Object.assign({}, inputDef);
   let defsDir = fileManager.getDefsJsonDir();
-  const filepath = Path.join(defsDir, _defFilename(_def));
+  const filepath = Path.join(defsDir, _defFilename(outputDef));
 
   if (shouldUpdate) {
     if (fileManager.exists(filepath)) {
@@ -23,40 +23,45 @@ export function composeDef(pureDef: EndpointDef, shouldUpdate = true): EndpointD
         });
         if (existingDef) {
           const mergedDef: Partial<EndpointDef> = Object.assign({}, existingDef, {
-            path: _def.path,
-            method: _def.method
+            // Keep the path and method from the pure def.
+            path: outputDef.path,
+            method: outputDef.method
           });
 
-          _def = Object.assign({}, mergedDef as EndpointDef);
+          outputDef = Object.assign({}, mergedDef as EndpointDef);
         }
       }
     }
   }
 
-  if (!_def.queryParams) {
-    _def.queryParams = {};
+  if (no(outputDef.title)) {
+    outputDef.title = _defaultTitle(outputDef);
   }
 
-  if (!_def.headers) {
-    _def.headers = {};
+  if (!outputDef.queryParams) {
+    outputDef.queryParams = {};
+  }
+
+  if (!outputDef.headers) {
+    outputDef.headers = {};
   }
 
   const BODY_METHODS = ['POST', 'PUT', 'PATCH'];
-  if (BODY_METHODS.includes(_def.method.toUpperCase())) {
-    if (!_def.bodyParams) {
-      _def.bodyParams = {};
+  if (BODY_METHODS.includes(outputDef.method.toUpperCase())) {
+    if (!outputDef.bodyParams) {
+      outputDef.bodyParams = {};
     }
 
-    if (no(_def.contentType)) {
-      _def.contentType = '?';
+    if (no(outputDef.contentType)) {
+      outputDef.contentType = '?';
     }
   }
 
   /* Merge in the defs from decorators. */
-  const decorDef = store.get(_defId(_def));
+  const decorDef = store.get(_defId(outputDef));
   if (decorDef) {
-    _def = Object.assign({}, _def, decorDef);
+    outputDef = Object.assign({}, outputDef, decorDef);
   }
 
-  return _def;
+  return outputDef;
 }

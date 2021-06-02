@@ -1,7 +1,0 @@
-{
-  "path": "/champions/prospective/agent-prospective-counts/:agentId",
-  "method": "GET",
-  "title": "/champions/prospective/agent-prospective-counts/:agentId",
-  "queryParams": {},
-  "headers": {}
-}

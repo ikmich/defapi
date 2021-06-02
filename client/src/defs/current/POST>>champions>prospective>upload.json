@@ -1,9 +1,0 @@
-{
-  "path": "/champions/prospective/upload",
-  "method": "POST",
-  "title": "/champions/prospective/upload",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

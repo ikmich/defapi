@@ -1,9 +1,0 @@
-{
-  "path": "/champions/package",
-  "method": "POST",
-  "title": "/champions/package",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

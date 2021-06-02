@@ -1,9 +1,0 @@
-{
-  "path": "/champions/prospective/restore",
-  "method": "PATCH",
-  "title": "/champions/prospective/restore",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

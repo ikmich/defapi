@@ -43,7 +43,7 @@ export type BaseUriDef = string | (() => string);
 
 export interface DefapiConfig {
   api: {
-    baseUri?: BaseUriDef;
+    baseUri?: string;
     title?: string;
     defaultHeaders?: Objectx | (() => object);
   };
@@ -55,8 +55,9 @@ export interface DefapiConfig {
   };
 }
 
-export interface HtmlClientEnv {
-  REACT_APP_API_BASE_URI: string;
-  REACT_APP_API_TITLE: string;
-  REACT_APP_API_DEFAULT_HEADERS: string;
+export interface Manifest {
+  baseUri: string;
+  title: string;
+  defaultHeaders?: Objectx;
+  defs: EndpointDef[];
 }

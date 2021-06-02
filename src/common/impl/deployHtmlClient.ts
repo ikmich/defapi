@@ -6,7 +6,7 @@ import conprint from '../util/conprint';
 /**
  * Copy static html files to the project to be rendered.
  */
-export function deployHtmlClient() {
+function deployHtmlClient() {
   const docsDir = fileManager.getDocsDir();
   const src = Path.join(PATH__HTML_CLIENT, '/');
   if (!FS.existsSync(src)) {
@@ -14,8 +14,6 @@ export function deployHtmlClient() {
     // pre-built.
     return;
   }
-
-  // Dynamically set html client .env variables.
 
   const dest = Path.join(docsDir, '/');
   FS.ensureDirSync(dest);

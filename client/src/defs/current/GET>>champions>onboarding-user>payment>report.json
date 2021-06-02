@@ -1,7 +1,0 @@
-{
-  "path": "/champions/onboarding-user/payment/report",
-  "method": "GET",
-  "title": "/champions/onboarding-user/payment/report",
-  "queryParams": {},
-  "headers": {}
-}

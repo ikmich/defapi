@@ -1,9 +1,0 @@
-{
-  "path": "/champions/telesales/calls",
-  "method": "POST",
-  "title": "/champions/telesales/calls",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

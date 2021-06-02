@@ -65,7 +65,7 @@ export function defQuery(queryParamKey: string) {
 export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
   return function (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) {
     ifdev(() => {
-      console.log('\n+++[@defEndpoint]+++');
+      // console.log('\n+++[@defEndpoint]+++');
     });
 
     const defQueryMetadata: TDecorDefQueryMetadata[] =
@@ -139,12 +139,12 @@ export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
     }
 
     ifdev(() => {
-      console.log({ def: decorDef });
-      console.log({
-        propertyKey,
-        defQueryMetadata,
-        defBodyMetadata
-      });
+      // console.log({ def: decorDef });
+      // console.log({
+      //   propertyKey,
+      //   defQueryMetadata,
+      //   defBodyMetadata
+      // });
     });
 
     // ----

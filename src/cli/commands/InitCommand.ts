@@ -6,7 +6,6 @@ import { askUtil } from '../ask';
 import conprint from '../../common/util/conprint';
 import { CONFIG_FILENAME, defaultConfig } from '../../common';
 import askSelect from '../ask/ask-select';
-import { deployHtmlClient } from '../../common/impl/deployHtmlClient';
 import { generateConfigFile } from '../../common/impl/generateConfigFile';
 
 /**
@@ -59,7 +58,5 @@ export class InitCommand extends BaseCommand {
     fileManager.initDirs(initConfig);
 
     conprint.info(`Success! ${CONFIG_FILENAME} created in project root.`);
-
-    deployHtmlClient();
   }
 }

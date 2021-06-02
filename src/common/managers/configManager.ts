@@ -19,9 +19,6 @@ const configManager = {
       }
 
       const config: DefapiConfig = require(configPath) ?? {};
-      if (typeof config.api.baseUri === 'function') {
-        config.api.baseUri = config.api.baseUri();
-      }
 
       if (!config.api.baseUri) {
         config.api.baseUri = '';
@@ -46,13 +43,7 @@ const configManager = {
   getBaseUri(): string {
     const config = this.getConfig();
     if (config.api.baseUri) {
-      if (typeof config.api.baseUri === 'string') {
-        return config.api.baseUri;
-      }
-
-      if (typeof config.api.baseUri === 'function') {
-        return config.api.baseUri();
-      }
+      return config.api.baseUri;
     }
 
     return '';
@@ -105,9 +96,7 @@ const configManager = {
     if (!fileManager.exists(dest)) {
       console.warn(`[defapi.WARN] Unable to process \`${CONFIG_FILENAME}\``);
     }
-  },
-
-
+  }
 };
 
 export default configManager;

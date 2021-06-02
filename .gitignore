@@ -1,7 +1,22 @@
-.idea/
+.idea
 .vscode/
-node_modules
+/node_modules
 dev
 dist/
 lib/
 coverage
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+
+# dependencies
+/.pnp
+.pnp.js
+
+
+# testing
+/coverage

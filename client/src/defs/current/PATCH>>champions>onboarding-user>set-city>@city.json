@@ -1,9 +1,0 @@
-{
-  "path": "/champions/onboarding-user/set-city/:city",
-  "method": "PATCH",
-  "title": "/champions/onboarding-user/set-city/:city",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

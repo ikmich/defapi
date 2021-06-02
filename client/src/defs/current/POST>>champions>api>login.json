@@ -1,9 +1,0 @@
-{
-  "path": "/champions/api/login",
-  "method": "POST",
-  "title": "/champions/api/login",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

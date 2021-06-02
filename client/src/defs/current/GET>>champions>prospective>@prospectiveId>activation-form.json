@@ -1,7 +1,0 @@
-{
-  "path": "/champions/prospective/:prospectiveId/activation-form",
-  "method": "GET",
-  "title": "/champions/prospective/:prospectiveId/activation-form",
-  "queryParams": {},
-  "headers": {}
-}

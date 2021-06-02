@@ -1,9 +1,0 @@
-{
-  "path": "/champions/champion/reengage/:id",
-  "method": "PUT",
-  "title": "/champions/champion/reengage/:id",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

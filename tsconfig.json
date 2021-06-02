@@ -66,6 +66,7 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "exclude": ["client", "defapi-config.js"],
+  "exclude": [
+    "src/client", "defapi-config.js"],
   "include": ["src"]
 }

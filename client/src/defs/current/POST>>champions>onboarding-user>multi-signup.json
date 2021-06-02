@@ -1,9 +1,0 @@
-{
-  "path": "/champions/onboarding-user/multi-signup",
-  "method": "POST",
-  "title": "/champions/onboarding-user/multi-signup",
-  "queryParams": {},
-  "headers": {},
-  "bodyParams": {},
-  "contentType": "?"
-}

@@ -1,7 +1,0 @@
-{
-  "path": "/champions/telesales/search/:searchQuery",
-  "method": "GET",
-  "title": "/champions/telesales/search/:searchQuery",
-  "queryParams": {},
-  "headers": {}
-}
