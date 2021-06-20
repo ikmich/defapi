@@ -4,14 +4,18 @@
   "description": "Generate api definition files and docs",
   "main": "lib/index.js",
   "scripts": {
-    "build": "rm -rf lib && tsc",
-    "build-client": "cd src/client && npm run build",
+    "build": "cross-env NODE_ENV=production rm -rf lib && tsc",
+    "build:dev": "cross-env NODE_ENV=development rm -rf lib && tsc",
+    "build:client": "cd ./client && npm run build",
+    "serve:client": "cd ./client && npm run serve",
     "clean": "rm -rf lib",
     "test": "echo \"No test specified\" && exit 1",
-    "prepublishOnly": "npm run build-client && npm run build",
+    "test-store": "ts-node src/dev-test/test-store.ts",
+    "prepublishOnly": "npm run build:client && npm run build",
     "watch": "rm -rf lib && tsc --watch",
     "tscheck": "tsc --noEmit",
-    "depl": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
+    "deploy-no-client:dev": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build && npm install -g",
+    "deploy:dev": "cross-env NODE_ENV=development npm uninstall -g defapi && npm run build:client && npm run build && npm install -g",
     "postbuild": "dev/dev-deploy.sh"
   },
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
@@ -30,13 +34,20 @@
     "inquirer": "^7.3.3",
     "reflect-metadata": "^0.1.13",
     "typescript": "^4.1.3",
+    "vue": "^2.6.13",
+    "vue-router": "^3.5.1",
+    "vue-server-renderer": "^2.6.13",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "cross-env": "^7.0.3",
     "prettier": "^2.2.1",
-    "ts-node": "^9.1.1"
+    "ts-node": "^9.1.1",
+    "vue-template-compiler": "^2.6.13"
   },
   "bin": {
     "defapi": "lib/cli/index.js"

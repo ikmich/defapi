@@ -7,23 +7,27 @@ import configManager from '../common/managers/configManager';
 import { DEFAULT_ROUTE_PREFIX, excludedPaths } from '../common';
 import { _def, _method, _path } from '../common/defs';
 
-export function getEndpoints(app: Express | Application): EndpointDef[] {
+export function getEndpoints(app: Express | Application, excludeDefapiPaths = true): EndpointDef[] {
   const endpoints: Endpoint[] = Array.from(listEndpoints(<Express>app));
   const defs: EndpointDef[] = [];
 
-  endpoints.forEach((endpoint) => {
-    let isDefapiPath = /defapi\/?/.test(endpoint.path);
-    if (!excludedPaths.includes(endpoint.path) && !isDefapiPath) {
-      endpoint.methods.forEach((method) => {
-        let def: EndpointDef = {
-          path: _path(endpoint.path),
-          method: _method(method)
-        };
-
-        defs.push(_def(def));
-      });
+  for (let endpoint of endpoints) {
+    // defapi\/?
+    const rex = new RegExp(`${getDefapiRoutePrefix()}\/?`);
+    let isDefapiPath = rex.test(endpoint.path);
+    if (excludedPaths.includes(endpoint.path) || (excludeDefapiPaths && isDefapiPath)) {
+      continue;
     }
-  });
+
+    endpoint.methods.forEach((method) => {
+      let def: EndpointDef = {
+        path: _path(endpoint.path),
+        method: _method(method)
+      };
+
+      defs.push(_def(def));
+    });
+  }
 
   return defs.map((def) => {
     return _def(def);
@@ -71,11 +75,12 @@ export const API_PATH_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
 export const API_PATH_DOCS = `/${getDefapiRoutePrefix()}/docs/html`;
 export const API_PATH_GENERATE_DEFS = `/${getDefapiRoutePrefix()}/defs/generate`;
 export const API_PATH_GET_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
+export const API_PATH_GET_MANIFEST = `/${getDefapiRoutePrefix()}/manifest`;
 
 function getDefapiRoutePrefix() {
-  let routePrefix = configManager.getDefapiRoutePrefix();
-  if (yes(routePrefix)) {
-    return routePrefix.replace(/^\/+/, '');
+  let defapiRoutePrefix = configManager.getDefapiRoutePrefix();
+  if (yes(defapiRoutePrefix)) {
+    return defapiRoutePrefix.replace(/^\/+/, '');
   }
-  return DEFAULT_ROUTE_PREFIX.replace(/^\/+/, '');
+  return `${DEFAULT_ROUTE_PREFIX.replace(/^\/+/, '')}`;
 }

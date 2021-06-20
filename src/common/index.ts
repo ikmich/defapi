@@ -8,18 +8,18 @@ export const DEFAULT_SRC_PATH = '.';
 // Name of base defapi folder within the project src root.
 export const BASENAME_DEFAPI_HOME = '__defapi';
 
-// Relative path from project src to folder containing endpoint def json files.
-export const PATH_REL__DEFS_JSON_DIR = `${BASENAME_DEFAPI_HOME}/defs/current`;
+/**
+ * Relative path from project src to folder containing endpoint def json files.
+ */
+export const PATH_REL_DEFS_DIR = `${BASENAME_DEFAPI_HOME}/current/defs`;
 
-// Relative path from project src to folder containing defapi html view files.
-export const PATH_REL__DOCS_DIR = `${BASENAME_DEFAPI_HOME}/docs`;
-
-// Path to html client
-export const PATH__HTML_CLIENT = Path.join(__dirname, '../../client/build');
+export const PATH_HTML_CLIENT_DIR = Path.join(__dirname, '../../client/dist');
+export const PATH_HTML_CLIENT_FILE = Path.join(PATH_HTML_CLIENT_DIR, '/index.html');
+export const PATH_HTML_CLIENT_REPOSITORY = Path.join(PATH_HTML_CLIENT_DIR, '/repository.json');
 
 export const excludedPaths = ['*', '/*', '*/'];
 export const DEFAULT_ROUTE_PREFIX = '/defapi';
-export const PATH__IMPORTED_CONFIG_FILE = Path.join(__dirname, CONFIG_FILENAME);
+export const PATH_IMPORTED_CONFIG_FILE = Path.join(__dirname, CONFIG_FILENAME);
 export const defaultConfig: DefapiConfig = {
   api: {
     baseUri: '',

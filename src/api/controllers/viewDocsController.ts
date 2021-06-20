@@ -1,19 +1,29 @@
 import { Request, Response } from 'express';
-import { composeManifest } from '../../common/impl/composeManifest';
+import { getEndpoints } from '../index';
+import { filterDefs } from '../../common/defs';
+import { generateManifest } from '../../common/impl/generateManifest';
+import configManager from '../../common/managers/configManager';
+import { yes } from '../../common/util';
+import { PATH_HTML_CLIENT_FILE, PATH_HTML_CLIENT_REPOSITORY } from '../../common';
+import fileManager from '../../common/managers/fileManager';
 
-function viewDocsController(req: Request, res: Response) {
-  // Todo - continue
+async function viewDocsController(req: Request, res: Response) {
+  const config = configManager.getConfig();
+  const host = `${req.protocol}://${req.get('Host') ?? 'http://localhost'}`;
+  const baseUri = yes(config.api.baseUri) ? (config.api.baseUri as string) : host;
+  let rawDefs = filterDefs(<string>req.query.search, getEndpoints(req.app));
 
-  /* Dynamically compile and render (vue? react? html?) template */
+  const manifest = generateManifest(rawDefs, baseUri);
 
-  //res.setHeader('content-type', 'text/html');
-  //res.status(200).sendFile('');
-  //// const html = fileUtil.read(HTML_INDEX_PATH) ?? '';
-  //// res.status(200).send(Buffer.from(html));
+  try {
+    fileManager.write(PATH_HTML_CLIENT_REPOSITORY, JSON.stringify(manifest, null, 2));
+  } catch (e) {
+    console.error('[defapi.ERR] Error writing api def to api.json');
+    throw e;
+  }
 
-  const manifest = composeManifest(req);
-
-  res.json(manifest);
+  res.setHeader('Content-Type', 'text/html');
+  res.status(200).sendFile(PATH_HTML_CLIENT_FILE);
 }
 
 export { viewDocsController };

@@ -1,0 +1,90 @@
+.card {
+    border-radius: 4px;
+    border: 1px solid #e7e7e7;
+    box-shadow: 2px 2px 10px #f5f5f5;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card:hover {
+    box-shadow: 2px 2px 10px #e0e0e0;
+}
+
+.card-contents {
+    width: 92%;
+    margin: 28px 18px 28px 18px;
+    text-align: center;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+    align-items: center;
+}
+
+.card-header .title--path-box {
+    display: inline-block;
+}
+
+.card-header .title {
+    color: #696969;
+    font-family: Rubik, sans-serif;
+    margin-top: 4px;
+    word-wrap: break-word;
+}
+
+.card-header .path {
+    color: var(--pathBlue); /*4f7da5*/
+    font-family: Rubik, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    /*line-height: 120%;*/
+    word-wrap: break-word;
+}
+
+.http-method {
+    color: #101010;
+    border-radius: 2px;
+    font-size: 13px;
+    padding: 2px 4px;
+}
+
+.http-method.get {
+  background-color: #a5cafd; /*a5cafd*/
+}
+
+.http-method.post {
+  background-color: #ffb274;
+}
+
+.http-method.patch {
+  background-color: #fd71f6;
+}
+
+.http-method.put {
+  background-color: #bc71fd;
+}
+
+.http-method.delete {
+  background-color: #fd2424;
+    color: #fff;
+}
+
+.card-body {
+}
+
+.description--box {
+    background-color: #f4f4f4;
+    border-left: 1px solid #d0d0d0;
+    padding: 12px;
+    margin: 6px 0 10px 0;
+    text-align: left;
+}
+
+.code-box {
+    margin-bottom: 8px;
+}

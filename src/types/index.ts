@@ -39,13 +39,12 @@ export type ResponseDef = {
   [k: string]: any;
 };
 
-export type BaseUriDef = string | (() => string);
-
 export interface DefapiConfig {
   api: {
     baseUri?: string;
     title?: string;
     defaultHeaders?: Objectx | (() => object);
+    rootPath?: string;
   };
   project: {
     srcPath?: string;
@@ -55,9 +54,9 @@ export interface DefapiConfig {
   };
 }
 
-export interface Manifest {
+export interface ApiManifest {
   baseUri: string;
   title: string;
   defaultHeaders?: Objectx;
-  defs: EndpointDef[];
+  endpoints: EndpointDef[];
 }

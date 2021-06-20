@@ -58,12 +58,12 @@ export function _defaultTitle(def: EndpointDef) {
 }
 
 export function filterDefs(search: string, defs: EndpointDef[]): EndpointDef[] {
-  if (search && search.length) {
+  if (search && search.trim().length) {
     defs = defs.filter((def) => {
       return (
-        def.title?.toLowerCase().includes(search) ||
-        def.path.toLowerCase().includes(search) ||
-        def.description?.toLowerCase().includes(search)
+        def.title?.toLowerCase().includes(search.trim().toLowerCase()) ||
+        def.path.toLowerCase().includes(search.trim().toLowerCase()) ||
+        def.description?.toLowerCase().includes(search.trim().toLowerCase())
       );
     });
   }

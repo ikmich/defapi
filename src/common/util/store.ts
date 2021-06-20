@@ -64,28 +64,36 @@ export const store = {
     return null;
   },
 
-  save(key: string, data: Array<any> | Object) {
+  save(key: string, inputData: any) {
     const filepath = Path.join(STORE_PATH, `${key}.json`);
 
     if (!fileExists(filepath)) {
       const payload = {
-        [key]: data
+        [key]: inputData
       };
       const targetContents = toJson(payload);
       writeToFile(filepath, targetContents);
       return payload;
     }
 
-    let result: any = {
-      [key]: {}
-    };
+    switch (false) {
+      case Array.isArray(inputData):
+      case inputData.constructor === Object:
+      case typeof inputData === typeof {}:
+        inputData = {
+          [key]: inputData
+        };
+        break;
+    }
+
+    let result: any = {};
     let currentData: any;
 
     currentData = getJson(filepath) ?? {};
 
-    if (Array.isArray(data)) {
-      result[key] = data;
-    } else if (Object.keys(data).length === 0) {
+    if (Array.isArray(inputData)) {
+      result[key] = inputData;
+    } else if (Object.keys(inputData).length === 0) {
       // Empty object
       result[key] = {};
     } else {
@@ -121,7 +129,7 @@ export const store = {
         return result;
       };
 
-      result[key] = parse(currentData[key], data);
+      result = parse(currentData[key], inputData);
     }
 
     writeToFile(filepath, toJson(result));

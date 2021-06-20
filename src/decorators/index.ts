@@ -2,10 +2,10 @@
 
 import 'reflect-metadata';
 import { EndpointDef } from '../types';
-import { ifdev, yes } from '../common/util';
+import _util, { ifdev, yes } from '../common/util';
 import { Request } from 'express';
 import { store } from '../common/util/store';
-import { _def, _defId } from '../common/defs';
+import { _def, _defId, _method, _path } from '../common/defs';
 
 const KEY_DECOR_DEF_QUERY = Symbol('defQuery');
 const KEY_DECOR_DEF_BODY = Symbol('defRequest');
@@ -62,7 +62,7 @@ export function defQuery(queryParamKey: string) {
   };
 }
 
-export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
+export function defEndpoint(method: string, path: string, decorDef?: Partial<EndpointDef>) {
   return function (target: any, propertyKey: string, propertyDescriptor: PropertyDescriptor) {
     ifdev(() => {
       // console.log('\n+++[@defEndpoint]+++');
@@ -74,11 +74,24 @@ export function defEndpoint(method: string, decorDef?: Partial<EndpointDef>) {
     const defBodyMetadata: TDecorDefBodyMetadata[] =
       Reflect.getOwnMetadata(KEY_DECOR_DEF_BODY, target, propertyKey) || [];
 
-    if (yes(method) && decorDef && yes(decorDef.path)) {
-      decorDef.method = method;
-      decorDef = decorDef ? _def(decorDef as EndpointDef) : {};
+    decorDef = _util.fn(() => {
+      let def = Object.assign({}, decorDef);
+      if (!decorDef) def = {};
+      def.method = method;
+      def.path = path;
+      return _def(def as EndpointDef);
+    }) as EndpointDef;
 
-      decorDef.method = method.toUpperCase();
+    method = method ?? decorDef?.method ?? null;
+    path = path ?? decorDef?.path ?? null;
+
+    const hasMethod = yes(method);
+    const hasPathArg = yes(path);
+
+    if (hasMethod && hasPathArg) {
+      decorDef.method = _method(method);
+      decorDef.path = _path(path);
+
       const storeKey = _defId(<EndpointDef>decorDef);
 
       // capture queryParams

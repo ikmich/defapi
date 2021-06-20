@@ -6,13 +6,13 @@ import { store } from '../util/store';
 import { _defaultTitle, _defFilename, _defId } from '../defs';
 
 /**
- * Composes an 'output' def from the pure input def, based on info from already generated defs, and decorators.
+ * Composes an 'output' def from the pure input def, based on info from already existing defs and defined decorators.
  * @param inputDef
  * @param shouldUpdate
  */
 export function composeDef(inputDef: EndpointDef, shouldUpdate = true): EndpointDef {
   let outputDef = Object.assign({}, inputDef);
-  let defsDir = fileManager.getDefsJsonDir();
+  let defsDir = fileManager.getDefsDir();
   const filepath = Path.join(defsDir, _defFilename(outputDef));
 
   if (shouldUpdate) {
@@ -51,7 +51,8 @@ export function composeDef(inputDef: EndpointDef, shouldUpdate = true): Endpoint
     outputDef.headers = {};
   }
 
-  const BODY_METHODS = ['POST', 'PUT', 'PATCH']; // Todo - Check which http methods can have a request body
+  const NO_BODY_METHODS = ['GET', 'DELETE', 'TRACE', 'OPTIONS', 'HEAD'];
+  const BODY_METHODS = ['POST', 'PUT', 'PATCH'];
   if (BODY_METHODS.includes(outputDef.method.toUpperCase())) {
     if (!outputDef.bodyParams) {
       outputDef.bodyParams = {};

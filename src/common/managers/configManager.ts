@@ -6,14 +6,14 @@ import {
   DEFAULT_SRC_PATH,
   defaultConfig,
   PATH__COMMON_DIR,
-  PATH__IMPORTED_CONFIG_FILE
+  PATH_IMPORTED_CONFIG_FILE
 } from '../index';
 import { FS, Path } from '../depds';
 
 const configManager = {
   getConfig(): DefapiConfig {
     try {
-      let configPath = PATH__IMPORTED_CONFIG_FILE;
+      let configPath = PATH_IMPORTED_CONFIG_FILE;
       if (!fileManager.exists(configPath)) {
         return defaultConfig;
       }
@@ -54,6 +54,15 @@ const configManager = {
     return config.api.title ?? '';
   },
 
+  getApiRootPath() {
+    const config = this.getConfig();
+    let rootPath = config.api.rootPath?.trim();
+    if (rootPath && rootPath.length) {
+      return `/${rootPath.replace(/^\/+/, '').replace(/\/+$/, '')}`;
+    }
+    return '';
+  },
+
   getDefapiRoutePrefix(): string {
     const config = this.getConfig();
     return config.defapi.routePrefix ?? '';
@@ -66,6 +75,11 @@ const configManager = {
     } else {
       return config.api.defaultHeaders;
     }
+  },
+
+  processConfig() {
+    this.checkConfig();
+    this.importConfig();
   },
 
   checkConfig() {

@@ -13,6 +13,10 @@ function test1() {
   });
 
   console.log({ result });
+
+  console.log({
+    'get result': store.get('person')
+  });
 }
 
 function test2() {

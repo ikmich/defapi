@@ -7,8 +7,8 @@ import {
   BASENAME_DEFAPI_HOME,
   CONFIG_FILENAME,
   DEFAULT_SRC_PATH,
-  PATH_REL__DEFS_JSON_DIR,
-  PATH_REL__DOCS_DIR
+  PATH_HTML_CLIENT_REPOSITORY,
+  PATH_REL_DEFS_DIR
 } from '../index';
 
 const fileManager = {
@@ -19,11 +19,9 @@ const fileManager = {
     configManager.importConfig();
     const srcPath = this.getSrcPath(conf);
     const defapiHome = Path.join(srcPath, BASENAME_DEFAPI_HOME);
-    const defsDir = Path.join(srcPath, PATH_REL__DEFS_JSON_DIR);
-    const docsDir = Path.join(srcPath, PATH_REL__DOCS_DIR);
+    const defsDir = Path.join(srcPath, PATH_REL_DEFS_DIR);
     FS.ensureDirSync(defapiHome);
     FS.ensureDirSync(defsDir);
-    FS.ensureDirSync(docsDir);
   },
   getBaseDir() {
     return process.cwd();
@@ -55,20 +53,14 @@ const fileManager = {
    * Get filepath to the endpoint defs json files directory.
    * @param conf
    */
-  getDefsJsonDir(conf?: DefapiConfig): string {
-    const defsDir = Path.join(this.getSrcPath(conf), PATH_REL__DEFS_JSON_DIR);
+  getDefsDir(conf?: DefapiConfig): string {
+    const defsDir = Path.join(this.getSrcPath(conf), PATH_REL_DEFS_DIR);
     FS.ensureDirSync(defsDir);
     return defsDir;
   },
 
-  /**
-   * Get filepath to the docs directory.
-   * @param conf
-   */
-  getDocsDir(conf?: DefapiConfig) {
-    const docsDir = Path.join(this.getSrcPath(conf), PATH_REL__DOCS_DIR);
-    FS.ensureDirSync(docsDir);
-    return docsDir;
+  getClientContextDataPath(): string {
+    return PATH_HTML_CLIENT_REPOSITORY;
   },
 
   exists(filepath: string): boolean {
