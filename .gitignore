@@ -8,6 +8,7 @@ lib/
 coverage
 deploy.sh
 deploy-noclient.sh
+build.sh
 
 npm-debug.log*
 yarn-debug.log*
