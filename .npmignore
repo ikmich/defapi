@@ -5,3 +5,5 @@ src/
 yarn-error.log
 dev-test
 coverage
+client/src
+client/sample-data.json
