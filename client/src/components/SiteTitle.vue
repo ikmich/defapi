@@ -1,7 +1,7 @@
 <template>
-  <div class='title-box'>
-    <div class='title'>{{ title }}</div>
-    <span class='powered-by'>Powered by Defapi</span>
+  <div class="title-box">
+    <div class="title">{{ title }}</div>
+    <span class="powered-by">Powered by <a href="https://www.npmjs.com/package/defapi" target="_blank">Defapi</a></span>
   </div>
 </template>
 
@@ -15,6 +15,15 @@ export default {
 </script>
 
 <style scoped>
+.title-box a {
+  color: #e263db;
+  text-decoration: none;
+}
+
+.title-box a:hover {
+  text-decoration: underline;
+}
+
 .title-box {
   line-height: 100%;
   margin: 12px;

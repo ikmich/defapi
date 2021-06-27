@@ -1,9 +1,7 @@
 .idea/
 .vscode/
-dev/
-src/
 yarn-error.log
 npm-error.log
 npm-debug.log
-dev-test
-coverage
+src/
+sample-data.json

@@ -24,7 +24,7 @@
                   @change="handleSearchBehaviourChange"
                   :checked="searchBehaviourToggleOn"
                 />
-                <label for="checkbox-search-behaviour">Search in title and description</label>
+                <label for="checkbox-search-behaviour">Search title and description</label>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@
             <div class="separator" v-if="hasDefaultHeaders"></div>
 
             <div class="item" v-if="hasDefaultHeaders">
-              <CodeBox title="Default Headers" v-bind:code="JSON.stringify(repo.defaultHeaders, null, 2)" />
+              <CodeBox title="Headers" v-bind:code="JSON.stringify(repo.defaultHeaders, null, 2)" />
             </div>
           </div>
         </div>

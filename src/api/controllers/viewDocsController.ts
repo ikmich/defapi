@@ -16,6 +16,7 @@ async function viewDocsController(req: Request, res: Response) {
   const manifest = generateManifest(rawDefs, baseUri);
 
   try {
+
     fileManager.write(PATH_HTML_CLIENT_REPOSITORY, JSON.stringify(manifest, null, 2));
   } catch (e) {
     console.error('[defapi.ERR] Error writing api def to api.json');

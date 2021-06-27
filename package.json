@@ -1,6 +1,6 @@
 {
   "name": "defapi",
-  "version": "0.1.0-beta",
+  "version": "0.1.0-alpha",
   "description": "Generate api definition files and docs",
   "main": "lib/index.js",
   "scripts": {
