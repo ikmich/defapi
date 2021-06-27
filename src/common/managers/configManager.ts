@@ -68,13 +68,14 @@ const configManager = {
     return config.defapi.routePrefix ?? '';
   },
 
-  getHeaders(): Objectx {
+  getApiHeaders(): Objectx {
     const config = this.getConfig();
-    if (typeof config.api.defaultHeaders === 'function') {
-      return config.api.defaultHeaders();
-    } else {
-      return config.api.defaultHeaders;
-    }
+    return config.api.headers;
+  },
+
+  getApiAuthenticationHeaders(): Objectx {
+    const config = this.getConfig();
+    return config.api.authenticationHeaders;
   },
 
   processConfig() {

@@ -23,7 +23,8 @@ export const PATH_IMPORTED_CONFIG_FILE = Path.join(__dirname, CONFIG_FILENAME);
 export const defaultConfig: DefapiConfig = {
   api: {
     baseUri: '',
-    defaultHeaders: {},
+    headers: {},
+    authenticationHeaders: {},
     title: 'My API'
   },
   project: {

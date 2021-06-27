@@ -70,10 +70,14 @@
               </div>
             </div>
 
-            <div class="separator" v-if="hasDefaultHeaders"></div>
+            <div class="separator" v-if="hasApiHeaders"></div>
+            <div class="item" v-if="hasApiHeaders">
+              <CodeBox title="Headers" v-bind:code="JSON.stringify(repo.headers, null, 2)" />
+            </div>
 
-            <div class="item" v-if="hasDefaultHeaders">
-              <CodeBox title="Headers" v-bind:code="JSON.stringify(repo.defaultHeaders, null, 2)" />
+            <div class="separator" v-if="hasAuthHeaders"></div>
+            <div class="item" v-if="hasAuthHeaders">
+              <CodeBox title="Auth Headers" v-bind:code="JSON.stringify(repo.authenticationHeaders, null, 2)" />
             </div>
           </div>
         </div>
@@ -82,7 +86,13 @@
           <EndpointList v-bind:endpoints="endpointsToDisplay" />
         </div>
 
-        <div id="footer"></div>
+        <div id="footer">
+          <div class="contents">
+            <a href="https://github.com/ikmich/defapi" target="_blank">
+              <img class="github-logo" src="./assets/images/GitHub_Logo.png" alt="Github Logo"
+            /></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -92,7 +102,7 @@
 import SiteTitle from '@/components/SiteTitle';
 import EndpointList from '@/components/endpoints/EndpointList';
 import CodeBox from '@/components/CodeBox';
-import { sendEvent } from '@/send-event';
+import { sendEvent } from '@/helpers/send-event';
 import IconBase from '@/components/icons/IconBase';
 import IconTrayArrowDown from '@/components/icons/IconTrayArrowDown';
 
@@ -117,6 +127,7 @@ export default {
     isDevEnvironment() {
       return process.env.NODE_ENV === 'development';
     },
+
     /** @type {EndpointDef[]} */
     endpointsToDisplay() {
       const searchInput = (this.search ?? '').trim();
@@ -144,16 +155,19 @@ export default {
 
       return results;
     },
+
     numSearchResults() {
       let value = this.endpointsToDisplay?.length ?? 0;
       let word = value > 1 || value === 0 ? 'Results' : 'Result';
       return `${value} ${word}`;
     },
+
     totalEndpoints() {
       return this.repo.endpoints?.length ?? 0;
     },
+
     baseUri() {
-      let value = this.repo.endpoints?.baseUri;
+      let value = this.repo?.baseUri;
       if (value && value.trim().length) {
         let rexStartsWithHttp = /^(http)|(https):\/\//;
         if (!rexStartsWithHttp.test(value)) {
@@ -165,8 +179,12 @@ export default {
       return value;
     },
 
-    hasDefaultHeaders() {
-      return this.repo.defaultHeaders && Object.keys(this.repo.defaultHeaders).length > 0;
+    hasApiHeaders() {
+      return this.repo.headers && Object.keys(this.repo.headers).length > 0;
+    },
+
+    hasAuthHeaders() {
+      return this.repo.authenticationHeaders && Object.keys(this.repo.authenticationHeaders).length > 0;
     }
   },
   methods: {

@@ -111,6 +111,21 @@
   background-color: #f9f9f9;
   margin-top: 32px;
   padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+#footer .contents {
+  display: inline-flex;
+}
+
+#footer .github-logo {
+  opacity: 0.4;
+  height: 24px;
+}
+
+#footer .github-logo:hover {
+  opacity: 1;
 }
 
 .endpoint-list-wrapper {

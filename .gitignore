@@ -6,6 +6,8 @@ dev-test/
 dist/
 lib/
 coverage
+deploy.sh
+deploy-noclient.sh
 
 npm-debug.log*
 yarn-debug.log*

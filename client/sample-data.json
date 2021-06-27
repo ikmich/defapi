@@ -1,9 +1,11 @@
 {
   "baseUri": "0.0.0.0:4050",
   "title": "MAX Champions Service API",
-  "defaultHeaders": {
-    "Authorization": "Bearer {token}",
+  "headers": {
     "Source": "mobile|android"
+  },
+  "authenticationHeaders": {
+    "Authorization": "Bearer {token}"
   },
   "endpoints": [
     {

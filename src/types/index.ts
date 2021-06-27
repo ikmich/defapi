@@ -44,7 +44,8 @@ export interface DefapiConfig {
   api: {
     baseUri?: string;
     title?: string;
-    defaultHeaders?: Objectx | (() => object);
+    headers?: Objectx;
+    authenticationHeaders?: Objectx;
     rootPath?: string;
   };
   project: {
@@ -58,6 +59,7 @@ export interface DefapiConfig {
 export interface ApiManifest {
   baseUri: string;
   title: string;
-  defaultHeaders?: Objectx;
+  headers?: Objectx;
+  authenticationHeaders?: Objectx;
   endpoints: EndpointDef[];
 }
