@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'TitleBox',
+  name: 'SiteTitle',
   props: {
     title: String
   }
@@ -22,6 +22,7 @@ export default {
 }
 
 .title-box .title {
+  font-family: Nunito, sans-serif;
   font-weight: 700;
 }
 

@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import getEndpointsController from './controllers/getEndpointsController';
 import generateDefsController from './controllers/generateDefsController';
 import getDefsJsonController from './controllers/getDefsJsonController';
-import { API_PATH_DOCS, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, API_PATH_GET_JSON, API_PATH_GET_MANIFEST } from '.';
+import { API_PATH_HTML_VIEW, API_PATH_ENDPOINTS, API_PATH_GENERATE_DEFS, API_PATH_GET_JSON, API_PATH_GET_MANIFEST } from '.';
 import configManager from '../common/managers/configManager';
 import { viewDocsController } from './controllers/viewDocsController';
 import { endpointHook } from './endpointHook';
@@ -37,7 +37,7 @@ defapiRouter.get(API_PATH_GET_MANIFEST, (req: Request, res: Response) => {
 });
 
 // Route: Render endpoint defs html docs.
-defapiRouter.get(API_PATH_DOCS, async (req: Request, res: Response) => {
+defapiRouter.get(API_PATH_HTML_VIEW, async (req: Request, res: Response) => {
   endpointHook(req, res);
   await viewDocsController(req, res);
 });

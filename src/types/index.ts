@@ -8,6 +8,7 @@ export interface EndpointDef {
   bodyParams?: TBodyParamsDef;
   headers?: Objectx;
   response?: ResponseDef;
+  deprecated?: boolean;
 }
 
 export type Objectx = object | null | undefined;

@@ -9,8 +9,6 @@
     "build:client": "cd ./client && npm run build",
     "serve:client": "cd ./client && npm run serve",
     "clean": "rm -rf lib",
-    "test": "echo \"No test specified\" && exit 1",
-    "test-store": "ts-node src/dev-test/test-store.ts",
     "prepublishOnly": "npm run build:client && npm run build",
     "watch": "rm -rf lib && tsc --watch",
     "tscheck": "tsc --noEmit",
@@ -55,7 +53,7 @@
   "keywords": [
     "defapi",
     "api",
-    "api doc",
+    "api docs",
     "api documentation",
     "api definition"
   ],

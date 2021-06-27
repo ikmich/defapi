@@ -1,7 +1,10 @@
 {
   "baseUri": "0.0.0.0:4050",
   "title": "MAX Champions Service API",
-  "defaultHeaders": {},
+  "defaultHeaders": {
+    "Authorization": "Bearer {token}",
+    "Source": "mobile|android"
+  },
   "endpoints": [
     {
       "path": "/graphql",

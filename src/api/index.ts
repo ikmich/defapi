@@ -72,7 +72,7 @@ export const httpFail = (res: Response, error: string | Error | HttpError, httpC
 };
 
 export const API_PATH_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
-export const API_PATH_DOCS = `/${getDefapiRoutePrefix()}/docs/html`;
+export const API_PATH_HTML_VIEW = `/${getDefapiRoutePrefix()}/view/html`;
 export const API_PATH_GENERATE_DEFS = `/${getDefapiRoutePrefix()}/defs/generate`;
 export const API_PATH_GET_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
 export const API_PATH_GET_MANIFEST = `/${getDefapiRoutePrefix()}/manifest`;

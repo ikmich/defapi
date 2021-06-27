@@ -1,6 +1,15 @@
 <template>
-  <div class='endpoints-wrapper'>
-    <EndpointCard v-for='endpoint in endpoints' :key='getEndpointId(endpoint)' v-bind:endpoint='endpoint' />
+  <div id="container">
+    <div>
+      <div class="endpoints-grid">
+        <EndpointCard
+          class="grid-item"
+          v-for="endpoint in endpoints"
+          :key="getEndpointId(endpoint)"
+          v-bind:endpoint="endpoint"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,6 +21,9 @@ export default {
   components: {
     EndpointCard
   },
+  data() {
+    return {};
+  },
   props: {
     endpoints: Array
   },
@@ -19,21 +31,28 @@ export default {
     getEndpointId(endpoint) {
       return `${endpoint.method}-${endpoint.path}`;
     }
-  }
+  },
+  watch: {
+    endpoints: function () {
+      // watch it
+    }
+  },
+
+  mounted() {}
 };
 </script>
 
 <style scoped>
-.endpoints-wrapper {
-  /*display: flex;*/
-  /*flex-direction: row;*/
-  /*flex-wrap: wrap;*/
-  /*flex-grow: 1;*/
-  /*justify-content: stretch;*/
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.endpoints-grid {
   display: inline-grid;
   /*grid-template-columns: 1fr 1fr 1fr;*/
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
   /*grid-template-columns: 20% 20% 20% 20%;*/
   /*grid-auto-rows: minmax(100px, auto);*/
   grid-auto-flow: row;
@@ -41,5 +60,4 @@ export default {
   grid-gap: 24px;
   margin: 0 48px 0 48px;
 }
-
 </style>
