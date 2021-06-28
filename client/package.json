@@ -7,8 +7,13 @@
     "build": "NODE_ENV=production vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "files": [
+    "dist/"
+  ],
   "dependencies": {
+    "@types/html-escaper": "^3.0.0",
     "highlight.js": "^11.0.1",
+    "html-escaper": "^3.0.3",
     "vue": "^2.6.11"
   },
   "devDependencies": {

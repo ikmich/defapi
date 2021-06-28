@@ -3,13 +3,15 @@
     <div class="contents">
       <div class="title" :title="title">{{ title }}</div>
       <div class="body">
-        <pre><code>{{ code }}</code></pre>
+        <pre class='json'><code>{{ codeValue }}</code></pre>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css';
 export default {
   name: 'CodeBox',
   props: {
@@ -19,8 +21,14 @@ export default {
   data() {
     return {};
   },
-  computed: {},
-  mounted() {}
+  computed: {
+    codeValue() {
+      return this.code;
+    }
+  },
+  mounted() {
+    hljs.highlightAll();
+  }
 };
 </script>
 

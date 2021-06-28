@@ -106,6 +106,9 @@ import { sendEvent } from '@/helpers/send-event';
 import IconBase from '@/components/icons/IconBase';
 import IconTrayArrowDown from '@/components/icons/IconTrayArrowDown';
 
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css';
+
 export default {
   name: 'App',
   components: {
@@ -117,7 +120,7 @@ export default {
   },
   data() {
     return {
-      /** @type {ApiManifest} */
+      /** @type {ApiManifest | {}} */
       repo: {},
       search: '',
       searchBehaviourToggleOn: false
@@ -201,7 +204,9 @@ export default {
       if (el) {
         el.value = '';
         el.focus();
-        this.search = '';
+        setTimeout(() => {
+          this.search = '';
+        }, 200);
       }
     },
 
@@ -263,6 +268,8 @@ export default {
   },
 
   mounted() {
+    hljs.highlightAll();
+
     sendEvent('app-mounted');
 
     this.fetchRepo()

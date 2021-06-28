@@ -1,6 +1,6 @@
 {
   "name": "defapi",
-  "version": "0.1.0-alpha",
+  "version": "1.0.0-beta",
   "description": "Generate api definition files and docs",
   "main": "lib/index.js",
   "scripts": {
@@ -13,6 +13,12 @@
     "watch": "rm -rf lib && tsc --watch",
     "tscheck": "tsc --noEmit"
   },
+  "files": [
+    "/lib",
+    "/client/dist",
+    "/client/README.md",
+    "/client/package.json"
+  ],
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "MIT",
   "dependencies": {

@@ -9,6 +9,8 @@ coverage
 deploy.sh
 deploy-noclient.sh
 build.sh
+pack*.sh
+*.tgz
 
 npm-debug.log*
 yarn-debug.log*
