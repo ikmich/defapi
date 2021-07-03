@@ -6,8 +6,10 @@ dev-test/
 dist/
 lib/
 coverage
-deploy.sh
-deploy-noclient.sh
+deploy-dev.sh
+deploy-dev-noclient.sh
+copy-to-target.sh
+./*.tgz
 build.sh
 pack*.sh
 *.tgz
