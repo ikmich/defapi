@@ -1,17 +1,16 @@
 ## Installation
 
 ```shell
-# Install global cli
-## (with npm)
-npm install -g defapi
-## (or with yarn)
-yarn global add defapi
-
-# Install project dependency
 ## (with npm)
 npm install defapi --save
 ## (or with yarn)
 yarn add defapi
+
+# For the global cli
+## (with npm)
+npm install -g defapi
+## (or with yarn)
+yarn global add defapi
 ```
 
 ## Setup/Initialization
@@ -34,7 +33,7 @@ const app = express();
  * Use defapiBootstrap middleware.
  * This is important to allow processing of static resources for rendering the
  * built-in html client. */
-app.use(defapiBootstrap);
+app.use(defapiStatic);
 
 /*
  * Use defapiRouter.
@@ -61,7 +60,7 @@ Start your server and call this endpoint below. If it returns a success response
 GET http(s)://{PROJECT_API_BASE_PATH}/defapi/endpoints
 ```
 
-## Generate endpoint definitions
+## Generating endpoint definitions
 
 The core of **defapi**'s operation is based on the generated json files that represent definitions of your endpoints.
 You can generate endpoint defs in the following ways:
@@ -71,13 +70,13 @@ You can generate endpoint defs in the following ways:
   fail.
 - Calling `POST {BASE_API_PATH}/defapi/defs/generate` will generate the endpoint def json files without needing to read
   the baseUri from the defapi config file.
-- Generated endpoint def files are stored in `__defapi/` under the src root.
+- Generated endpoint def files are stored in `__defapi/` under the project src root.
 - You can edit the endpoint def files to provide documentation about your endpoints.
 
 ## Defining endpoints using Typescript decorators
 
-In addition to the endpoint def json files, endpoints can also be defined using defapi decorators inside your controller
-classes. See example below:
+In addition to the endpoint definition json files, endpoints can also be defined using defapi decorators inside your
+controller classes as shown here:
 
 ```typescript
 import { defEndpoint, defQuery } from './index';
@@ -136,14 +135,25 @@ defapi decorators, and merge data with those in the existing generated endpoint 
 ## View API definitions in the browser
 
 Defapi provides a built-in web front-end that presents your api definitions in a user-friendly UI. It comes with a
-search/filter feature which is extremely handy to quickly find or get insight into the APIs on the platform or to get
+search/filter feature which is extremely handy to quickly find or get insight into the APIs on the platform, or to get
 info about specific APIs for which some work needs to be done.
 
-To view your API information, visit this url in your browser:
+To view your API definitions in the browser, set up a route in your api project as follows:
 
+```typescript
+/* 
+ * For context, this example is based on the Inversify framework. 
+ */
+@controller('/api/defs')
+export class IndexController {
+  @httpGet('')
+  async viewDefapiHtml(req: Request, res: Response) {
+    await serveHtmlClient(req, res);
+  }
+}
 ```
-{API_BASE_URL}/defapi/view/html
-```
+
+You can then visit the url in your browser.
 
 ## Core types and interfaces
 
@@ -233,8 +243,7 @@ interface ApiManifest {
 
 ## Defapi-defined routes
 
-- `GET {API_BASE_PATH}/endpoints` - Get list of endpoints
-- `GET {API_BASE_PATH}/view/html` - View html web front-end
-- `POST {API_BASE_PATH}/defs/generate` - Generate endpoint defs
-- `GET {API_BASE_PATH}/defs/json` - Get/view endpoint defs json document
-- `GET {API_BASE_PATH}/manifest` - Get API manifest json document
+- `GET {API_BASE_PATH}/defapi/endpoints` - Get list of endpoints
+- `POST {API_BASE_PATH}/defapi/defs` - Generate endpoint defs
+- `GET {API_BASE_PATH}/defapi/defs/json` - Get endpoint defs json document
+- `GET {API_BASE_PATH}/defapi/manifest` - Get API manifest json document

@@ -6,11 +6,12 @@ import { store } from '../util/store';
 import { _defaultTitle, _defFilename, _defId } from '../defs';
 
 /**
- * Composes an 'output' def from the pure input def, based on info from already existing defs and defined decorators.
+ * Composes an 'output' def from the pure input def, based on info from existing endpoint def files and defined
+ * decorators.
  * @param inputDef
  * @param shouldUpdate
  */
-export function composeDef(inputDef: EndpointDef, shouldUpdate = true): EndpointDef {
+export function composeOutputDef(inputDef: EndpointDef, shouldUpdate = true): EndpointDef {
   let outputDef = Object.assign({}, inputDef);
   let defsDir = fileManager.getDefsDir();
   const filepath = Path.join(defsDir, _defFilename(outputDef));

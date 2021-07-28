@@ -1,23 +1,19 @@
 {
   "name": "defapi",
-  "version": "1.0.0-beta",
-  "description": "Generate api definition files and docs",
-  "main": "lib/index.js",
+  "version": "1.1.0-beta",
+  "description": "Generate api definitions",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production rm -rf lib && tsc",
-    "build:dev": "cross-env NODE_ENV=development rm -rf lib && tsc",
-    "build:client": "cd ./client && npm run build",
-    "serve:client": "cd ./client && npm run serve",
-    "clean": "rm -rf lib",
-    "prepublishOnly": "npm run build:client && npm run build",
-    "watch": "rm -rf lib && tsc --watch",
+    "build": "cross-env NODE_ENV=production rm -rf dist && tsc",
+    "build:dev": "cross-env NODE_ENV=development rm -rf dist && tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "watch": "rm -rf dist && tsc --watch",
     "tscheck": "tsc --noEmit"
   },
   "files": [
-    "/lib",
-    "/client/dist",
-    "/client/README.md",
-    "/client/package.json"
+    "dist",
+    "client/dist"
   ],
   "author": "Ikenna Agbasimalo <michfx@gmail.com>",
   "license": "MIT",
@@ -48,7 +44,7 @@
     "vue-template-compiler": "^2.6.13"
   },
   "bin": {
-    "defapi": "lib/cli/index.js"
+    "defapi": "dist/cli/index.js"
   },
   "keywords": [
     "defapi",

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { EndpointDef } from '../../types';
-import { getEndpoints, httpFail, httpSuccess } from '../index';
+import { getRawEndpoints, httpFail, httpSuccess } from '../index';
 import configManager from '../../common/managers/configManager';
 import { no, yes } from '../../common/util';
 import { generateDefFiles } from '../../common/impl/generateDefFiles';
@@ -14,7 +14,7 @@ import { generateDefFiles } from '../../common/impl/generateDefFiles';
  */
 function generateDefsController(req: Request, res: Response, shouldUpdate?: boolean) {
   try {
-    let resData: any = {};
+    let responseData: any = {};
 
     const shouldResetDefs = ['true', '1', 'yes'].includes(<string>req.query.reset) || false;
     shouldUpdate = !shouldResetDefs;
@@ -24,12 +24,12 @@ function generateDefsController(req: Request, res: Response, shouldUpdate?: bool
       return httpFail(res, `No srcPath set`, 400);
     }
 
-    let defs: EndpointDef[] = getEndpoints(req.app);
+    let defs: EndpointDef[] = getRawEndpoints(req.app);
     generateDefFiles(defs, { shouldUpdate });
 
-    resData['count'] = defs.length;
+    responseData['count'] = defs.length;
     let message = `Endpoint def files created`;
-    httpSuccess(res, resData, message);
+    httpSuccess(res, responseData, message);
   } catch (e) {
     return httpFail(res, e);
   }

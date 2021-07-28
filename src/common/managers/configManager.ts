@@ -3,7 +3,7 @@ import { DefapiConfig, Objectx } from '../../types';
 import fileManager from './fileManager';
 import {
   CONFIG_FILENAME,
-  DEFAULT_SRC_PATH,
+  DEFAULT_SRC_PATH, DEFAULT_TITLE,
   defaultConfig,
   PATH__COMMON_DIR,
   PATH_IMPORTED_CONFIG_FILE
@@ -51,7 +51,7 @@ const configManager = {
 
   getTitle(): string {
     const config = this.getConfig();
-    return config.api.title ?? '';
+    return config.api.title ?? DEFAULT_TITLE;
   },
 
   getApiRootPath() {
@@ -79,8 +79,9 @@ const configManager = {
   },
 
   processConfig() {
-    this.checkConfig();
-    this.importConfig();
+    if (this.checkConfig()) {
+      this.importConfig();
+    }
   },
 
   checkConfig() {
@@ -88,9 +89,11 @@ const configManager = {
     let defapiConfigPathInProject = Path.resolve(projectRoot, CONFIG_FILENAME);
     if (!FS.existsSync(defapiConfigPathInProject)) {
       console.warn(
-        `${CONFIG_FILENAME} file not found in project root. Run \`defapi init\` to create the file, then restart your project server.`
+        `'${CONFIG_FILENAME}' file not found in project root. Run \`defapi init\` to create the file, then restart your project server.`
       );
+      return false;
     }
+    return true;
   },
 
   /**

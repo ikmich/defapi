@@ -1,9 +1,9 @@
 import { Express, Request, Response } from 'express';
-import { getEndpoints, httpSuccess } from '../';
+import { getRawEndpoints, httpSuccess } from '../';
 import { filterDefs } from '../../common/defs';
 
-function getEndpointsController(req: Request, res: Response) {
-  let endpointDefs = getEndpoints(req.app as Express);
+function getRawEndpointsController(req: Request, res: Response) {
+  let endpointDefs = getRawEndpoints(req.app as Express);
 
   let search = <string>req.query.search;
   endpointDefs = filterDefs(search, endpointDefs);
@@ -17,4 +17,4 @@ function getEndpointsController(req: Request, res: Response) {
   });
 }
 
-export default getEndpointsController;
+export default getRawEndpointsController;

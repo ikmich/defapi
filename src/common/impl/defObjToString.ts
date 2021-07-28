@@ -1,5 +1,5 @@
 import { EndpointDef } from '../../types';
-import { composeDef } from './composeDef';
+import { composeOutputDef } from './composeOutputDef';
 
 export type GenerateDefOptions = {
   shouldUpdate?: boolean;
@@ -11,6 +11,6 @@ export type GenerateDefOptions = {
  * @param meta
  */
 export function defObjToString(inputDef: EndpointDef, meta?: GenerateDefOptions) {
-  const output = composeDef(inputDef, meta?.shouldUpdate);
+  const output = composeOutputDef(inputDef, meta?.shouldUpdate);
   return JSON.stringify(output, null, 2);
 }

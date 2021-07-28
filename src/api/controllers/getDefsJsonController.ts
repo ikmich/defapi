@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { EndpointDef } from '../../types';
-import { getEndpoints } from '../index';
+import { getRawEndpoints } from '../index';
 import { filterDefs } from '../../common/defs';
 import { composeDefsDict } from '../../common/impl/composeDefsDict';
 
 function getDefsJsonController(req: Request, res: Response) {
-  let defs: EndpointDef[] = getEndpoints(req.app);
+  let defs: EndpointDef[] = getRawEndpoints(req.app);
   let search = <string>req.query.search;
   defs = filterDefs(search, defs);
 

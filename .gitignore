@@ -4,13 +4,10 @@
 dev/
 dev-test/
 dist/
-lib/
 coverage
-deploy-dev.sh
-deploy-dev-noclient.sh
-copy-to-target.sh
+deploy*.sh
+copy_to_*
 ./*.tgz
-build.sh
 pack*.sh
 *.tgz
 

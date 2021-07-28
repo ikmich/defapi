@@ -3,7 +3,7 @@
 import express, { Application, Express, NextFunction, Request, Response } from 'express';
 import { defapiRouter } from './api/defapiRouter';
 import { PATH_HTML_CLIENT_DIR } from './common';
-import { store } from './common/util/store';
+import { viewClientController } from './api/controllers/viewClientController';
 
 let registered = false;
 
@@ -13,13 +13,9 @@ let registered = false;
  * @param res
  * @param next
  */
-function defapiBootstrap(req: Request, res: Response, next: NextFunction) {
+function defapiStatic(req: Request, res: Response, next: NextFunction) {
   // Allow serving of static files for defapi web view.
   req.app.use(express.static(PATH_HTML_CLIENT_DIR));
-
-  const host = `${req.protocol}://${req.get('Host')}`;
-  store.save('host', host);
-
   next();
 }
 
@@ -29,9 +25,13 @@ function defapiBootstrap(req: Request, res: Response, next: NextFunction) {
  */
 function defapiRegister(app: Application | Express) {
   if (registered) return;
-  app.use(defapiBootstrap);
+  app.use(defapiStatic);
   app.use(defapiRouter);
   registered = true;
 }
 
-export { defapiRegister, defapiRouter, defapiBootstrap };
+async function defapiServeHtmlClient(req: Request, res: Response) {
+  return viewClientController(req, res);
+}
+
+export { defapiRegister, defapiRouter, defapiStatic, defapiServeHtmlClient };

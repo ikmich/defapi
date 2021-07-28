@@ -1,5 +1,5 @@
 export const impl = {
-  composeDef: require('./composeDef'),
+  composeDef: require('./composeOutputDef'),
   composeDefsDict: require('./composeDefsDict'),
   defObjToString: require('./defObjToString'),
   defsToObjStringDict: require('./defsToObjStringDict'),
