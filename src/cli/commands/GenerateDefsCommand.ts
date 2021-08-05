@@ -5,7 +5,7 @@ import { no } from '../../common/util';
 import { DefapiError } from '../../common/errors';
 import { IncomingMessage } from 'http';
 import conprint from '../../common/util/conprint';
-import { API_PATH_DEFS } from '../../api';
+import { ROUTE_DEFS } from '../../api';
 import { CONFIG_FILENAME } from '../../common';
 
 /**
@@ -26,7 +26,7 @@ export class GenerateDefsCommand extends BaseCommand {
       const result = await httpRequest({
         baseUri,
         method: 'POST',
-        path: API_PATH_DEFS
+        path: ROUTE_DEFS
       });
 
       res = result.res;

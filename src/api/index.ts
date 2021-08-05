@@ -67,13 +67,21 @@ export const httpFail = (res: Response, error: string | Error | HttpError, httpC
   res.status(httpCode).json(body);
 };
 
-export const API_PATH_STATUS = `/${getDefapiRoutePrefix()}/status`;
-export const API_PATH_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
-export const API_PATH_DEFS = `/${getDefapiRoutePrefix()}/defs`;
-export const API_PATH_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
-export const API_PATH_MANIFEST = `/${getDefapiRoutePrefix()}/manifest`;
+export const ROUTE_STATUS = `/${getDefapiRoutePrefix()}/status`;
+export const ROUTE_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
+export const ROUTE_DEFS = `/${getDefapiRoutePrefix()}/defs`;
+export const ROUTE_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
+export const ROUTE_MANIFEST = `/${getDefapiRoutePrefix()}/manifest`;
+export const ROUTE_HTML_VIEW = `/${getDefapiRoutePrefix()}/browse`;
 
-export const API_PATHS_LIST = [API_PATH_STATUS, API_PATH_ENDPOINTS, API_PATH_DEFS, API_PATH_JSON, API_PATH_MANIFEST];
+export const API_PATHS_LIST = [
+  ROUTE_STATUS,
+  ROUTE_ENDPOINTS,
+  ROUTE_DEFS,
+  ROUTE_JSON,
+  ROUTE_MANIFEST,
+  ROUTE_HTML_VIEW
+];
 
 function getDefapiRoutePrefix() {
   let defapiRoutePrefix = configManager.getDefapiRoutePrefix();

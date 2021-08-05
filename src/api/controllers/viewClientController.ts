@@ -18,7 +18,7 @@ async function viewClientController(req: Request, res: Response) {
 
     const manifest = generateManifest(rawDefs, baseUri);
 
-    const manifestTag = configManager.getTitle().toLowerCase().replace(/\s+/, '_');
+    const manifestTag = configManager.getTitle().toLowerCase().replace(/\s+/g, '_');
     if (PATH_HTML_CLIENT_MANIFESTS_DIR == null) {
       throw new DefapiError('client manifests dir path not set');
     }

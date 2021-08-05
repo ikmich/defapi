@@ -31,6 +31,7 @@ function defapiRegister(app: Application | Express) {
 }
 
 async function defapiServeHtmlClient(req: Request, res: Response) {
+  req.app.use(defapiStatic);
   return viewClientController(req, res);
 }
 

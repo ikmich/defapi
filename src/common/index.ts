@@ -19,7 +19,7 @@ export const PATH_DEFS_DIR = Path.join(PATH_DEFAPI_HOME, 'current/defs');
 
 export const PATH_CLIENT_ROOT = Path.join(__dirname, '../../client');
 export const PATH_HTML_CLIENT_DIR = Path.join(PATH_CLIENT_ROOT, 'dist/');
-export const PATH_HTML_CLIENT_MANIFESTS_DIR = Path.join(PATH_CLIENT_ROOT, 'manifests/');
+export const PATH_HTML_CLIENT_MANIFESTS_DIR = Path.join(PATH_HTML_CLIENT_DIR, 'manifests/');
 export const PATH_HTML_CLIENT_FILE = Path.join(PATH_HTML_CLIENT_DIR, 'index.html');
 export const PATH_HTML_CLIENT_REPOSITORY = Path.join(PATH_HTML_CLIENT_DIR, 'repository.json');
 
