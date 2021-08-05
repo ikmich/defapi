@@ -5,7 +5,7 @@ import {
   CONFIG_FILENAME,
   DEFAULT_SRC_PATH, DEFAULT_TITLE,
   defaultConfig,
-  PATH__COMMON_DIR,
+  PATH_COMMON_DIR,
   PATH_IMPORTED_CONFIG_FILE
 } from '../index';
 import { FS, Path } from '../depds';
@@ -104,7 +104,7 @@ const configManager = {
     let defapiConfigPathInProject = Path.resolve(projectRoot, CONFIG_FILENAME);
 
     const name = Path.basename(defapiConfigPathInProject);
-    const dest = Path.join(PATH__COMMON_DIR, name);
+    const dest = Path.join(PATH_COMMON_DIR, name);
     try {
       FS.copyFileSync(defapiConfigPathInProject, dest);
     } catch (e) {

@@ -4,8 +4,10 @@ import { filterDefs } from '../../common/defs';
 import { generateManifest } from '../../common/impl/generateManifest';
 import configManager from '../../common/managers/configManager';
 import { yes } from '../../common/util';
-import { PATH_HTML_CLIENT_FILE, PATH_HTML_CLIENT_REPOSITORY } from '../../common';
+import { PATH_HTML_CLIENT_FILE, PATH_HTML_CLIENT_MANIFESTS_DIR } from '../../common';
 import fileManager from '../../common/managers/fileManager';
+import { FS, Path } from '../../common/depds';
+import { DefapiError } from '../../common/errors';
 
 async function viewClientController(req: Request, res: Response) {
   return new Promise((resolve, reject) => {
@@ -16,8 +18,16 @@ async function viewClientController(req: Request, res: Response) {
 
     const manifest = generateManifest(rawDefs, baseUri);
 
+    const manifestTag = configManager.getTitle().toLowerCase().replace(/\s+/, '_');
+    if (PATH_HTML_CLIENT_MANIFESTS_DIR == null) {
+      throw new DefapiError('client manifests dir path not set');
+    }
+    FS.ensureDirSync(PATH_HTML_CLIENT_MANIFESTS_DIR);
+
     try {
-      fileManager.write(PATH_HTML_CLIENT_REPOSITORY, JSON.stringify(manifest, null, 2));
+      const manifestFilepath = Path.join(PATH_HTML_CLIENT_MANIFESTS_DIR, `${manifestTag}.json`);
+      fileManager.write(manifestFilepath, JSON.stringify(manifest, null, 2));
+      //fileManager.write(PATH_HTML_CLIENT_REPOSITORY, JSON.stringify(manifest, null, 2));
     } catch (e) {
       console.error('[defapi.ERR] Error writing api def to client repository');
       throw e;

@@ -2,20 +2,24 @@ import { Path } from './depds';
 import { DefapiConfig } from '../types';
 
 export const DEFAULT_TITLE = 'My API';
-export const PATH__COMMON_DIR = Path.join(__dirname);
+export const PATH_COMMON_DIR = Path.join(__dirname);
 export const CONFIG_FILENAME = 'defapi-config.js';
 export const DEFAULT_SRC_PATH = '.';
 
-// Name of base defapi folder within the project src root.
-export const BASENAME_DEFAPI_HOME = '__defapi';
+// Name of base defapi folder within the project root.
+export const DEFAPI_HOME_DIRNAME = '__defapi';
+
+export const PATH_DEFAPI_HOME = Path.join(process.cwd(), DEFAPI_HOME_DIRNAME);
 
 /**
  * Relative path from project src to folder containing endpoint def json files.
  */
-export const PATH_REL_DEFS_DIR = `${BASENAME_DEFAPI_HOME}/current/defs`;
+export const PATH_DEFS_DIR = Path.join(PATH_DEFAPI_HOME, 'current/defs');
+// export const PATH_REL_DEFS_DIR = `${DEFAPI_HOME_DIRNAME}/current/defs`;
 
 export const PATH_CLIENT_ROOT = Path.join(__dirname, '../../client');
-export const PATH_HTML_CLIENT_DIR = Path.join(PATH_CLIENT_ROOT, 'dist');
+export const PATH_HTML_CLIENT_DIR = Path.join(PATH_CLIENT_ROOT, 'dist/');
+export const PATH_HTML_CLIENT_MANIFESTS_DIR = Path.join(PATH_CLIENT_ROOT, 'manifests/');
 export const PATH_HTML_CLIENT_FILE = Path.join(PATH_HTML_CLIENT_DIR, 'index.html');
 export const PATH_HTML_CLIENT_REPOSITORY = Path.join(PATH_HTML_CLIENT_DIR, 'repository.json');
 

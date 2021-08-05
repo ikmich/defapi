@@ -3,13 +3,7 @@ import _util, { yes } from '../util';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
 import { DefapiConfig } from '../../types';
-import {
-  BASENAME_DEFAPI_HOME,
-  CONFIG_FILENAME,
-  DEFAULT_SRC_PATH,
-  PATH_HTML_CLIENT_REPOSITORY,
-  PATH_REL_DEFS_DIR
-} from '../index';
+import { CONFIG_FILENAME, DEFAULT_SRC_PATH, PATH_DEFAPI_HOME, PATH_DEFS_DIR } from '../index';
 
 const fileManager = {
   /**
@@ -17,19 +11,25 @@ const fileManager = {
    */
   initDirs(conf?: DefapiConfig) {
     configManager.importConfig();
-    const srcPath = this.getSrcPath(conf);
-    const defapiHome = Path.join(srcPath, BASENAME_DEFAPI_HOME);
-    const defsDir = Path.join(srcPath, PATH_REL_DEFS_DIR);
-    FS.ensureDirSync(defapiHome);
-    FS.ensureDirSync(defsDir);
+
+    if (PATH_DEFAPI_HOME == null) {
+      throw new DefapiError('defapi home path not set');
+    }
+    FS.ensureDirSync(PATH_DEFAPI_HOME);
+
+    if (PATH_DEFS_DIR == null) {
+      throw new DefapiError('defs dir path not set');
+    }
+
+    FS.ensureDirSync(PATH_DEFS_DIR);
   },
-  getBaseDir() {
+
+  getProjectRoot() {
     return process.cwd();
   },
 
   getConfigFilePath() {
-    const baseDir = process.cwd();
-    return Path.join(baseDir, CONFIG_FILENAME);
+    return Path.join(process.cwd(), CONFIG_FILENAME);
   },
 
   getSrcPath(conf?: DefapiConfig): string {
@@ -46,7 +46,7 @@ const fileManager = {
     });
 
     if (!FS.existsSync(srcPath)) throw new DefapiError('srcPath not found');
-    return Path.join(this.getBaseDir(), srcPath);
+    return Path.join(this.getProjectRoot(), srcPath);
   },
 
   /**
@@ -54,13 +54,12 @@ const fileManager = {
    * @param conf
    */
   getDefsDir(conf?: DefapiConfig): string {
-    const defsDir = Path.join(this.getSrcPath(conf), PATH_REL_DEFS_DIR);
-    FS.ensureDirSync(defsDir);
-    return defsDir;
-  },
+    if (PATH_DEFS_DIR == null) {
+      throw new DefapiError('defs dir path not set');
+    }
 
-  getClientContextDataPath(): string {
-    return PATH_HTML_CLIENT_REPOSITORY;
+    FS.ensureDirSync(PATH_DEFS_DIR);
+    return PATH_DEFS_DIR;
   },
 
   exists(filepath: string): boolean {

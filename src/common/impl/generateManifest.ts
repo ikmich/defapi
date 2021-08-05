@@ -2,7 +2,6 @@ import { ApiManifest, EndpointDef } from '../../types';
 import { composeOutputDef } from './composeOutputDef';
 import configManager from '../managers/configManager';
 import { DEFAULT_TITLE } from '../index';
-import { ifdev } from '../util';
 
 /**
  * Generate api manifest.
