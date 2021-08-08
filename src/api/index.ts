@@ -1,9 +1,7 @@
 import { Application, Express, Response } from 'express';
 import { EndpointDef } from '../types';
 import listEndpoints, { Endpoint } from 'express-list-endpoints';
-import { yes } from '../common/util';
 import { HttpError } from '../common/errors';
-import configManager from '../common/managers/configManager';
 import { DEFAULT_ROUTE_PREFIX, excludedPaths } from '../common';
 import { _def, _method, _path } from '../common/defs';
 
@@ -72,21 +70,13 @@ export const ROUTE_ENDPOINTS = `/${getDefapiRoutePrefix()}/endpoints`;
 export const ROUTE_DEFS = `/${getDefapiRoutePrefix()}/defs`;
 export const ROUTE_JSON = `/${getDefapiRoutePrefix()}/defs/json`;
 export const ROUTE_MANIFEST = `/${getDefapiRoutePrefix()}/manifest`;
-export const ROUTE_HTML_VIEW = `/${getDefapiRoutePrefix()}/browse`;
 
-export const API_PATHS_LIST = [
-  ROUTE_STATUS,
-  ROUTE_ENDPOINTS,
-  ROUTE_DEFS,
-  ROUTE_JSON,
-  ROUTE_MANIFEST,
-  ROUTE_HTML_VIEW
-];
+export const API_PATHS_LIST = [ROUTE_STATUS, ROUTE_ENDPOINTS, ROUTE_DEFS, ROUTE_JSON, ROUTE_MANIFEST];
 
 function getDefapiRoutePrefix() {
-  let defapiRoutePrefix = configManager.getDefapiRoutePrefix();
-  if (yes(defapiRoutePrefix)) {
-    return defapiRoutePrefix.replace(/^\/+/, '');
-  }
+  // let defapiRoutePrefix = configManager.getDefapiRoutePrefix();
+  // if (yes(defapiRoutePrefix)) {
+  //   return defapiRoutePrefix.replace(/^\/+/, '');
+  // }
   return `${DEFAULT_ROUTE_PREFIX.replace(/^\/+/, '')}`;
 }

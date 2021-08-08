@@ -42,7 +42,7 @@ export type ResponseDef = {
 
 export interface DefapiConfig {
   api: {
-    baseUri?: string;
+    baseUri?: string | (() => string);
     title?: string;
     headers?: Objectx;
     authenticationHeaders?: Objectx;
@@ -50,9 +50,6 @@ export interface DefapiConfig {
   };
   project: {
     srcPath?: string;
-  };
-  defapi: {
-    routePrefix?: string;
   };
 }
 

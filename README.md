@@ -224,9 +224,6 @@ interface DefapiConfig {
   project: {
     srcPath?: string;
   };
-  defapi: {
-    routePrefix?: string;
-  };
 }
 
 /**

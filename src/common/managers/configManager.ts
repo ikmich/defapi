@@ -3,7 +3,9 @@ import { DefapiConfig, Objectx } from '../../types';
 import fileManager from './fileManager';
 import {
   CONFIG_FILENAME,
-  DEFAULT_SRC_PATH, DEFAULT_TITLE,
+  DEFAULT_ROUTE_PREFIX,
+  DEFAULT_SRC_PATH,
+  DEFAULT_TITLE,
   defaultConfig,
   PATH_COMMON_DIR,
   PATH_IMPORTED_CONFIG_FILE
@@ -22,9 +24,15 @@ const configManager = {
 
       if (!config.api.baseUri) {
         config.api.baseUri = '';
+      } else if (typeof config.api.baseUri === 'function') {
+        config.api.baseUri = config.api.baseUri();
       }
 
-      return config;
+      if (!config.api.title) {
+        config.api.title = DEFAULT_TITLE;
+      }
+
+      return Object.assign({}, config);
     } catch (e) {
       console.error(e);
       return defaultConfig;
@@ -42,11 +50,7 @@ const configManager = {
 
   getBaseUri(): string {
     const config = this.getConfig();
-    if (config.api.baseUri) {
-      return config.api.baseUri;
-    }
-
-    return '';
+    return <string>config.api.baseUri;
   },
 
   getTitle(): string {
@@ -64,8 +68,7 @@ const configManager = {
   },
 
   getDefapiRoutePrefix(): string {
-    const config = this.getConfig();
-    return config.defapi.routePrefix ?? '';
+    return DEFAULT_ROUTE_PREFIX;
   },
 
   getApiHeaders(): Objectx {
@@ -87,7 +90,7 @@ const configManager = {
   checkConfig() {
     const projectRoot = process.cwd();
     let defapiConfigPathInProject = Path.resolve(projectRoot, CONFIG_FILENAME);
-    if (!FS.existsSync(defapiConfigPathInProject)) {
+    if (!FS.existsSync(defapiConfigPathInProject!)) {
       console.warn(
         `'${CONFIG_FILENAME}' file not found in project root. Run \`defapi init\` to create the file, then restart your project server.`
       );
@@ -106,7 +109,7 @@ const configManager = {
     const name = Path.basename(defapiConfigPathInProject);
     const dest = Path.join(PATH_COMMON_DIR, name);
     try {
-      FS.copyFileSync(defapiConfigPathInProject, dest);
+      FS.copyFileSync(defapiConfigPathInProject!, dest!);
     } catch (e) {
       console.error(`[defapi.ERR] Could not copy \`${CONFIG_FILENAME}\``, e);
     }

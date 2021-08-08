@@ -17,12 +17,6 @@ export const PATH_DEFAPI_HOME = Path.join(process.cwd(), DEFAPI_HOME_DIRNAME);
 export const PATH_DEFS_DIR = Path.join(PATH_DEFAPI_HOME, 'current/defs');
 // export const PATH_REL_DEFS_DIR = `${DEFAPI_HOME_DIRNAME}/current/defs`;
 
-export const PATH_CLIENT_ROOT = Path.join(__dirname, '../../client');
-export const PATH_HTML_CLIENT_DIR = Path.join(PATH_CLIENT_ROOT, 'dist/');
-export const PATH_HTML_CLIENT_MANIFESTS_DIR = Path.join(PATH_HTML_CLIENT_DIR, 'manifests/');
-export const PATH_HTML_CLIENT_FILE = Path.join(PATH_HTML_CLIENT_DIR, 'index.html');
-export const PATH_HTML_CLIENT_REPOSITORY = Path.join(PATH_HTML_CLIENT_DIR, 'repository.json');
-
 export const excludedPaths = ['*', '/*', '*/'];
 export const DEFAULT_ROUTE_PREFIX = '/defapi';
 export const PATH_IMPORTED_CONFIG_FILE = Path.join(__dirname, CONFIG_FILENAME);
@@ -35,9 +29,6 @@ export const defaultConfig: DefapiConfig = {
   },
   project: {
     srcPath: DEFAULT_SRC_PATH
-  },
-  defapi: {
-    routePrefix: DEFAULT_ROUTE_PREFIX
   }
 };
 
