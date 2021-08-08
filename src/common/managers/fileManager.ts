@@ -1,5 +1,4 @@
 import configManager from './configManager';
-import _util, { yes } from '../util';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
 import { DefapiConfig } from '../../types';
@@ -33,20 +32,7 @@ const fileManager = {
   },
 
   getSrcPath(conf?: DefapiConfig): string {
-    let srcPath = _util.fn(() => {
-      if (conf && yes(conf.project.srcPath)) {
-        return conf.project.srcPath;
-      }
-
-      if (yes(configManager.getSrcPath())) {
-        return configManager.getSrcPath();
-      }
-
-      return DEFAULT_SRC_PATH;
-    });
-
-    if (!FS.existsSync(srcPath)) throw new DefapiError('srcPath not found');
-    return Path.join(this.getProjectRoot(), srcPath);
+    return DEFAULT_SRC_PATH;
   },
 
   /**

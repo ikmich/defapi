@@ -39,15 +39,6 @@ const configManager = {
     }
   },
 
-  getSrcPath(): string {
-    const config = this.getConfig();
-    if (yes(config.project.srcPath)) {
-      // Remove leading slash - value in config should be a relative path.
-      return config.project.srcPath!.replace(/^\/+/, '');
-    }
-    return DEFAULT_SRC_PATH;
-  },
-
   getBaseUri(): string {
     const config = this.getConfig();
     return <string>config.api.baseUri;

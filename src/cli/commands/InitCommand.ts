@@ -5,7 +5,6 @@ import askInput from '../ask/ask-input';
 import { askUtil } from '../ask';
 import conprint from '../../common/util/conprint';
 import { CONFIG_FILENAME, defaultConfig } from '../../common';
-import askSelect from '../ask/ask-select';
 import { generateConfigFile } from '../../common/impl/generateConfigFile';
 
 /**
@@ -19,10 +18,7 @@ export class InitCommand extends BaseCommand {
     const hasConfigFile = fileManager.exists(configPath);
 
     let initConfig: DefapiConfig = {
-      ...defaultConfig,
-      project: {
-        srcPath: this.options.srcPath ?? '.'
-      }
+      ...defaultConfig
     };
 
     if (hasConfigFile) {
@@ -33,24 +29,6 @@ export class InitCommand extends BaseCommand {
         process.exit(0);
         return;
       }
-    }
-
-    /* Ask user to pick project source root dir */
-    const OPT_PROJECT_ROOT = '<project root>';
-    const OPT_PROJECT_ROOT__SRC = '<project root>/src';
-    const ASK_SELECT_OPTS_MAP: any = {
-      [OPT_PROJECT_ROOT]: '.',
-      [OPT_PROJECT_ROOT__SRC]: './src'
-    };
-
-    const choice: any = await askSelect(
-      'select-src-path',
-      'Which of these is the folder for your project source files?',
-      [OPT_PROJECT_ROOT, OPT_PROJECT_ROOT__SRC, 'None of the above']
-    );
-
-    if (Array.isArray(choice) && Object.keys(ASK_SELECT_OPTS_MAP).includes(choice[0])) {
-      initConfig.project.srcPath = ASK_SELECT_OPTS_MAP[choice[0]];
     }
 
     generateConfigFile(initConfig);

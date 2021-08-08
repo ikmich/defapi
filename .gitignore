@@ -5,6 +5,7 @@ node_modules
 dist/
 coverage/
 *.tgz
+dev_*.sh*
 
 npm-debug.log*
 yarn-debug.log*

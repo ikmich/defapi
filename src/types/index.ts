@@ -48,9 +48,6 @@ export interface DefapiConfig {
     authenticationHeaders?: Objectx;
     rootPath?: string;
   };
-  project: {
-    srcPath?: string;
-  };
 }
 
 export interface ApiManifest {

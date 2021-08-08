@@ -5,12 +5,6 @@
 npm install defapi --save
 ## (or with yarn)
 yarn add defapi
-
-# For the global cli
-## (with npm)
-npm install -g defapi
-## (or with yarn)
-yarn global add defapi
 ```
 
 ## Setup/Initialization
@@ -21,8 +15,7 @@ yarn global add defapi
 defapi init
 ```
 
-Run this to create the defapi config file and the defapi working dirs. `defapi-config.js` will be generated in the
-project root.
+Run this to create the defapi config file. `defapi-config.js` will be generated in the project root.
 
 ### 2. Configure your express app to use defapi router and middleware
 
@@ -30,19 +23,14 @@ project root.
 const app = express();
 
 /*
- * Use defapiBootstrap middleware.
- * This is important to allow processing of static resources for rendering the
- * built-in html client. */
-app.use(defapiStatic);
-
-/*
  * Use defapiRouter.
- * This sets up defapi specific routes for using defapi's features in your api
+ * This provides defapi routes functionality to your api
  */
 app.use(defapiRouter);
 
 /*
- * In place of the above command, you can simply register the app using defapiRegister().
+ * In place of using defapiRouter, you can use the convenient defapiRegister() function, passing your app instance as 
+ * the argument.
  */
 defapiRegister(app);
 
@@ -54,10 +42,10 @@ defapiRegister(app);
 
 ### 3. Test that the setup is working
 
-Start your server and call this endpoint below. If it returns a success response, the setup is working fine.
+Start your server and call the defapi `status` endpoint. If it returns a success response, the setup should be fine.
 
 ```
-GET http(s)://{PROJECT_API_BASE_PATH}/defapi/endpoints
+GET http(s)://{PROJECT_API_BASE_PATH}/defapi/status
 ```
 
 ## Generating endpoint definitions
