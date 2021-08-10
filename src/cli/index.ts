@@ -7,9 +7,7 @@ import cmdDispatcher from './commands/cmd-dispatcher';
 export const CMD_INIT = 'init';
 export const CMD_GENERATE_DEFS = 'generate';
 
-export interface ICommandOptions {
-  srcPath?: string;
-}
+export interface ICommandOptions {}
 
 export interface ICommandInfo {
   name: string;
@@ -18,14 +16,8 @@ export interface ICommandInfo {
 }
 
 const argv = yargs
-  .command(CMD_INIT, 'Create defapi configuration file, and perform other initialization setups')
+  .command(CMD_INIT, 'Create defapi configuration file and __defapi home dir')
   .command(CMD_GENERATE_DEFS, 'Generate/update endpoint definition files')
-  .options({
-    srcPath: {
-      type: 'string',
-      desc: 'The path to the folder that contains project source files'
-    }
-  })
   .help().argv;
 
 const commandInfo = parseCliArgs(argv);

@@ -7,7 +7,7 @@ import { generateManifest } from '../../common/impl/generateManifest';
 function getManifestController(req: Request, res: Response) {
   try {
     const config = configManager.getConfig();
-    const host = `${req.protocol}://${req.get('Host') ?? 'http://localhost'}`;
+    const host = `${req.protocol}://${req.get('Host') || 'http://localhost'}`;
     const baseUri = <string>config.api.baseUri || host;
     let rawDefs = filterDefs(<string>req.query.search, getRawEndpoints(req.app));
 

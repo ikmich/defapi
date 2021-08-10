@@ -18,7 +18,7 @@ export function generateManifest(inputDefs: EndpointDef[], baseUri: string): Api
 
   return {
     baseUri,
-    title: config.api.title ?? DEFAULT_TITLE,
+    title: config.api.title || DEFAULT_TITLE,
     headers: config.api.headers,
     authenticationHeaders: config.api.authenticationHeaders,
     endpoints: defs

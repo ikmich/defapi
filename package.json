@@ -6,6 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production rimraf dist && tsc",
     "build:dev": "cross-env NODE_ENV=development rimraf dist && tsc",
+    "dev:watch": "cross-env NODE_ENV=development tsc -w",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run build",
     "tscheck": "tsc --noEmit"

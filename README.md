@@ -3,6 +3,7 @@
 ```shell
 ## (with npm)
 npm install defapi --save
+
 ## (or with yarn)
 yarn add defapi
 ```
@@ -15,7 +16,14 @@ yarn add defapi
 defapi init
 ```
 
-Run this to create the defapi config file. `defapi-config.js` will be generated in the project root.
+The following files/dirs will be created:
+
+```
+/defapi-config.js
+/__defapi/
+  |-- current/
+      |-- defs/
+```
 
 ### 2. Configure your express app to use defapi router and middleware
 
@@ -36,13 +44,14 @@ defapiRegister(app);
 
 /*
  * Ideally `defapiRegister(app)` should be all that's needed. But depending on your express framework, and also on the
- * way the project is already setup currently, you may need to try out what setup process works.
+ * way the project is setup, either method may work for you.
  */
 ```
 
 ### 3. Test that the setup is working
 
-Start your server and call the defapi `status` endpoint. If it returns a success response, the setup should be fine.
+Start your server and call the defapi `status` endpoint (or any defapi endpoint). A success response means the setup
+should be fine.
 
 ```
 GET http(s)://{PROJECT_API_BASE_PATH}/defapi/status
@@ -53,18 +62,18 @@ GET http(s)://{PROJECT_API_BASE_PATH}/defapi/status
 The core of **defapi**'s operation is based on the generated json files that represent definitions of your endpoints.
 You can generate endpoint defs in the following ways:
 
-- If you have set `api.baseUri` in `defapi-config.js`, you can run `defapi generate` from the terminal to generate defs
-  of all the endpoints in your api. If `api.baseUri` is not configured in `defapi-config.js`, this cli command will
-  fail.
-- Calling `POST {BASE_API_PATH}/defapi/defs/generate` will generate the endpoint def json files without needing to read
-  the baseUri from the defapi config file.
-- Generated endpoint def files are stored in `__defapi/` under the project src root.
-- You can edit the endpoint def files to provide documentation about your endpoints.
+- If you have set `api.baseUri` in `defapi-config.js`, you can run `defapi generate` from the terminal to generate json
+  files for of all the endpoints in your api. If `api.baseUri` is not configured in `defapi-config.js`, this cli command
+  will fail.
+- Calling `POST {BASE_API_PATH}/defapi/defs` will generate the endpoint json files without needing to read the baseUri
+  from the defapi config file.
+- The generated endpoint def files are stored in `__defapi/` under the project root.
+- You can edit the endpoint json files to define your endpoints.
 
 ## Defining endpoints using Typescript decorators
 
-In addition to the endpoint definition json files, endpoints can also be defined using defapi decorators inside your
-controller classes as shown here:
+In addition to the endpoint definition json files, endpoints can also be defined using decorators inside your controller
+classes as shown in the example below:
 
 ```typescript
 import { defEndpoint, defQuery } from './index';
@@ -122,26 +131,16 @@ defapi decorators, and merge data with those in the existing generated endpoint 
 
 ## View API definitions in the browser
 
-Defapi provides a built-in web front-end that presents your api definitions in a user-friendly UI. It comes with a
-search/filter feature which is extremely handy to quickly find or get insight into the APIs on the platform, or to get
-info about specific APIs for which some work needs to be done.
+Install defapi-client and follow the instructions to view your endpoint definitions in the browser.
 
-To view your API definitions in the browser, set up a route in your api project as follows:
+## Defapi-defined routes
 
-```typescript
-/* 
- * For context, this example is based on the Inversify framework. 
- */
-@controller('/api/defs')
-export class IndexController {
-  @httpGet('')
-  async viewDefapiHtml(req: Request, res: Response) {
-    await serveHtmlClient(req, res);
-  }
-}
-```
-
-You can then visit the url in your browser.
+- `GET {API_BASE_PATH}/defapi/endpoints` - Get list of endpoints
+- `POST {API_BASE_PATH}/defapi/defs` - Generate endpoint defs
+- `GET {API_BASE_PATH}/defapi/defs/json` - Get endpoint defs json document
+- `GET {API_BASE_PATH}/defapi/manifest` - Get API manifest json document
+- `POST {API_BASE_PATH}/defapi/manifest` - Generate API manifest json document
+-
 
 ## Core types and interfaces
 
@@ -208,14 +207,11 @@ interface DefapiConfig {
     headers?: Objectx;
     authenticationHeaders?: Objectx;
     rootPath?: string;
-  };
-  project: {
-    srcPath?: string;
-  };
+  }
 }
 
 /**
- * Structure for the API definition.
+ * Structure for the API manifest.
  */
 interface ApiManifest {
   baseUri: string;
@@ -225,10 +221,3 @@ interface ApiManifest {
   endpoints: EndpointDef[];
 }
 ```
-
-## Defapi-defined routes
-
-- `GET {API_BASE_PATH}/defapi/endpoints` - Get list of endpoints
-- `POST {API_BASE_PATH}/defapi/defs` - Generate endpoint defs
-- `GET {API_BASE_PATH}/defapi/defs/json` - Get endpoint defs json document
-- `GET {API_BASE_PATH}/defapi/manifest` - Get API manifest json document

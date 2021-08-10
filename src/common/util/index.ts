@@ -1,10 +1,10 @@
 export function yes(o: any) {
-  if (typeof 0 === 'boolean') {
+  if (typeof o === 'boolean') {
     return o;
   }
 
-  let b = o !== undefined && o !== null;
-  if (b && typeof o === 'string') {
+  let b = o != null;
+  if (b && typeof o == 'string') {
     b = b && o !== '';
   }
 
@@ -33,9 +33,6 @@ const _util = {
         resolve(null);
       }, ms);
     });
-  },
-  noSpace(s: string) {
-    return s.replace(/\s+/g, '');
   }
 };
 

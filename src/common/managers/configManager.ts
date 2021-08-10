@@ -1,10 +1,8 @@
-import { yes } from '../util';
 import { DefapiConfig, Objectx } from '../../types';
 import fileManager from './fileManager';
 import {
   CONFIG_FILENAME,
   DEFAULT_ROUTE_PREFIX,
-  DEFAULT_SRC_PATH,
   DEFAULT_TITLE,
   defaultConfig,
   PATH_COMMON_DIR,
@@ -20,7 +18,7 @@ const configManager = {
         return defaultConfig;
       }
 
-      const config: DefapiConfig = require(configPath) ?? {};
+      const config: DefapiConfig = require(configPath) || {};
 
       if (!config.api.baseUri) {
         config.api.baseUri = '';
@@ -46,7 +44,7 @@ const configManager = {
 
   getTitle(): string {
     const config = this.getConfig();
-    return config.api.title ?? DEFAULT_TITLE;
+    return config.api.title || DEFAULT_TITLE;
   },
 
   getApiRootPath() {
@@ -95,17 +93,16 @@ const configManager = {
    */
   importConfig() {
     const projectRoot = process.cwd();
-    let defapiConfigPathInProject = Path.resolve(projectRoot, CONFIG_FILENAME);
-
-    const name = Path.basename(defapiConfigPathInProject);
-    const dest = Path.join(PATH_COMMON_DIR, name);
+    let projectConfigFile = Path.resolve(projectRoot, CONFIG_FILENAME);
+    const fileName = Path.basename(projectConfigFile);
+    const destFile = Path.join(PATH_COMMON_DIR, fileName);
     try {
-      FS.copyFileSync(defapiConfigPathInProject!, dest!);
+      FS.copyFileSync(projectConfigFile!, destFile!);
     } catch (e) {
       console.error(`[defapi.ERR] Could not copy \`${CONFIG_FILENAME}\``, e);
     }
 
-    if (!fileManager.exists(dest)) {
+    if (!fileManager.exists(destFile)) {
       console.warn(`[defapi.WARN] Unable to process \`${CONFIG_FILENAME}\``);
     }
   }

@@ -8,7 +8,7 @@ import { CONFIG_FILENAME, defaultConfig } from '../../common';
 import { generateConfigFile } from '../../common/impl/generateConfigFile';
 
 /**
- * Command handler for the `defapi init` command. Creates a defapi-config.js file
+ * Command handler for the `defapi init` command. Creates a defapi-config.js file and the __defapi home dir
  */
 export class InitCommand extends BaseCommand {
   async run(): Promise<void> {
@@ -33,7 +33,7 @@ export class InitCommand extends BaseCommand {
 
     generateConfigFile(initConfig);
 
-    fileManager.initDirs(initConfig);
+    fileManager.initDirs();
 
     conprint.info(`Success! ${CONFIG_FILENAME} created in project root.`);
   }

@@ -4,7 +4,6 @@ import { DefapiConfig } from '../types';
 export const DEFAULT_TITLE = 'My API';
 export const PATH_COMMON_DIR = Path.join(__dirname);
 export const CONFIG_FILENAME = 'defapi-config.js';
-export const DEFAULT_SRC_PATH = process.cwd();
 
 // Name of base defapi folder within the project root.
 export const DEFAPI_HOME_DIRNAME = '__defapi';

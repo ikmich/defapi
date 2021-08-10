@@ -2,13 +2,13 @@ import configManager from './configManager';
 import { DefapiError } from '../errors';
 import { FS, Path } from '../depds';
 import { DefapiConfig } from '../../types';
-import { CONFIG_FILENAME, DEFAULT_SRC_PATH, PATH_DEFAPI_HOME, PATH_DEFS_DIR } from '../index';
+import { CONFIG_FILENAME, PATH_DEFAPI_HOME, PATH_DEFS_DIR } from '../index';
 
 const fileManager = {
   /**
    * Ensure the relevant defapi directories exist.
    */
-  initDirs(conf?: DefapiConfig) {
+  initDirs() {
     configManager.importConfig();
 
     if (PATH_DEFAPI_HOME == null) {
@@ -29,10 +29,6 @@ const fileManager = {
 
   getConfigFilePath() {
     return Path.join(process.cwd(), CONFIG_FILENAME);
-  },
-
-  getSrcPath(conf?: DefapiConfig): string {
-    return DEFAULT_SRC_PATH;
   },
 
   /**

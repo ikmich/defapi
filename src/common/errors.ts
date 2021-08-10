@@ -2,7 +2,7 @@ class HttpError extends Error {
   public error: Error;
 
   constructor(error: string | Error, public statusCode: number = 500) {
-    super(typeof error === 'string' ? error : error.message ?? '');
+    super(typeof error === 'string' ? error : error.message || '');
     this.error = new Error(typeof error === 'string' ? error : error.message);
   }
 

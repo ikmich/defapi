@@ -2,6 +2,7 @@ import execShellCmd from '../exec-shell-cmd';
 import parseError from '../parse-error';
 import { ICommandInfo, ICommandOptions } from '../index';
 import { Stringx } from '../../types';
+import configManager from '../../common/managers/configManager';
 
 export class BaseCommand {
   public commandInfo: ICommandInfo;
@@ -25,7 +26,9 @@ export class BaseCommand {
   /**
    * Executes actions to run the command.
    */
-  async run() {}
+  async run() {
+    configManager.processConfig();
+  }
 
   protected async exec(cmd: string): Promise<string> {
     try {

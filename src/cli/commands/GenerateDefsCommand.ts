@@ -42,6 +42,10 @@ export class GenerateDefsCommand extends BaseCommand {
       console.error(resBody);
     } catch (e) {
       console.error(e);
+
+      if (e.code == 'ECONNREFUSED') {
+        console.log('[defapi.ERR] Connection refused. Is your api service running?');
+      }
     }
   }
 }
